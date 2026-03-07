@@ -1,0 +1,51 @@
+# ============================================================================
+# MindPolis: docker/docker-compose.yml
+# Version: 1.0.0 — 2026-03-07
+# Why: Local development environment — spins up PostgreSQL and the Python
+#      scoring service so Next.js dev server can reach both dependencies.
+#      Run: docker compose -f docker/docker-compose.yml up -d
+# ============================================================================
+
+version: "3.9"
+
+services:
+
+  # ─── PostgreSQL ──────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: mindpolis-postgres
+    environment:
+      POSTGRES_DB:       mindpolis
+      POSTGRES_USER:     mindpolis
+      POSTGRES_PASSWORD: mindpolis_dev_password
+    ports:
+      - "5432:5432"    # Exposed to host for Prisma Studio / migrations
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mindpolis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── Python Scoring Service ──────────────────────────────────────────────
+  scoring-service:
+    build:
+      context: ../apps/scoring-service
+      dockerfile: Dockerfile
+    container_name: mindpolis-scoring
+    environment:
+      ENV: development
+      INTERNAL_API_SECRET: dev-secret-change-in-production
+      ALLOWED_ORIGINS: '["http://localhost:3000"]'
+    ports:
+      - "8000:8000"    # Exposed to host for testing and Next.js dev
+    # No DB access — scoring service is stateless
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  postgres_data:

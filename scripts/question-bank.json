@@ -1,0 +1,1634 @@
+[
+  {
+    "id": "Q001",
+    "axis_id": "economic_organization",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["Schwartz: Security", "WVS: Economic Attitudes"],
+    "constructs_measured": ["market adjustment preference", "state intervention tolerance", "job security vs market efficiency"],
+    "scenario_text": "A major manufacturing plant in a small town is about to close permanently, leaving 40% of local residents unemployed. Two responses are being debated.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The government should stay out — market forces will eventually generate new economic activity, and intervention only delays necessary adjustment.",
+        "scores": { "economic_organization": -2 }
+      },
+      {
+        "id": "B",
+        "text": "The government could offer temporary tax incentives to attract new private businesses, but should not employ workers directly.",
+        "scores": { "economic_organization": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The government should fund transitional public employment programs while also supporting private reinvestment in the region.",
+        "scores": { "economic_organization": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The government should take a direct stake in the plant or convert it into a publicly managed enterprise to preserve the employment base.",
+        "scores": { "economic_organization": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests the core market-vs-state tension using a concrete employment scenario with high local stakes. Avoids abstract language about capitalism or socialism. Effective at separating those who accept market disruption as legitimate from those who see state rescue as a duty."
+  },
+  {
+    "id": "Q002",
+    "axis_id": "economic_organization",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Economic Attitudes", "Haidt: Authority/Subversion", "Schwartz: Universalism"],
+    "constructs_measured": ["market dominance tolerance", "regulatory legitimacy", "infrastructure ownership"],
+    "scenario_text": "A private platform that processes the majority of financial transactions in the country announces it will no longer handle payments for a legal but controversial industry, citing its own values policy.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Private companies should be free to choose their customers — refusing service to a legal business is a legitimate market decision.",
+        "scores": { "economic_organization": -2, "authority_liberty": -1 }
+      },
+      {
+        "id": "B",
+        "text": "Competition will eventually provide alternatives — if the demand is real, other processors will fill the gap without government involvement.",
+        "scores": { "economic_organization": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Because the platform has market dominance, regulators should mandate non-discriminatory access for all legal businesses.",
+        "scores": { "economic_organization": 1, "authority_liberty": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Critical financial infrastructure should be publicly owned or governed as a utility — private value judgments should not control access to essential services.",
+        "scores": { "economic_organization": 2, "authority_liberty": 1 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Cross-axis item probing the intersection of market freedom and regulatory authority. Specifically tests whether respondents distinguish between market freedom as a principle and market dominance as a practical problem. The authority_liberty secondary score captures willingness to expand state regulatory power even among those who are market-oriented."
+  },
+  {
+    "id": "Q003",
+    "axis_id": "economic_organization",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["WVS: Trust in Science", "Schwartz: Benevolence", "ESS: Institutional Trust"],
+    "constructs_measured": ["deregulation tolerance", "expert deference", "short-run vs long-run trade-off reasoning"],
+    "scenario_text": "An economist's analysis predicts that deregulating a major sector would raise prices short-term but generate significant innovation and lower prices within a decade. The government's independent forecasting agency disputes the timeline.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deregulate immediately — markets consistently outperform government planning, and long-run gains justify accepting short-run costs.",
+        "scores": { "economic_organization": -2, "institutional_trust": -1 }
+      },
+      {
+        "id": "B",
+        "text": "Pilot the deregulation in select regions first, using observed market signals to evaluate outcomes before a national rollout.",
+        "scores": { "economic_organization": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Wait for expert consensus before proceeding — independent institutional expertise should guide policy, even when it delays reform.",
+        "scores": { "economic_organization": 1, "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Expand regulation rather than reduce it — private market concentration, not government interference, is the actual barrier to innovation.",
+        "scores": { "economic_organization": 2, "institutional_trust": 1 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Advanced item because it embeds a disputed empirical claim within the scenario. Tests whether market orientation is held abstractly or conditioned on evidence. The institutional_trust secondary score is revealing: A combines market faith with expert skepticism, while C and D combine state preference with expert deference."
+  },
+  {
+    "id": "Q004",
+    "axis_id": "economic_organization",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["Schwartz: Security", "WVS: State Role in Economy"],
+    "constructs_measured": ["fiscal conservatism", "redistribution tolerance", "public service valuation"],
+    "scenario_text": "A government faces a significant budget shortfall. It must choose between two broad approaches.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cut public expenditures sharply — governments should not spend beyond their means, and the private sector will fill gaps over time.",
+        "scores": { "economic_organization": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Reduce spending selectively, protecting essential services while eliminating programs that show poor value for money.",
+        "scores": { "economic_organization": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Raise taxes on higher-income earners to maintain current service levels — the cost of cuts falls disproportionately on those least able to absorb them.",
+        "scores": { "economic_organization": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Use deficit financing to sustain social services — economies perform better when governments maintain investment through periods of shortfall.",
+        "scores": { "economic_organization": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Straightforward fiscal policy trade-off. Tests the austerity-vs-stimulus and taxation-vs-spending dimensions simultaneously. Effective at separating fiscal hawks from Keynesian-oriented respondents without using partisan vocabulary."
+  },
+  {
+    "id": "Q005",
+    "axis_id": "economic_organization",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Economic Attitudes", "ESS: Public Service Delivery"],
+    "constructs_measured": ["privatization acceptance", "infrastructure ownership", "consumer protection framing"],
+    "scenario_text": "A large technology company offers to build and operate the national broadband infrastructure in exchange for a 30-year exclusive license.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Accept — private investment is more efficient and faster than state-run infrastructure, and the incentive of exclusivity accelerates build-out.",
+        "scores": { "economic_organization": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Accept with conditions — the license should include binding performance standards, mandatory pricing caps, and regular regulatory review.",
+        "scores": { "economic_organization": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Reject the full license; use a public-private partnership where the government retains ownership of the physical infrastructure.",
+        "scores": { "economic_organization": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Reject entirely — broadband infrastructure is a public utility and should be built, owned, and operated by the state.",
+        "scores": { "economic_organization": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Applies the market-vs-state axis to digital infrastructure, a highly contemporary domain. Tests whether privatization preference is absolute or conditional. The B option specifically probes whether regulated market solutions are seen as adequate compromises."
+  },
+  {
+    "id": "Q006",
+    "axis_id": "economic_organization",
+    "subtype": "consistency_probe",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Justice", "Haidt: Fairness/Reciprocity", "Schwartz: Universalism"],
+    "constructs_measured": ["corporate accountability", "legal-vs-moral framing", "market rule predictability"],
+    "scenario_text": "A profitable corporation is found to have knowingly sold a product that caused widespread long-term environmental harm, though the product was legal at the time of sale. The government proposes a remedy.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The company should face no penalty for legal conduct — retroactive punishment for legal activity undermines investor certainty and rule of law.",
+        "scores": { "economic_organization": -2, "justice_model": -1 }
+      },
+      {
+        "id": "B",
+        "text": "The company should voluntarily contribute to a remediation fund — market reputation and stakeholder pressure are more sustainable correctives than state penalties.",
+        "scores": { "economic_organization": -1, "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The company should be required under regulation to fund full environmental remediation, proportionate to documented harm.",
+        "scores": { "economic_organization": 1, "justice_model": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The company's assets in the affected sector should be nationalized — the profit motive itself is what produced this harm and must be structurally removed.",
+        "scores": { "economic_organization": 2, "justice_model": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe testing whether market-oriented respondents apply their principles symmetrically when the market produces harm. The justice_model secondary score captures whether the preference for rehabilitation vs punishment extends to corporations. Respondents who strongly support markets (A/B in other items) but choose C/D here reveal context-conditioned positions."
+  },
+  {
+    "id": "Q007",
+    "axis_id": "authority_liberty",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["Haidt: Authority/Subversion", "WVS: Civil Liberties", "Schwartz: Security"],
+    "constructs_measured": ["surveillance tolerance", "state overreach concern", "security-liberty trade-off"],
+    "scenario_text": "The government proposes mandatory biometric registration for all citizens to reduce identity fraud and improve the efficiency of public service delivery.",
+    "options": [
+      {
+        "id": "A",
+        "text": "This should be rejected outright — a compulsory biometric database is a surveillance infrastructure incompatible with individual freedom, regardless of stated purpose.",
+        "scores": { "authority_liberty": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Acceptable only if participation is entirely voluntary, data storage is strictly limited in scope, and retention is time-bounded by law.",
+        "scores": { "authority_liberty": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The efficiency and fraud-prevention benefits justify implementation, provided there is independent oversight to prevent misuse.",
+        "scores": { "authority_liberty": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The state needs modern identification tools to serve and protect its citizens effectively — those with nothing to hide have nothing to fear.",
+        "scores": { "authority_liberty": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Classic security-liberty trade-off framed through administrative rather than criminal context. The D option embeds the 'nothing to hide' framing deliberately to test whether respondents endorse this logic. The A-B distinction probes whether the objection is principled (A) or conditional (B)."
+  },
+  {
+    "id": "Q008",
+    "axis_id": "authority_liberty",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["Haidt: Authority", "WVS: Security", "ESS: Trust in Police/Courts"],
+    "constructs_measured": ["encryption rights", "security apparatus trust", "judicial oversight sufficiency"],
+    "scenario_text": "Intelligence services request legal access to encrypted private communications of suspects in serious criminal investigations, arguing end-to-end encryption is systematically obstructing prosecutions.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Access should be denied entirely — encryption protects everyone, and any government backdoor will inevitably be exploited against ordinary citizens.",
+        "scores": { "authority_liberty": -2, "institutional_trust": -1 }
+      },
+      {
+        "id": "B",
+        "text": "Limited, judicially supervised access should be permitted for serious crimes only, with strict audit trails reviewed by an independent body.",
+        "scores": { "authority_liberty": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Security agencies, with appropriate judicial oversight, should have the technical tools needed to fulfill their mandate in serious cases.",
+        "scores": { "authority_liberty": 1, "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Encryption that systematically prevents lawful investigation should be regulated out of existence — public safety takes precedence over privacy preferences.",
+        "scores": { "authority_liberty": 2, "institutional_trust": 1 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests the depth of civil liberty commitments under a security pressure scenario. The institutional_trust cross-score reveals that accepting state surveillance power (C/D) correlates with trusting security institutions, while rejecting it (A) reflects not just libertarianism but institutional skepticism. The B option distinguishes principled libertarians from pragmatic civil libertarians."
+  },
+  {
+    "id": "Q009",
+    "axis_id": "authority_liberty",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["Haidt: Authority", "Schwartz: Conformity", "WVS: Religious Freedom"],
+    "constructs_measured": ["religious assembly freedom", "community authority legitimacy", "minority rights vs local majority"],
+    "scenario_text": "A neighborhood association asks the local government to block planning approval for a community center serving a religious minority group, citing concerns about the cultural character of the area changing.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The state must refuse — freedom of assembly and religion are fundamental liberties; the state has no legitimate role in restricting lawful community gathering based on cultural preferences.",
+        "scores": { "authority_liberty": -2, "diversity_cohesion": 2 }
+      },
+      {
+        "id": "B",
+        "text": "The state should hold a community consultation but ultimately uphold the legal rights of the applicants, even if a local majority objects.",
+        "scores": { "authority_liberty": -1, "diversity_cohesion": 1 }
+      },
+      {
+        "id": "C",
+        "text": "The state should seek a negotiated compromise — perhaps site, scale, or design conditions — that balances community cohesion concerns with the applicants' rights.",
+        "scores": { "authority_liberty": 1, "diversity_cohesion": -1 }
+      },
+      {
+        "id": "D",
+        "text": "Local communities should have meaningful authority over the cultural character of their neighborhoods; the state should respect democratically expressed local preferences.",
+        "scores": { "authority_liberty": 2, "diversity_cohesion": -2 }
+      }
+    ],
+    "bias_check": true,
+    "reverse_coded": false,
+    "notes_for_researchers": "High-stakes cross-axis item. The authority_liberty axis is reversed here — more authority is expressed through LOCAL democratic control, not central state authority. This tests whether liberty commitments are universal (A) or only apply when convenient (those who score libertarian on Q007 but authoritarian here reveal contextual application). The diversity_cohesion secondary scores are high-magnitude because this scenario directly embeds the pluralism-vs-cohesion conflict. Flag as bias_check because the scenario's framing has asymmetric social salience across respondents."
+  },
+  {
+    "id": "Q010",
+    "axis_id": "authority_liberty",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Civil Liberties", "ESS: Rule of Law", "Haidt: Liberty"],
+    "constructs_measured": ["detention without charge acceptance", "habeas corpus valuation", "security threat response proportionality"],
+    "scenario_text": "Following several serious violent attacks, the government proposes extending the maximum period a suspect may be detained without formal charge from 24 hours to 7 days.",
+    "options": [
+      {
+        "id": "A",
+        "text": "This must be rejected — detention without charge violates the rule of law, and security emergencies are precisely when such protections matter most.",
+        "scores": { "authority_liberty": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Any extension requires very high judicial thresholds, automatic independent review, and a sunset clause — 7 days is excessive without strict procedural reform.",
+        "scores": { "authority_liberty": -1 }
+      },
+      {
+        "id": "C",
+        "text": "A carefully limited extension, with robust independent oversight and judicial authorization, is a proportionate response to documented security threats.",
+        "scores": { "authority_liberty": 1 }
+      },
+      {
+        "id": "D",
+        "text": "National security demands strong and decisive detention powers — procedural delays put the public at risk when serious threats are active.",
+        "scores": { "authority_liberty": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Standard security-liberty trade-off in the criminal justice context. Tests whether principled liberty commitments hold under threat conditions, which is more revealing than abstract preference questions. The B option specifically tests whether procedural safeguards are seen as sufficient mitigation."
+  },
+  {
+    "id": "Q011",
+    "axis_id": "authority_liberty",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["Haidt: Liberty", "WVS: Media Freedom", "ESS: Democratic Norms"],
+    "constructs_measured": ["state speech regulation tolerance", "disinformation threat framing", "platform accountability framing"],
+    "scenario_text": "A new law requires social media platforms to remove any political content flagged by a government agency within 24 hours, or face large financial penalties. The government agency determines what qualifies for flagging.",
+    "options": [
+      {
+        "id": "A",
+        "text": "This is a direct threat to free expression — governments must not have unilateral authority to determine which political speech is permissible.",
+        "scores": { "authority_liberty": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Platforms should self-regulate; government agencies flagging political content creates irresolvable conflicts of interest that will be abused.",
+        "scores": { "authority_liberty": -1 }
+      },
+      {
+        "id": "C",
+        "text": "With an independent appeals tribunal and scope strictly limited to demonstrably illegal content, a regulated removal regime is defensible.",
+        "scores": { "authority_liberty": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Governments have a legitimate responsibility to curate the public information environment — disinformation is too serious to leave to platform self-interest.",
+        "scores": { "authority_liberty": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Contemporary test of authority-liberty tension in the digital speech context. Avoids partisan framing by not specifying what content is being removed. The B option distinguishes platform-skeptics from state-skeptics — both may oppose the law but for different reasons."
+  },
+  {
+    "id": "Q012",
+    "axis_id": "authority_liberty",
+    "subtype": "consistency_probe",
+    "complexity": "advanced",
+    "academic_basis": ["Schwartz: Conformity", "WVS: Democracy", "ESS: Institutional Trust"],
+    "constructs_measured": ["constitutional limits on power", "democratic mandate scope", "institutional continuity"],
+    "scenario_text": "A newly elected administration proposes to eliminate a century-old constitutional convention that currently limits executive power, arguing it is outdated and obstructs effective democratic governance.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The convention must be preserved — constitutional constraints on executive power exist specifically because future governments will be tempted to remove them.",
+        "scores": { "authority_liberty": -2, "tradition_change": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Fundamental constitutional changes require supermajority approval and extensive deliberation — not administrative action by a single government.",
+        "scores": { "authority_liberty": -1, "tradition_change": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Democratic majorities, with appropriate process and transparency, have legitimate authority to modernize constitutional structures that no longer serve their purpose.",
+        "scores": { "authority_liberty": 1, "tradition_change": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Electoral mandates take precedence over procedural tradition — effective democratic governance sometimes requires removing inherited constraints.",
+        "scores": { "authority_liberty": 2, "tradition_change": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe: respondents who score libertarian on Q007/Q010 but choose C/D here are prioritizing their preferred government's efficiency over consistent constitutional protection. Strong alignment with tradition_change axis because constitutional conventions are exactly the kind of institutional continuity that axis measures. High analytical value for detecting conditional rather than principled positions."
+  },
+  {
+    "id": "Q013",
+    "axis_id": "tradition_change",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["Schwartz: Tradition", "WVS: Cultural Values", "Inglehart: Materialist/Post-Materialist"],
+    "constructs_measured": ["heritage preservation preference", "functional vs aesthetic valuation", "urgency framing"],
+    "scenario_text": "A city is deciding whether to demolish a protected historic district to build modern high-density housing that would significantly reduce a severe housing shortage.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The historic district should be preserved — destroyed cultural heritage cannot be recovered, and density solutions exist in other parts of the city.",
+        "scores": { "tradition_change": -2 }
+      },
+      {
+        "id": "B",
+        "text": "A partial approach is possible: protect the most historically significant buildings while allowing redevelopment of less critical structures.",
+        "scores": { "tradition_change": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The housing shortage represents an urgent present-day need that outweighs aesthetic and historical preferences for most residents.",
+        "scores": { "tradition_change": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Sentimental attachment to old buildings should not obstruct practical urban development; cities exist to serve living people, not preserve the past.",
+        "scores": { "tradition_change": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Concrete dilemma between preservation instinct and pragmatic reform. Effective because both sides have legitimate moral weight — heritage loss is irreversible, but housing shortages cause real present-day harm. Tests whether tradition-orientation is felt as a genuine constraint or a contingent preference."
+  },
+  {
+    "id": "Q014",
+    "axis_id": "tradition_change",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Cultural Values", "ESS: National Identity", "Schwartz: Universalism vs Tradition"],
+    "constructs_measured": ["curriculum reform orientation", "national narrative attachment", "representation in education"],
+    "scenario_text": "A school system is debating whether to redesign its history curriculum to give equal time and prominence to the experiences of historically marginalized groups alongside the traditional national narrative.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The established curriculum carries the shared national story — fragmenting it risks eroding the common cultural foundation students need.",
+        "scores": { "tradition_change": -2, "diversity_cohesion": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Supplementary material can enrich the existing curriculum, but core content should remain stable — meaningful change should be gradual and evidence-based.",
+        "scores": { "tradition_change": -1, "diversity_cohesion": -1 }
+      },
+      {
+        "id": "C",
+        "text": "A more representative curriculum better reflects historical reality and prepares students for a complex, diverse society.",
+        "scores": { "tradition_change": 1, "diversity_cohesion": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The traditional curriculum encodes a selective and exclusionary account of the past — it requires fundamental restructuring, not incremental additions.",
+        "scores": { "tradition_change": 2, "diversity_cohesion": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "High cross-axis coherence: tradition_change and diversity_cohesion pull in the same direction here, which is typical for curriculum reform scenarios. The alignment makes this a useful calibration item — strong coherence between axes on this item suggests the respondent's positions across both axes are integrated rather than compartmentalized."
+  },
+  {
+    "id": "Q015",
+    "axis_id": "tradition_change",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["Schwartz: Universalism", "WVS: Globalization", "ESS: Sovereignty Attitudes"],
+    "constructs_measured": ["sovereignty preference", "treaty compliance acceptance", "reform velocity tolerance"],
+    "scenario_text": "An international trade agreement requires member states to harmonize their labor laws to a common standard. This standard is higher than current law in some countries and lower in others.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Nations must retain full authority over their labor laws — externally imposed harmonization is a direct erosion of democratic self-determination.",
+        "scores": { "tradition_change": -2, "nationalism_globalism": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Harmonization should be voluntary and advisory, not legally binding — cooperative standards are preferable to treaty obligations that override domestic law.",
+        "scores": { "tradition_change": -1, "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Accepting binding common standards is the price of broader economic and diplomatic participation — some constraint on autonomy is worth it.",
+        "scores": { "tradition_change": 1, "nationalism_globalism": 1 }
+      },
+      {
+        "id": "D",
+        "text": "A stronger global floor for labor standards is more important than national flexibility — international reform should take precedence over domestic continuity.",
+        "scores": { "tradition_change": 2, "nationalism_globalism": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Advanced item because the trade-off between national continuity and international reform operates on two levels simultaneously: whether existing domestic law (tradition) should be preserved, and whether the nation-state or global body should have authority. Strong coherence between tradition_change and nationalism_globalism here. Useful for identifying respondents who are globally oriented but domestically conservative, or vice versa."
+  },
+  {
+    "id": "Q016",
+    "axis_id": "tradition_change",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["Schwartz: Tradition", "WVS: Family/Marriage Values", "Inglehart: Survival vs Self-Expression"],
+    "constructs_measured": ["definitional conservatism", "incremental change acceptance", "equal legal standing"],
+    "scenario_text": "A country's legislature is deciding whether to maintain the current marriage law that limits the institution to opposite-sex couples, or to revise it to include same-sex couples.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The traditional definition of marriage reflects deep cultural and social continuity that should not be altered by legislative change.",
+        "scores": { "tradition_change": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Expanding civil partnerships for all couples could provide legal equality without altering the definition of marriage itself.",
+        "scores": { "tradition_change": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Extending marriage rights is a matter of equal legal standing — gradual, democratically legitimate change is appropriate here.",
+        "scores": { "tradition_change": 1 }
+      },
+      {
+        "id": "D",
+        "text": "There is no defensible reason to maintain a differential legal standard — reform should proceed fully and without qualification.",
+        "scores": { "tradition_change": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "High face validity for the tradition_change axis — few questions more directly test attachment to cultural continuity vs reform. The B option captures 'separate but equal' reasoning, which is a distinct position from outright conservatism and worth separating analytically."
+  },
+  {
+    "id": "Q017",
+    "axis_id": "tradition_change",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: National Identity", "ESS: Social Cohesion", "Memory Studies literature"],
+    "constructs_measured": ["official memory politics", "contested commemoration", "narrative pluralism"],
+    "scenario_text": "A country must decide how to officially mark the anniversary of a major historical event — celebrated by some as the nation's founding and remembered by others as a day of conquest and dispossession.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The founding narrative is the appropriate official commemoration — alternative historical framings should not be state-funded or state-endorsed.",
+        "scores": { "tradition_change": -2 }
+      },
+      {
+        "id": "B",
+        "text": "A single official event can acknowledge historical complexity without abandoning the core national commemoration at its center.",
+        "scores": { "tradition_change": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Multiple parallel events, all publicly supported, better reflect the range of legitimate historical memories communities bring to this date.",
+        "scores": { "tradition_change": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The traditional commemoration should give way to a new ceremony that centers the experiences of those historically excluded from the founding narrative.",
+        "scores": { "tradition_change": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Memory politics item that avoids naming specific nations or events to prevent partisan priming. Tests whether the state's role is seen as narrative guardian (A) or narrative pluralist (D). The B option is important for separating those who prefer adaptation within tradition from those who want replacement."
+  },
+  {
+    "id": "Q018",
+    "axis_id": "tradition_change",
+    "subtype": "consistency_probe",
+    "complexity": "intermediate",
+    "academic_basis": ["Haidt: Authority", "Schwartz: Tradition", "ESS: Education Policy"],
+    "constructs_measured": ["civic education framing", "state vs family autonomy in education", "compulsion tolerance"],
+    "scenario_text": "A government proposes making civic education compulsory in all schools — a subject that had been voluntary for several decades — arguing that young people lack shared values and democratic literacy.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Compulsory state civic instruction is incompatible with educational freedom and family autonomy — the government should not mandate ideological formation.",
+        "scores": { "tradition_change": -2, "authority_liberty": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Civic education has value but should remain optional or locally determined — central mandates override legitimate diversity in educational approaches.",
+        "scores": { "tradition_change": -1, "authority_liberty": -1 }
+      },
+      {
+        "id": "C",
+        "text": "A shared civic curriculum, developed through broad consultation with educators and communities, can strengthen cohesion without being coercive.",
+        "scores": { "tradition_change": 1, "authority_liberty": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The state has a legitimate responsibility to cultivate shared civic values in young people — mandatory civic education is an appropriate instrument.",
+        "scores": { "tradition_change": 2, "authority_liberty": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe for the tradition_change axis: those who oppose traditional content but support mandatory civic reform (or vice versa) reveal conditional rather than principled positions. The authority_liberty cross-score is high-magnitude because the question directly tests whether state authority over education is acceptable — which is a core liberty question."
+  },
+  {
+    "id": "Q019",
+    "axis_id": "nationalism_globalism",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Sovereignty", "ESS: International Trust", "Schwartz: Universalism"],
+    "constructs_measured": ["binding global compliance", "national autonomy", "collective action problem framing"],
+    "scenario_text": "A global health emergency requires coordinated international action. The fastest and most effective solution requires all countries to accept a binding response protocol developed by an international body, with no opt-outs.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Each nation should determine its own response — binding international protocols compromise sovereignty and may not fit local conditions or democratic preferences.",
+        "scores": { "nationalism_globalism": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Nations should cooperate closely but retain the right to deviate from the protocol if it conflicts with domestic legal or medical needs.",
+        "scores": { "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Given the severity of the emergency, the binding protocol is an acceptable constraint — coordination across borders outweighs national flexibility.",
+        "scores": { "nationalism_globalism": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Global emergencies require global governance with real authority — nations that resist binding protocols undermine collective action and harm everyone.",
+        "scores": { "nationalism_globalism": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Deliberately uses a health emergency rather than a climate or political scenario to reduce partisan priming. Tests whether sovereignty preference is absolute or contextual. Respondents who choose A in low-stakes scenarios but C/D here reveal instrumental sovereignty positions."
+  },
+  {
+    "id": "Q020",
+    "axis_id": "nationalism_globalism",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Trade Policy", "Schwartz: Universalism", "ESS: EU Integration"],
+    "constructs_measured": ["protectionism", "multilateral governance preference", "trade retaliation framing"],
+    "scenario_text": "A foreign government heavily subsidizes its domestic manufacturing industry, allowing its exports to undercut your country's producers significantly. A trade dispute arises.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Apply equivalent protective tariffs immediately — national economic interests and domestic employment must take priority in trade disputes.",
+        "scores": { "nationalism_globalism": -2, "economic_organization": -1 }
+      },
+      {
+        "id": "B",
+        "text": "File a formal trade arbitration complaint while applying targeted temporary tariffs on only the directly affected sector.",
+        "scores": { "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Accept the cheaper imports and let consumers benefit — a trade dispute response risks escalation, retaliation, and broader economic harm.",
+        "scores": { "nationalism_globalism": 1, "economic_organization": -1 }
+      },
+      {
+        "id": "D",
+        "text": "Use multilateral institutions to establish binding common rules on industrial subsidies that apply equally to all member states.",
+        "scores": { "nationalism_globalism": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Cross-axis item where economic preference and national orientation interact in non-obvious ways. The C option combines market preference (accepting cheap imports) with a globalist posture (no retaliation), which may conflict for market-oriented nationalists. The A option is nationalist-protectionist but involves state intervention (tariffs), creating tension for market-oriented respondents who are also nationalists."
+  },
+  {
+    "id": "Q021",
+    "axis_id": "nationalism_globalism",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["WVS: Immigration", "ESS: Social Cohesion", "Putnam: Diversity research"],
+    "constructs_measured": ["cultural absorptive capacity framing", "migration control preference", "integration resources"],
+    "scenario_text": "A large wave of migration from culturally distant countries creates significant pressure on public services and generates cultural friction in several regions. A government analyst recommends slowing the rate of intake to allow integration capacity to catch up.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Immigration volume should be managed according to the receiving society's absorptive capacity and social cohesion needs — pace matters.",
+        "scores": { "nationalism_globalism": -2, "diversity_cohesion": -1 }
+      },
+      {
+        "id": "B",
+        "text": "A temporary, time-limited reduction in intake is reasonable, but only if integration funding and support are simultaneously and substantially increased.",
+        "scores": { "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The economic and demographic benefits of sustained migration generally outweigh integration difficulties — the pace should not slow.",
+        "scores": { "nationalism_globalism": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Framing migration control around cultural distance is discriminatory — integration should be generously funded regardless of intake volume.",
+        "scores": { "nationalism_globalism": 2, "diversity_cohesion": 2 }
+      }
+    ],
+    "bias_check": true,
+    "reverse_coded": false,
+    "notes_for_researchers": "High social sensitivity — flag as bias_check because the scenario's cultural distance framing may trigger identity-protective responses rather than reflective reasoning. The A option uses the language of absorptive capacity rather than cultural rejection, which is the less hostile version of nationalism on migration. Analytically valuable for distinguishing principled cosmopolitanism (D) from pragmatic integration concern (B)."
+  },
+  {
+    "id": "Q022",
+    "axis_id": "nationalism_globalism",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Sovereignty", "ESS: EU/Supranational Attitudes", "Hooghe & Marks: Multi-level Governance"],
+    "constructs_measured": ["supranational authority acceptance", "legislative sovereignty", "integration depth preference"],
+    "scenario_text": "Your country is negotiating membership in a regional political union. A condition of full membership is transferring some legislative authority permanently to a democratically elected supranational parliament.",
+    "options": [
+      {
+        "id": "A",
+        "text": "No legislative authority should be permanently transferred — your own parliament must remain the sole source of binding law for your citizens.",
+        "scores": { "nationalism_globalism": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Very limited delegation is acceptable only in narrowly defined technical areas, with clear and easily exercised opt-out provisions.",
+        "scores": { "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The coordination benefits justify transferring authority in key shared domains, provided there is genuine democratic oversight at the supranational level.",
+        "scores": { "nationalism_globalism": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Deep political integration is the right direction — fragmented national sovereignty is an obstacle to solving collective problems that no single state can address alone.",
+        "scores": { "nationalism_globalism": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Direct measure of supranational authority acceptance. The scenario specifies a democratically elected supranational parliament to avoid the confound between opposition to supranationalism and opposition to technocratic governance — any remaining opposition is more clearly sovereignty-based."
+  },
+  {
+    "id": "Q023",
+    "axis_id": "nationalism_globalism",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Climate", "Schwartz: Universalism", "Roberts: Climate Justice literature"],
+    "constructs_measured": ["historical emissions responsibility", "international redistribution tolerance", "climate justice framing"],
+    "scenario_text": "A global climate agreement requires your country to contribute to a fund that redistributes resources to lower-income nations for their green transition — regardless of your own country's emissions record.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Your country should not subsidize others' transitions — unconditional international redistribution exceeds what international solidarity reasonably requires.",
+        "scores": { "nationalism_globalism": -2 }
+      },
+      {
+        "id": "B",
+        "text": "A proportional contribution reflecting your country's historical emissions could be considered, at a level your government sets unilaterally.",
+        "scores": { "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The climate justice case for redistribution is strong enough to justify joining the agreement even with real financial costs.",
+        "scores": { "nationalism_globalism": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Wealthy nations bear a special obligation for historical emissions — the financial transfer should be substantial, binding, and not contingent on domestic preferences.",
+        "scores": { "nationalism_globalism": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Climate context specifically chosen because it adds ecological dimension to the sovereignty question. The scenario specifies that contributions are required regardless of domestic emissions record, which tests whether the cosmopolitan position holds even when the fairness argument is weakened. Effective at separating principled nationalists from strategic multilateralists."
+  },
+  {
+    "id": "Q024",
+    "axis_id": "nationalism_globalism",
+    "subtype": "consistency_probe",
+    "complexity": "intermediate",
+    "academic_basis": ["ESS: Trust in International Bodies", "WVS: Privacy", "Schwartz: Security"],
+    "constructs_measured": ["international institution trust", "intelligence data sharing", "sovereignty vs cooperation"],
+    "scenario_text": "Your government's intelligence service warns that an international data-sharing protocol it is being asked to join would expose your citizens' private data to foreign agencies with demonstrably weaker privacy standards.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Refuse the protocol — national institutions are more directly accountable to your citizens and more trustworthy for protecting their data than international bodies.",
+        "scores": { "nationalism_globalism": -2, "institutional_trust": -1 }
+      },
+      {
+        "id": "B",
+        "text": "Demand rigorous, verifiable data protection standards as a non-negotiable precondition before joining — sovereignty over personal data is not for sale.",
+        "scores": { "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The security benefits of intelligence sharing likely outweigh the privacy trade-off — accept the protocol with modest safeguards.",
+        "scores": { "nationalism_globalism": 1, "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Trust the international body's oversight architecture — the geopolitical benefits of deep cooperation require accepting some constraint on unilateral control.",
+        "scores": { "nationalism_globalism": 2, "institutional_trust": 1 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe: respondents who are nationally oriented AND liberty-oriented (A/B on Q007/Q010) should show strong A here. Those who are globally oriented but liberty-skeptical may choose C/D, which tests whether international trust is principled or selective. The institutional_trust secondary score is negative on A because it reflects distrust of international institutions specifically."
+  },
+  {
+    "id": "Q025",
+    "axis_id": "justice_model",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["Haidt: Fairness/Reciprocity", "WVS: Crime and Punishment", "Rehabilitation literature"],
+    "constructs_measured": ["first-offender treatment", "rehabilitation vs deterrence", "victim recognition"],
+    "scenario_text": "A young person with no prior record is before a sentencing judge following conviction for a serious theft. Which consideration should primarily guide the sentence?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The potential for rehabilitation should be paramount — a first-time offender deserves a structured pathway back into society, not a life-altering custodial record.",
+        "scores": { "justice_model": -2 }
+      },
+      {
+        "id": "B",
+        "text": "The sentence should balance meaningful accountability with genuine support for behavioral change — community service and supervised conditions rather than incarceration.",
+        "scores": { "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "A custodial sentence of meaningful length is appropriate — accountability must be felt, and the community deserves a clear signal that serious theft carries real consequences.",
+        "scores": { "justice_model": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Firm sentencing deters future offenders — leniency sends the wrong signal and fails the people harmed, who deserve to see justice served with weight.",
+        "scores": { "justice_model": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Foundational item for the justice_model axis. Using a first-time offender with no history is deliberate — it places the scenario where rehabilitation arguments are strongest and deterrence arguments must work hardest. Respondents who still choose C/D here hold particularly strong punishment-deterrence orientations."
+  },
+  {
+    "id": "Q026",
+    "axis_id": "justice_model",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["Schwartz: Conformity", "WVS: Technology Trust", "Predictive policing literature"],
+    "constructs_measured": ["algorithmic governance acceptance", "individual dignity in sentencing", "technical efficiency framing"],
+    "scenario_text": "A government proposes using algorithmic risk scores — based on neighborhood, employment history, and socioeconomic factors — to determine the level of supervision required for parolees. The algorithm predicts reoffending probability.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The system should be rejected — individuals must be judged on their own conduct and circumstances, not on statistical proxies drawn from their background.",
+        "scores": { "justice_model": -2, "authority_liberty": -1 }
+      },
+      {
+        "id": "B",
+        "text": "Algorithmic tools may inform but never determine outcomes — human case workers must retain full discretion, using the score as one input among many.",
+        "scores": { "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "If the algorithm demonstrably reduces reoffending without introducing systematic bias, its efficiency gains justify use under robust judicial oversight.",
+        "scores": { "justice_model": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Evidence-based risk management is more reliable than individual judicial discretion, which is itself already subject to implicit bias — the algorithm improves fairness.",
+        "scores": { "justice_model": 2, "authority_liberty": 1 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests the justice_model axis through a technological framing — whether systematic prediction is seen as fair (pro-punishment-efficiency) or as an affront to individual moral agency (pro-rehabilitation). The authority_liberty cross-score captures the degree to which state algorithmic authority is accepted as legitimate. The D argument (algorithm as equity tool) is a sophisticated version of the pro-authority position."
+  },
+  {
+    "id": "Q027",
+    "axis_id": "justice_model",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["Haidt: Fairness", "ESS: Discrimination", "Structural racism literature"],
+    "constructs_measured": ["structural equity in sentencing", "judicial discretion scope", "demographic outcome patterns"],
+    "scenario_text": "Systematic data shows that members of a specific demographic group receive disproportionately harsher sentences than other groups for equivalent offenses. A reform body proposes mandatory judicial review of any sentence that reflects this statistical pattern.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Judicial discretion is fundamental — statistical patterns across cases do not constitute grounds for overriding individual case judgments.",
+        "scores": { "justice_model": 2, "diversity_cohesion": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Voluntary sentencing guidelines on disparate outcomes are appropriate, but mandatory review risks politicizing and undermining judicial independence.",
+        "scores": { "justice_model": 1, "diversity_cohesion": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Structural inequality in outcomes requires a structural response — mandatory review is a proportionate institutional correction.",
+        "scores": { "justice_model": -1, "diversity_cohesion": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The data documents systemic bias that individual discretion cannot correct — active policy reform of judicial outcomes is required.",
+        "scores": { "justice_model": -2, "diversity_cohesion": 2 }
+      }
+    ],
+    "bias_check": true,
+    "reverse_coded": true,
+    "notes_for_researchers": "Reverse-coded item: higher options (C/D) reflect more rehabilitation/equity orientation. Flag as bias_check because demographic sentencing disparity is high-salience politically and may trigger identity-protective rather than value-based responses. The justice_model scores are reversed here — the 'rehabilitation' position (C/D) supports active correction, while the 'punishment/discretion' position (A/B) resists structural intervention. The diversity_cohesion cross-scores are high magnitude because this item is where justice and pluralism intersect most directly."
+  },
+  {
+    "id": "Q028",
+    "axis_id": "justice_model",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Crime Policy", "Schwartz: Security", "Criminology: prevention literature"],
+    "constructs_measured": ["prison capacity investment", "prevention vs containment", "resource allocation for crime"],
+    "scenario_text": "A government must allocate a fixed budget between two options: building a large new prison, or funding community prevention and rehabilitation programs of equivalent scope.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Invest in prevention and rehabilitation — they reduce reoffending more sustainably and address root causes rather than merely managing outcomes.",
+        "scores": { "justice_model": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Both are needed — prevention is valuable, but existing overcrowding means new prison capacity is also a practical necessity.",
+        "scores": { "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Prison capacity is the more pressing need given current case volumes — rehabilitation investment can follow once containment is adequate.",
+        "scores": { "justice_model": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Building more prison capacity sends a clear deterrence signal — communities need to feel that consequences are certain and real.",
+        "scores": { "justice_model": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Resource allocation framing forces a genuine trade-off rather than allowing both. The D option makes the deterrence argument explicit ('sends a signal') which is more ideologically transparent than C's pragmatic framing — this distinction helps separate deterrence ideologues from pragmatic capacity planners."
+  },
+  {
+    "id": "Q029",
+    "axis_id": "justice_model",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["Haidt: Fairness", "WVS: Economic Crime", "White-collar crime sentencing literature"],
+    "constructs_measured": ["white-collar crime sanction preference", "financial vs custodial penalty", "proportionality principle"],
+    "scenario_text": "A company's senior executive is convicted of large-scale financial fraud that caused widespread financial harm to thousands of people. The judge is choosing between a heavy custodial sentence and a very large financial penalty combined with mandatory restitution.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Restitution and a meaningful financial penalty address the actual harm more directly than incarceration — prison does not undo fraud or compensate victims.",
+        "scores": { "justice_model": -2 }
+      },
+      {
+        "id": "B",
+        "text": "A short custodial sentence combined with restitution is appropriate — meaningful accountability requires some deprivation of liberty, not only financial cost.",
+        "scores": { "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Prison is the primary appropriate sanction — financial penalties are absorbed by wealthy defendants without meaningful deterrence or accountability.",
+        "scores": { "justice_model": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The maximum available custodial sentence should apply — white-collar crime that harms thousands demands exemplary punishment that cannot be paid away.",
+        "scores": { "justice_model": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "White-collar crime scenario is analytically important because it reverses the usual socioeconomic valence of punishment debates. Respondents who favor leniency for street crime (A/B on Q025) but demand harshness for executives (C/D here) reveal asymmetric justice orientations based on class position of the offender. Valuable consistency check across Q025 and Q029."
+  },
+  {
+    "id": "Q030",
+    "axis_id": "justice_model",
+    "subtype": "consistency_probe",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Rule of Law", "Schwartz: Tradition", "Mandatory sentencing literature"],
+    "constructs_measured": ["mandatory minimums legitimacy", "judicial discretion scope", "democratic vs judicial authority"],
+    "scenario_text": "A long-standing law mandates minimum sentences for specific categories of offense. New research shows these minimums frequently produce unjust outcomes in atypical cases. Senior judges petition for discretion to deviate downward in documented exceptional circumstances.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Judges should have full sentencing discretion — mandatory minimums are a crude tool that shifts appropriate judgment from courts to legislators.",
+        "scores": { "justice_model": -2, "tradition_change": 1 }
+      },
+      {
+        "id": "B",
+        "text": "Narrow judicial exceptions should be permitted in documented atypical cases, with written justification reviewed on appeal.",
+        "scores": { "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Consistency and predictability in sentencing outweighs the cost of occasional injustice — existing minimums should be maintained.",
+        "scores": { "justice_model": 1, "tradition_change": -1 }
+      },
+      {
+        "id": "D",
+        "text": "Mandatory minimums reflect the democratically established will of the legislature — judges should not substitute their individual preferences.",
+        "scores": { "justice_model": 2, "tradition_change": -1 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe between justice_model and tradition_change. Note the inverted tradition_change scores: A (progressive justice) requires reform of the existing law (positive tradition_change), while C/D (punitive justice) defends the existing legal structure (negative tradition_change). Respondents who are conservative on tradition but progressive on justice, or vice versa, will show axis tension here."
+  },
+  {
+    "id": "Q031",
+    "axis_id": "ecology_growth",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Environment vs Development", "Schwartz: Universalism", "Inglehart: Post-Materialist Values"],
+    "constructs_measured": ["fossil fuel tolerance", "employment vs climate trade-off", "intergenerational framing"],
+    "scenario_text": "A developing region has significant unexploited coal reserves. Exploiting them would generate substantial employment and government revenue for approximately a decade. Leaving them in the ground would preserve air quality and align with international climate commitments.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The coal should be developed — the region's immediate employment and revenue needs must take precedence over abstract global targets that don't feed local families.",
+        "scores": { "ecology_growth": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Development is acceptable with modern emissions-reduction technology and a legally binding transition plan built in from day one.",
+        "scores": { "ecology_growth": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The environmental costs and climate commitments make coal development a poor long-term choice — renewable investment is preferable even if it delivers slower returns.",
+        "scores": { "ecology_growth": 1 }
+      },
+      {
+        "id": "D",
+        "text": "The coal must remain in the ground — climate commitments are not negotiable trade-offs, and no short-term economic argument justifies adding to global carbon reserves.",
+        "scores": { "ecology_growth": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "The 'developing region' framing is deliberate — it adds a distributional dimension that makes the pro-growth position more sympathetically framed than a simple 'coal vs environment' question would be. This tests whether ecology-first positions hold even when growth framing has moral weight (poverty alleviation)."
+  },
+  {
+    "id": "Q032",
+    "axis_id": "ecology_growth",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Environment", "Schwartz: Universalism", "Environmental policy literature"],
+    "constructs_measured": ["regulatory vs market instrument preference", "building standards", "climate urgency framing"],
+    "scenario_text": "A government must decide how to drive adoption of strict environmental efficiency standards in all new buildings: through binding regulation or through voluntary market incentives such as green tax credits and carbon pricing.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Market incentives are sufficient — mandates suppress construction activity, increase housing costs, and override rational private calculation.",
+        "scores": { "ecology_growth": -2, "economic_organization": -1 }
+      },
+      {
+        "id": "B",
+        "text": "Incentives should be tested first; mandates should only follow if voluntary adoption proves too slow over a defined evaluation period.",
+        "scores": { "ecology_growth": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Climate urgency makes regulatory mandates necessary — market signals alone cannot deliver the speed and certainty needed.",
+        "scores": { "ecology_growth": 1, "economic_organization": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Comprehensive building standards should be set by government — private markets have consistently failed to internalize environmental costs.",
+        "scores": { "ecology_growth": 2, "economic_organization": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Cross-axis item testing the intersection of ecological urgency and economic governance preference. The economic_organization cross-scores are diagnostic: respondents who prefer markets generally (Q001-Q005) but choose C/D here reveal that ecological urgency conditionally overrides market preference for them."
+  },
+  {
+    "id": "Q033",
+    "axis_id": "ecology_growth",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["WVS: Trust in Science", "ESS: Expert Authority", "Science-policy interface literature"],
+    "constructs_measured": ["scientific panel authority", "bureaucratic knowledge", "expert override of political resistance"],
+    "scenario_text": "An independent scientific panel recommends a major land-use restriction requiring the displacement of farming communities and conversion of large areas to forest. The government's agriculture ministry disputes the panel's ecological modeling on technical grounds.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The ministry's ground-level knowledge of affected communities should outweigh theoretical modeling — the restriction should not proceed on current evidence.",
+        "scores": { "ecology_growth": -2, "institutional_trust": -1 }
+      },
+      {
+        "id": "B",
+        "text": "The panel's findings should trigger further study and a negotiated compromise before any displacement — the ecological case must be tested against local knowledge.",
+        "scores": { "ecology_growth": -1 }
+      },
+      {
+        "id": "C",
+        "text": "If the panel's methodology is defensible and the ecological stakes are high, its recommendations should guide policy even over ministry objections.",
+        "scores": { "ecology_growth": 1, "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Independent scientific expertise must override bureaucratic and political resistance — that is precisely why independent panels exist.",
+        "scores": { "ecology_growth": 2, "institutional_trust": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Advanced item because the trade-off is between two legitimate institutional claims: scientific independence and ministerial accountability. The institutional_trust cross-scores are high-magnitude on D because full acceptance of expert override is itself a strong institutional trust statement. Respondents who trust experts generally (Q037, Q041) but choose A/B here reveal ecologically-conditioned expert skepticism."
+  },
+  {
+    "id": "Q034",
+    "axis_id": "ecology_growth",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Environment", "ESS: Climate Policy", "Carbon pricing literature"],
+    "constructs_measured": ["carbon pricing instruments", "distributional fairness", "regressive policy tolerance"],
+    "scenario_text": "A government is choosing between two climate policy instruments: raising fuel taxes (which reduces emissions but disproportionately burdens lower-income households) or subsidizing electric vehicles (which accelerates transition but primarily benefits wealthier buyers).",
+    "options": [
+      {
+        "id": "A",
+        "text": "Neither — both impose costs or distortions on the public; the government should let technology markets evolve without intervention.",
+        "scores": { "ecology_growth": -2 }
+      },
+      {
+        "id": "B",
+        "text": "EV subsidies are preferable — they drive transition without placing a direct cost burden on households with limited income.",
+        "scores": { "ecology_growth": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Fuel taxes with automatic direct rebates to lower-income households balance climate urgency with distributional fairness.",
+        "scores": { "ecology_growth": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Fuel taxes are the most economically efficient instrument — carbon pricing correctly internalizes costs, and redistribution mechanisms can offset regressivity.",
+        "scores": { "ecology_growth": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests ecological commitment depth through an instrument-design trade-off rather than a principle-level question. The A option is important for identifying respondents who claim ecological concern but resist all state instruments — it distinguishes genuine ecological indifference from ideological market preference."
+  },
+  {
+    "id": "Q035",
+    "axis_id": "ecology_growth",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Environment", "Schwartz: Benevolence", "Fisheries management literature"],
+    "constructs_measured": ["ecological timeline vs livelihood", "just transition framing", "community displacement tolerance"],
+    "scenario_text": "A fishing community's traditional livelihood depends on a fishery that independent assessments classify as severely overexploited. Imposing restrictions would sharply cut community income for several years before stocks recover.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The community's economic survival must be protected — restrictions should be phased in extremely gradually with extensive income subsidy support over the full transition.",
+        "scores": { "ecology_growth": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Restrictions are necessary but must be accompanied by substantial compensation and alternative livelihood programs before implementation begins.",
+        "scores": { "ecology_growth": -1 }
+      },
+      {
+        "id": "C",
+        "text": "The fishery's total collapse would destroy the community more permanently than managed restrictions — restrictions should proceed on the scientific timeline.",
+        "scores": { "ecology_growth": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Ecological limits must be restored on the fastest defensible timeline — economic interests must adapt to ecological reality, not the reverse.",
+        "scores": { "ecology_growth": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Concrete ecological dilemma where both sides have strong moral weight: community livelihoods are real harms, but fishery collapse is also irreversible. Tests whether ecological position is held consequentially (C) or categorically (D). The A/B distinction separates those who accept ecological limits but want protection from those who resist limits altogether."
+  },
+  {
+    "id": "Q036",
+    "axis_id": "ecology_growth",
+    "subtype": "consistency_probe",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Climate", "Schwartz: Universalism", "Climate equity literature"],
+    "constructs_measured": ["post-target international obligation", "national self-interest vs global burden-sharing", "binding vs voluntary climate commitments"],
+    "scenario_text": "Your country has already met and exceeded all of its domestic carbon reduction targets. A global agreement asks it to go further — contributing technology and financing to other nations' transitions in ways that would reduce your own economic growth in the short term.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Having met domestic targets, your country has fulfilled its fair share — further binding obligations that constrain domestic growth are unreasonable.",
+        "scores": { "ecology_growth": -2, "nationalism_globalism": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Voluntary additional contributions are a reasonable expression of global citizenship, but they should not be made binding treaty obligations.",
+        "scores": { "ecology_growth": -1, "nationalism_globalism": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Countries with greater resources and technical capacity should accept binding contributions beyond their own borders — climate is a collective problem.",
+        "scores": { "ecology_growth": 1, "nationalism_globalism": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Domestic targets are a floor, not a ceiling — national economic interests are secondary to the collective requirement for a livable planet.",
+        "scores": { "ecology_growth": 2, "nationalism_globalism": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe testing whether ecological commitment persists beyond domestic self-interest. The scenario eliminates the 'clean your own house first' argument, making pure sovereignty vs global solidarity the operative dimension. Strong alignment between ecology_growth and nationalism_globalism here creates a reliable calibration point."
+  },
+  {
+    "id": "Q037",
+    "axis_id": "institutional_trust",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Trust in Science", "ESS: Institutional Trust", "Haidt: Authority"],
+    "constructs_measured": ["scientific consensus acceptance", "individual autonomy vs public health authority", "expert mandate legitimacy"],
+    "scenario_text": "A government health agency recommends a new public health intervention endorsed by a strong majority of independent researchers, though a vocal minority of scientists disputes the evidence. The intervention would require modest lifestyle adjustments from citizens.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The minority scientific view and the imposition on personal autonomy justify skepticism — citizens should be informed and left to decide for themselves.",
+        "scores": { "institutional_trust": -2 }
+      },
+      {
+        "id": "B",
+        "text": "The government should present the full evidence transparently, including dissenting views, and encourage but not mandate compliance.",
+        "scores": { "institutional_trust": -1 }
+      },
+      {
+        "id": "C",
+        "text": "A broad scientific consensus, even if contested, provides sufficient basis for a proportionate and time-limited public health measure.",
+        "scores": { "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Expert institutional consensus must translate into decisive public health action without excessive hesitation — that is what these institutions exist to do.",
+        "scores": { "institutional_trust": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Baseline institutional trust item. The lifestyle adjustment framing is deliberately mild to avoid triggering liberty-based override responses in people who would otherwise trust institutions. Respondents who choose A here despite a mild intervention are expressing strong institutional skepticism."
+  },
+  {
+    "id": "Q038",
+    "axis_id": "institutional_trust",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Democracy", "Haidt: Authority", "Rule of law / democratic backsliding literature"],
+    "constructs_measured": ["judicial independence", "democratic mandate scope", "court-packing legitimacy"],
+    "scenario_text": "An independent judiciary rules against a popular elected government's major policy initiative on constitutional grounds. The government proposes restructuring the court's composition, arguing it has become undemocratically obstructionist.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Courts are the last protection of constitutional limits — restructuring them to overcome adverse rulings is the beginning of democratic backsliding.",
+        "scores": { "institutional_trust": 2, "authority_liberty": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Court composition can be a legitimate democratic question, but any changes must follow existing constitutional amendment procedures, not executive action.",
+        "scores": { "institutional_trust": 1, "authority_liberty": -1 }
+      },
+      {
+        "id": "C",
+        "text": "If courts are persistently misaligned with democratic majorities over time, reform through proper legislative process is legitimate.",
+        "scores": { "institutional_trust": -1, "authority_liberty": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Elected governments carry democratic mandates; courts that consistently block popular policy need to be made more accountable to democratic will.",
+        "scores": { "institutional_trust": -2, "authority_liberty": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": true,
+    "notes_for_researchers": "Reverse-coded item: institutional trust here maps to defending judicial institutions (A/B), while institutional skepticism maps to attacking them (C/D). Cross-axis scores are inverted: A combines institutional trust with civil liberty (defending courts from executive overreach), while D combines institutional skepticism with authority/executive power. This inversion is analytically valuable — it tests whether 'trust in institutions' is a monolithic value or applies selectively."
+  },
+  {
+    "id": "Q039",
+    "axis_id": "institutional_trust",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Economic Institutions", "Schwartz: Conformity", "Central bank independence literature"],
+    "constructs_measured": ["technocratic monetary policy", "democratic accountability of unelected bodies", "economic governance delegation"],
+    "scenario_text": "An independent central bank raises interest rates significantly to control inflation, causing a slowdown in growth and rising unemployment. The elected government publicly argues the policy is wrong and calls for the bank's independence to be curtailed.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The bank's independence must be defended even when unpopular — insulating monetary policy from electoral pressure is the purpose of independence.",
+        "scores": { "institutional_trust": 2, "economic_organization": -1 }
+      },
+      {
+        "id": "B",
+        "text": "The government may publicly critique the decision, but formal intervention in the bank's mandate should require a constitutional amendment process.",
+        "scores": { "institutional_trust": 1 }
+      },
+      {
+        "id": "C",
+        "text": "Full insulation of monetary policy is an excessive technocratic dogma — democratic governments should have some formal input on long-run economic targets.",
+        "scores": { "institutional_trust": -1, "economic_organization": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Unelected technocrats should not be able to impose economic pain on millions of people without democratic accountability — the mandate must be reformed.",
+        "scores": { "institutional_trust": -2, "economic_organization": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests institutional trust specifically in the economic governance domain. The economic_organization cross-scores here are counter-intuitive: A (most market-oriented on economic questions) is paired with defending an independent market-friendly institution, while D (state economic control) is paired with democratic accountability of an independent bank. This creates cross-axis tension for respondents who are both anti-market and anti-technocratic."
+  },
+  {
+    "id": "Q040",
+    "axis_id": "institutional_trust",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Corruption Perception", "ESS: Institutional Trust", "Anti-corruption governance literature"],
+    "constructs_measured": ["independent oversight preference", "self-investigation concern", "anti-corruption body scope"],
+    "scenario_text": "A country is debating whether to establish an independent anti-corruption authority with legal powers to investigate sitting politicians and senior officials without requiring government approval for each investigation.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Such a body would itself be susceptible to political capture — accountability for officials should come through elections and existing prosecutors.",
+        "scores": { "institutional_trust": -2 }
+      },
+      {
+        "id": "B",
+        "text": "An independent body is useful but must have narrowly defined jurisdiction with clear oversight to prevent it from overreaching or becoming a political weapon.",
+        "scores": { "institutional_trust": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Given the inherent conflict of interest in self-investigation, an independent authority with broad powers is the more reliable accountability mechanism.",
+        "scores": { "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "An independent anti-corruption body with full investigative authority is essential in any serious democracy — no one should investigate themselves.",
+        "scores": { "institutional_trust": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests whether institutional trust extends to creating new institutions, or is limited to trusting existing ones. The A option frames skepticism not as anti-democratic but as anti-capture — a sophisticated institutional skepticism. Separates those who distrust institutions because they are ineffective from those who distrust them because they might be captured by political actors."
+  },
+  {
+    "id": "Q041",
+    "axis_id": "institutional_trust",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Health", "ESS: Expert Authority", "Health system rationalization literature"],
+    "constructs_measured": ["expert recommendations vs community opposition", "technocratic efficiency vs local democracy", "service consolidation acceptance"],
+    "scenario_text": "An expert health commission recommends closing several regional hospitals and consolidating services in fewer, higher-capacity centers, citing significant quality and efficiency improvements. Affected communities strongly oppose the closures.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Community opposition should carry decisive weight — local people understand their own needs better than distant expert commissions.",
+        "scores": { "institutional_trust": -2 }
+      },
+      {
+        "id": "B",
+        "text": "A genuine and empowered public consultation should be able to modify the plan significantly — expert recommendations must be tested against local knowledge.",
+        "scores": { "institutional_trust": -1 }
+      },
+      {
+        "id": "C",
+        "text": "If the medical evidence for consolidation is strong, quality and efficiency gains are worth accepting over community objections.",
+        "scores": { "institutional_trust": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Expert-led health system planning must take precedence over localized opposition — national efficiency cannot be vetoed constituency by constituency.",
+        "scores": { "institutional_trust": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests whether institutional trust is held in the concrete (accepting decisions that cause personal loss) as well as abstractly. Respondents who trust experts in general (Q037) but choose A/B here reveal that trust is conditional on proximity of the decision's impact."
+  },
+  {
+    "id": "Q042",
+    "axis_id": "institutional_trust",
+    "subtype": "consistency_probe",
+    "complexity": "advanced",
+    "academic_basis": ["WVS: Democracy", "Schwartz: Tradition", "Electoral system reform literature"],
+    "constructs_measured": ["modeling-driven institutional change", "democratic continuity", "evidence vs stability trade-off"],
+    "scenario_text": "A constitutional review commission proposes replacing an electoral system used for over a century with one that its models predict will produce significantly more proportional and representative outcomes. Critics argue the change is too disruptive to democratic continuity.",
+    "options": [
+      {
+        "id": "A",
+        "text": "A century-old electoral system embeds hard-won democratic stability — reform driven by predictive modeling is dangerous speculation with irreversible consequences.",
+        "scores": { "institutional_trust": -2, "tradition_change": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Electoral reform of this magnitude requires a referendum or supermajority approval — the process legitimacy is as important as the outcome quality.",
+        "scores": { "institutional_trust": -1, "tradition_change": -1 }
+      },
+      {
+        "id": "C",
+        "text": "If evidence supports substantially better democratic representation, structural reform is legitimate even if it disrupts established patterns.",
+        "scores": { "institutional_trust": 1, "tradition_change": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Democratic systems must evolve based on evidence — institutional continuity is not a value that should preserve demonstrably flawed structures.",
+        "scores": { "institutional_trust": 2, "tradition_change": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Advanced consistency probe: here institutional trust and tradition_change align rather than conflict — trusting the expert commission means accepting evidence-driven reform. Respondents who trust experts generally (Q037, Q041) but resist electoral reform reveal that expert trust is conditional on the domain of change. High coherence between institutional_trust and tradition_change expected here."
+  },
+  {
+    "id": "Q043",
+    "axis_id": "diversity_cohesion",
+    "subtype": "scenario_dilemma",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Equality", "Haidt: Fairness", "Affirmative action literature"],
+    "constructs_measured": ["structured diversity program acceptance", "merit framing", "representation as equity"],
+    "scenario_text": "A large employer publicly commits to increasing representation of underrepresented groups through a structured hiring program that widens candidate pools but does not set fixed numerical quotas.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Hiring decisions should be based entirely on individual merit without reference to group identity — structured diversity programs introduce bias by design.",
+        "scores": { "diversity_cohesion": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Removing barriers to application is appropriate, but final selection decisions must remain identity-blind — outreach yes, differential treatment no.",
+        "scores": { "diversity_cohesion": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Given documented barriers that suppress diverse talent, actively structured recruitment programs are a proportionate correction, not a bias.",
+        "scores": { "diversity_cohesion": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Representation goals are legitimate organizational tools — the premise that merit and diversity conflict typically overstates the actual trade-off.",
+        "scores": { "diversity_cohesion": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Baseline diversity_cohesion item. Framed around structured recruitment (not quotas) to keep the scenario moderate enough that it doesn't trigger reflexive responses. The B option captures an important intermediate position — pro-outreach but anti-differential treatment — which often gets lost in binary discussions of affirmative action."
+  },
+  {
+    "id": "Q044",
+    "axis_id": "diversity_cohesion",
+    "subtype": "scenario_dilemma",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Immigration", "ESS: Social Identity", "Civic integration literature"],
+    "constructs_measured": ["civic values test legitimacy", "ideological compliance requirements", "integration condition framing"],
+    "scenario_text": "A country that receives significant immigration is debating whether to require immigrants to formally affirm a defined set of national civic values as a legal condition of permanent residency.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Such requirements enforce ideological conformity — the state should not impose civic compliance tests as a condition of belonging, regardless of how the values are framed.",
+        "scores": { "diversity_cohesion": 2, "nationalism_globalism": 1 }
+      },
+      {
+        "id": "B",
+        "text": "Civic orientation programs are valuable as education, but evaluative tests create a conditional status based on cultural performance and should be avoided.",
+        "scores": { "diversity_cohesion": 1 }
+      },
+      {
+        "id": "C",
+        "text": "A minimal civic values affirmation is reasonable for permanent residency — this is not about culture but about commitment to democratic participation norms.",
+        "scores": { "diversity_cohesion": -1, "nationalism_globalism": -1 }
+      },
+      {
+        "id": "D",
+        "text": "Cultural and civic integration is a legitimate national interest — formal commitment to core values is an appropriate expectation for permanent settlement.",
+        "scores": { "diversity_cohesion": -2, "nationalism_globalism": -2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": true,
+    "notes_for_researchers": "Reverse-coded item: A is the most pluralist position (diversity-favoring), D is the most cohesion/nationalist position. Cross-axis alignment with nationalism_globalism is moderate here. The distinction between B and C is analytically important: both may be seen as 'middle ground' but B refuses the evaluative dimension that C accepts."
+  },
+  {
+    "id": "Q045",
+    "axis_id": "diversity_cohesion",
+    "subtype": "scenario_dilemma",
+    "complexity": "advanced",
+    "academic_basis": ["Haidt: Sanctity/Degradation", "Schwartz: Tradition", "Religious accommodation literature"],
+    "constructs_measured": ["religious accommodation scope", "workplace cultural continuity", "individual religious expression vs collective norms"],
+    "scenario_text": "A workplace has a long-standing dress code developed decades ago. A new employee whose sincere religious practice requires specific dress that the code prohibits requests a formal exception.",
+    "options": [
+      {
+        "id": "A",
+        "text": "The exception should be granted — freedom of religious expression is a fundamental right, and workplace dress codes should not override sincere religious practice.",
+        "scores": { "diversity_cohesion": 2, "tradition_change": 2 }
+      },
+      {
+        "id": "B",
+        "text": "A reasonable accommodation should be explored if it creates no practical difficulty — the default should lean toward inclusion.",
+        "scores": { "diversity_cohesion": 1, "tradition_change": 1 }
+      },
+      {
+        "id": "C",
+        "text": "Workplace dress codes exist for legitimate operational or professional reasons; exceptions should be the exception, granted only after genuine case-by-case assessment.",
+        "scores": { "diversity_cohesion": -1, "tradition_change": -1 }
+      },
+      {
+        "id": "D",
+        "text": "A consistent dress code applies to everyone equally — allowing individual exceptions undermines the shared workplace culture the policy is designed to maintain.",
+        "scores": { "diversity_cohesion": -2, "tradition_change": -2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Advanced cross-axis item where diversity_cohesion and tradition_change reinforce each other in both directions: the accommodationist position (A/B) is both pluralist and reform-oriented, while the uniformity position (C/D) is both cohesion-oriented and tradition-defending. The absence of stated religious identity in the scenario is deliberate — the question tests the general principle."
+  },
+  {
+    "id": "Q046",
+    "axis_id": "diversity_cohesion",
+    "subtype": "policy_tradeoff",
+    "complexity": "basic",
+    "academic_basis": ["WVS: Education", "ESS: Cultural Values", "Multicultural curriculum literature"],
+    "constructs_measured": ["national curriculum preference", "local cultural accommodation", "civic unity vs educational diversity"],
+    "scenario_text": "A government is choosing between a unified national curriculum emphasizing shared civic identity and a locally flexible curriculum that accommodates cultural and linguistic diversity across different communities.",
+    "options": [
+      {
+        "id": "A",
+        "text": "A unified national curriculum is essential — shared civic knowledge and common language are preconditions for social cohesion and democratic participation.",
+        "scores": { "diversity_cohesion": -2 }
+      },
+      {
+        "id": "B",
+        "text": "Core civic content should be nationally set, while leaving meaningful room for local adaptation in language and cultural context.",
+        "scores": { "diversity_cohesion": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Significant local control over curriculum better serves students from diverse backgrounds and reflects the legitimate reality of a pluralistic society.",
+        "scores": { "diversity_cohesion": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Communities should have full authority over educational content for their children — a single imposed national curriculum is a form of cultural standardization.",
+        "scores": { "diversity_cohesion": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Educational governance item that applies the diversity_cohesion axis to the context of public curriculum. The framing avoids ideological content of what is taught and focuses on the structural question of centralization vs localization — this reduces partisan response bias."
+  },
+  {
+    "id": "Q047",
+    "axis_id": "diversity_cohesion",
+    "subtype": "policy_tradeoff",
+    "complexity": "intermediate",
+    "academic_basis": ["WVS: Social Cohesion", "ESS: Integration", "Multicultural public events literature"],
+    "constructs_measured": ["shared civic space preference", "community-specific celebration legitimacy", "public funding of identity events"],
+    "scenario_text": "A multicultural city's annual public celebrations have become increasingly fragmented — different cultural communities hold their own events rather than a shared civic festival. The city is deciding how to allocate public funding.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Public institutions should invest only in shared civic festivals that cross community boundaries — fragmented events reinforce social separation.",
+        "scores": { "diversity_cohesion": -2 }
+      },
+      {
+        "id": "B",
+        "text": "A primary shared event should receive the most public support, while smaller community-specific events receive modest supplementary funding.",
+        "scores": { "diversity_cohesion": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Cultural communities have legitimate interests in celebrating their own identities; a plurality of publicly supported events reflects the city's actual diversity.",
+        "scores": { "diversity_cohesion": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Public funding should follow community needs — if communities prefer their own events, the city should support them without requiring integration into a shared format.",
+        "scores": { "diversity_cohesion": 2 }
+      }
+    ],
+    "bias_check": false,
+    "reverse_coded": false,
+    "notes_for_researchers": "Tests diversity_cohesion through a concrete civic governance question with low emotional valence. The fragmentation framing in the scenario is important — it tests whether respondents see separate community events as natural pluralism (C/D) or as a civic cohesion problem (A/B)."
+  },
+  {
+    "id": "Q048",
+    "axis_id": "diversity_cohesion",
+    "subtype": "consistency_probe",
+    "complexity": "intermediate",
+    "academic_basis": ["Haidt: Fairness", "ESS: Discrimination", "Racial/religious profiling literature"],
+    "constructs_measured": ["structural discrimination recognition", "security threat framing", "policing pattern justification"],
+    "scenario_text": "Data analysis reveals that members of a specific religious group are subjected to law enforcement stops and searches at a rate far higher than their population share — and far beyond what any documented behavioral difference could predict.",
+    "options": [
+      {
+        "id": "A",
+        "text": "This data documents a structural injustice and must trigger immediate policy reform and clear accountability measures targeting the pattern.",
+        "scores": { "diversity_cohesion": 2, "justice_model": -2 }
+      },
+      {
+        "id": "B",
+        "text": "The data warrants serious investigation; if bias is confirmed through review, policy and training reforms should follow.",
+        "scores": { "diversity_cohesion": 1, "justice_model": -1 }
+      },
+      {
+        "id": "C",
+        "text": "Enforcement patterns may reflect legitimate risk assessments that are difficult to disentangle statistically — reforms should be cautious and evidence-based.",
+        "scores": { "diversity_cohesion": -1, "justice_model": 1 }
+      },
+      {
+        "id": "D",
+        "text": "Security operations must be guided by threat assessment; differential enforcement patterns that are operationally grounded should not be politicized.",
+        "scores": { "diversity_cohesion": -2, "justice_model": 2 }
+      }
+    ],
+    "bias_check": true,
+    "reverse_coded": false,
+    "notes_for_researchers": "Consistency probe: tests whether respondents who oppose structural bias in other contexts (Q027, Q043) apply that position consistently when policing is the domain. The justice_model cross-scores reveal that those most committed to deterrence/punishment logic (D) are also least likely to see disproportionate enforcement as structural injustice. The scenario specifies 'far beyond behavioral differences' to close the 'this reflects real crime rates' exit — respondents who still choose C/D are making a security-authority argument, not an empirical one. Flag as bias_check due to religious profiling sensitivity."
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "name": "mindpolis",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.26.0",
+  "scripts": {
+    "dev":         "turbo run dev",
+    "build":       "turbo run build",
+    "lint":        "turbo run lint",
+    "test":        "turbo run test",
+    "db:migrate":  "cd apps/web && pnpm exec prisma migrate dev",
+    "db:studio":   "cd apps/web && pnpm exec prisma studio",
+    "db:seed":     "DATABASE_URL='postgresql://mindpolis:mindpolis_dev_password@localhost:5432/mindpolis' pnpm exec tsx scripts/seed.ts",
+    "docker:up":   "docker compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker compose -f docker/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "turbo":      "^2.0.0",
+    "typescript": "^5.5.0",
+    "tsx":        "^4.0.0"
+  }
+}

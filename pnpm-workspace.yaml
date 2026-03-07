@@ -1,0 +1,4 @@
+packages:
+  - "apps/web"
+  - "packages/db"
+  - "packages/shared-types"
