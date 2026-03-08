@@ -41,7 +41,7 @@ export default async function AdminLogsPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                logs.map((log) => {
+                                logs.map((log: (typeof logs)[number]) => {
                                     const summaryStr = log.result?.summary ? (log.result.summary as any).label : "No result"
                                     const clusterBase = log.result?.clusterLabel
 
