@@ -1,8 +1,7 @@
 // ============================================================================
 // MindPolis: app/results/preview/page.tsx
-// Version: 5.0.0 — 2026-03-07
-// Why: Guest results page — analytical dark, amber bars for scores (data),
-//      blue for UI actions. Clean analytical layout.
+// Version: 6.0.0
+// Why: Guest results page — clean analytical layout with semantic light UI.
 // Env / Identity: React Client Component — browser only
 // ============================================================================
 
@@ -12,6 +11,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ResultsChart } from "@/components/results/ResultsChart"
+import { PopulationDistribution } from "@/components/results/PopulationDistribution"
 
 interface DimensionScore {
   key: string; label: string; value: number
@@ -27,7 +27,7 @@ interface PreviewResult {
 
 export default function ResultsPreviewPage() {
   const router = useRouter()
-  const [result,  setResult]  = useState<PreviewResult | null>(null)
+  const [result, setResult] = useState<PreviewResult | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -36,13 +36,13 @@ export default function ResultsPreviewPage() {
       if (!raw) { router.replace("/assessment"); return }
       setResult(JSON.parse(raw))
     } catch { router.replace("/assessment") }
-    finally  { setLoading(false) }
+    finally { setLoading(false) }
   }, [router])
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0F172A" }}>
-        <div className="w-5 h-5 rounded border-2 border-white/10 border-t-blue-400 animate-spin" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50/50">
+        <div className="w-6 h-6 rounded-full border-2 border-gray-200 border-t-blue-600 animate-spin" />
       </div>
     )
   }
@@ -51,96 +51,79 @@ export default function ResultsPreviewPage() {
   const chartData = result.dimensions.map(d => ({ dimension: d.label, value: d.value, fullMark: 1 }))
 
   return (
-    <div className="min-h-screen" style={{ background: "#0F172A" }}>
+    <div className="min-h-screen bg-gray-50/30 text-gray-900 pb-32">
 
       {/* Nav */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-5 py-3.5"
-        style={{ background: "rgba(15,23,42,0.95)", borderBottom: "1px solid #1E293B", backdropFilter: "blur(12px)" }}>
-        <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded flex items-center justify-center font-black text-[9px] text-white"
-            style={{ background: "#3B82F6" }}>MP</div>
-          <span className="font-semibold text-sm" style={{ color: "#E5E7EB" }}>MindPolis</span>
+      <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-white/80 border-b border-gray-200 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <div className="w-6 h-6 rounded-[6px] flex items-center justify-center font-black text-[10px] bg-gray-900 text-white cursor-default">MP</div>
+          <span className="font-bold tracking-tight text-gray-900 text-sm">MindPolis</span>
         </div>
-        <div className="flex items-center gap-2">
-          <Link href="/assessment" className="text-xs px-3 py-1.5 transition-colors"
-            style={{ color: "#6B7280" }}>
-            ← Take another
+        <div className="flex items-center gap-4">
+          <Link href="/assessment" className="text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">
+            Retake
           </Link>
           <Link href="/register"
-            className="text-xs font-semibold px-3.5 py-1.5 rounded text-white"
-            style={{ background: "#3B82F6" }}>
-            Save results
+            className="text-[11px] font-bold uppercase tracking-widest px-4 py-2 rounded-[6px] bg-blue-600 text-white shadow hover:opacity-90 active:scale-95 transition-all">
+            Save Profile
           </Link>
         </div>
       </nav>
 
-      <div className="max-w-2xl mx-auto px-4 py-8 space-y-5 pb-20">
+      <div className="max-w-[800px] mx-auto px-6 py-16 space-y-16">
 
-        {/* Score hero */}
-        <div className="px-6 py-6 rounded-lg" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-          <div className="flex items-start justify-between gap-4 mb-3">
-            <div>
-              <p className="label mb-2">{result.assessmentTitle}</p>
-              <h1 className="text-2xl font-bold leading-tight" style={{ color: "#E5E7EB" }}>{result.summary.label}</h1>
-            </div>
-            {result.clusterLabel && (
-              <span className="shrink-0 mono text-[11px] font-bold px-2.5 py-1 rounded mt-1"
-                style={{ background: "rgba(245,158,11,0.08)", color: "#F59E0B", border: "1px solid rgba(245,158,11,0.18)" }}>
-                {result.clusterLabel}
+        {/* Score header */}
+        <div className="space-y-6 text-center max-w-2xl mx-auto">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{result.assessmentTitle}</p>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-gray-900 leading-tight">
+            {result.summary.label}
+          </h1>
+          {result.clusterLabel && (
+            <div className="inline-flex items-center justify-center mt-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-700 bg-blue-50 px-4 py-1.5 rounded-[8px] border border-blue-100/50">
+                Cluster: {result.clusterLabel}
               </span>
-            )}
-          </div>
-          <p className="mono text-[11px]" style={{ color: "#374151" }}>
-            {new Date(result.computedAt).toLocaleString()} · {result.modelVersion}
+            </div>
+          )}
+          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 pt-4">
+            Analysis generated {new Date(result.computedAt).toLocaleDateString()}
           </p>
-        </div>
-
-        {/* Save CTA */}
-        <div className="flex items-center justify-between px-5 py-4 rounded-lg gap-4"
-          style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.15)" }}>
-          <div>
-            <p className="font-semibold text-sm" style={{ color: "#E5E7EB" }}>Save your results for free</p>
-            <p className="text-xs mt-0.5" style={{ color: "#6B7280" }}>Create an account to keep this and track changes over time.</p>
-          </div>
-          <div className="flex gap-2 shrink-0">
-            <Link href="/register"
-              className="px-3.5 py-2 rounded text-xs font-semibold text-white"
-              style={{ background: "#3B82F6" }}>
-              Create account
-            </Link>
-            <Link href="/login"
-              className="px-3.5 py-2 rounded text-xs transition-colors hover:text-white/60"
-              style={{ border: "1px solid #1E293B", color: "#6B7280" }}>
-              Sign in
-            </Link>
-          </div>
         </div>
 
         {/* Chart */}
         {chartData.length > 0 && (
-          <div className="rounded-lg overflow-hidden" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-            <ResultsChart data={chartData} />
+          <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+            <div className="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Ideology Map</h2>
+              <span className="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Model {result.modelVersion}</span>
+            </div>
+            <div className="p-4 md:p-8">
+              <ResultsChart data={chartData} />
+            </div>
           </div>
         )}
 
         {/* Dimension breakdown */}
-        <div className="rounded-lg px-6 py-5 space-y-5" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-          <p className="label">Dimension Breakdown</p>
-          <div className="space-y-4">
+        <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+          <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Axis Breakdown</h2>
+          </div>
+          <div className="p-8 space-y-10">
             {result.dimensions.map((dim) => {
-              const pct   = Math.round(((dim.value + 1) / 2) * 100)
+              const pct = Math.round(((dim.value + 1) / 2) * 100)
               const isNeg = dim.value < 0
               return (
-                <div key={dim.key} className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium" style={{ color: "#9CA3AF" }}>{dim.label}</span>
-                    <span className="mono text-[10px]" style={{ color: "#374151" }}>{dim.interpretation}</span>
+                <div key={dim.key} className="space-y-4">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-2">
+                    <span className="text-base font-bold tracking-tight text-gray-900">{dim.label}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500 bg-gray-100 px-3 py-1 rounded-[6px]">{dim.interpretation}</span>
                   </div>
-                  <div className="h-1 w-full rounded-full overflow-hidden" style={{ background: "#1E293B" }}>
-                    <div className="h-full rounded-full transition-all duration-700"
-                      style={{ width: `${pct}%`, background: "#F59E0B", opacity: isNeg ? 0.5 : 1 }} />
+                  <PopulationDistribution userScore={dim.value} />
+                  <div className="h-2 w-full rounded-full overflow-hidden bg-gray-100">
+                    <div className="h-full rounded-full transition-all duration-700 bg-gray-900"
+                      style={{ width: `${pct}%`, opacity: isNeg ? 0.4 : 1 }} />
                   </div>
-                  <div className="flex justify-between text-[10px]" style={{ color: "#374151" }}>
+                  <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-gray-400">
                     <span>{dim.minLabel}</span><span>{dim.maxLabel}</span>
                   </div>
                 </div>
@@ -151,49 +134,50 @@ export default function ResultsPreviewPage() {
 
         {/* Key findings */}
         {result.summary.highlights.length > 0 && (
-          <div className="rounded-lg px-6 py-5 space-y-4" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-            <p className="label">Key Findings</p>
-            <ol className="space-y-3">
-              {result.summary.highlights.map((h, i) => (
-                <li key={i} className="flex gap-3 text-sm">
-                  <span className="mono shrink-0 text-[11px] font-bold mt-0.5" style={{ color: "#3B82F6" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="leading-relaxed" style={{ color: "#9CA3AF" }}>{h}</span>
-                </li>
-              ))}
-            </ol>
+          <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+            <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Key Priorities</h2>
+            </div>
+            <div className="p-8">
+              <ol className="space-y-6">
+                {result.summary.highlights.map((h, i) => (
+                  <li key={i} className="flex gap-6 items-start">
+                    <span className="shrink-0 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="leading-relaxed font-medium text-gray-700 text-lg">{h}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         )}
 
         {/* Interpretation */}
         {result.summary.interpretation.length > 0 && (
-          <div className="rounded-lg px-6 py-5 space-y-3" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-            <p className="label">Full Interpretation</p>
-            <ul className="space-y-2">
+          <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+            <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Synthesis</h2>
+            </div>
+            <div className="p-8 space-y-6 text-gray-700 font-medium leading-relaxed md:text-lg">
               {result.summary.interpretation.map((line, i) => (
-                <li key={i} className="text-sm flex gap-2" style={{ color: "#6B7280" }}>
-                  <span className="shrink-0" style={{ color: "#374151" }}>—</span>{line}
-                </li>
+                <p key={i}>{line}</p>
               ))}
-            </ul>
+            </div>
           </div>
         )}
 
         {/* Bottom CTA */}
-        <div className="py-8 text-center space-y-3" style={{ borderTop: "1px solid #1E293B" }}>
-          <p className="text-sm font-medium" style={{ color: "#9CA3AF" }}>These results are only stored in this browser tab.</p>
-          <p className="text-xs" style={{ color: "#6B7280" }}>Sign up free to save them permanently.</p>
-          <div className="flex justify-center gap-3 mt-4">
+        <div className="pt-12 text-center space-y-6">
+          <p className="text-gray-500 font-medium">This report is stored locally in your browser session.</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/register"
-              className="px-5 py-2.5 rounded text-sm font-semibold text-white"
-              style={{ background: "#3B82F6" }}>
-              Create free account
+              className="px-8 py-4 rounded-[8px] text-sm font-bold uppercase tracking-widest bg-gray-900 text-white shadow hover:opacity-90 transition-opacity">
+              Create Persistent Profile
             </Link>
             <Link href="/assessment"
-              className="px-5 py-2.5 rounded text-sm transition-colors hover:text-white/60"
-              style={{ border: "1px solid #1E293B", color: "#6B7280" }}>
-              Take another
+              className="px-8 py-4 rounded-[8px] text-sm font-bold uppercase tracking-widest border border-gray-200 text-gray-500 hover:bg-gray-100 transition-colors">
+              Return to Catalog
             </Link>
           </div>
         </div>

@@ -20,12 +20,12 @@ export async function POST(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const userId      = (session.user as any).id as string
+  const userId = (session.user as any).id as string
   const assessmentId = params.id
 
   // Verify assessment exists and is active
   const assessment = await db.assessment.findUnique({
-    where:  { id: assessmentId, isActive: true },
+    where: { id: assessmentId, isActive: true },
     select: { id: true, slug: true, title: true },
   })
 
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   // Return an existing IN_PROGRESS submission if one exists
   // (allows resuming if user navigates away and comes back)
   const existing = await db.assessmentSubmission.findFirst({
-    where:  { userId, assessmentId, status: "IN_PROGRESS" },
+    where: { userId, assessmentId, status: "IN_PROGRESS" },
     select: { id: true },
   })
 
@@ -44,13 +44,19 @@ export async function POST(req: NextRequest, { params }: Params) {
     return NextResponse.json({ submissionId: existing.id, resumed: true })
   }
 
+  // Extract tracking information for the Admin Panel
+  const ipAddress = req.headers.get("x-forwarded-for")?.split(',')[0].trim() || "127.0.0.1"
+  const country = req.headers.get("x-vercel-ip-country") || req.headers.get("cf-ipcountry") || "Unknown"
+
   // Create a fresh submission
   const submission = await db.assessmentSubmission.create({
     data: {
       userId,
       assessmentId,
-      status:    "IN_PROGRESS",
+      status: "IN_PROGRESS",
       startedAt: new Date(),
+      ipAddress,
+      country,
     },
     select: { id: true },
   })

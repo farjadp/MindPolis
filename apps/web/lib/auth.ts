@@ -35,14 +35,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Credentials({
       name: "Email",
       credentials: {
-        email:    { label: "Email",    type: "email" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
-        name:     { label: "Name",     type: "text" },
+        name: { label: "Name", type: "text" },
       },
       async authorize(credentials) {
         const email = credentials?.email as string | undefined
+        const password = credentials?.password as string | undefined
         if (!email) return null
 
+        // ── Admin Gateway Logic ──
+        if (email === "admin@mindpolis.com") {
+          if (password === "admin123") {
+            let adminUser = await db.user.findUnique({ where: { email } })
+            if (!adminUser) {
+              adminUser = await db.user.create({ data: { email, name: "System Administrator", role: "ADMIN" } })
+            } else if (adminUser.role !== "ADMIN") {
+              adminUser = await db.user.update({ where: { email }, data: { role: "ADMIN" } })
+            }
+            return { id: adminUser.id, email: adminUser.email, name: adminUser.name, role: adminUser.role }
+          }
+          // Wrong admin password
+          return null
+        }
+
+        // ── Normal Participant Logic ──
         // Find or create user by email
         let user = await db.user.findUnique({ where: { email } })
 
@@ -65,14 +82,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as any).role ?? "PARTICIPANT"
-        token.id   = user.id
+        token.id = user.id
       }
       return token
     },
     async session({ session, token }) {
       if (token && session.user) {
         (session.user as any).role = token.role
-        ;(session.user as any).id  = token.id
+          ; (session.user as any).id = token.id
       }
       return session
     },
@@ -80,6 +97,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   pages: {
     signIn: "/login",
-    error:  "/login",
+    error: "/login",
   },
 })

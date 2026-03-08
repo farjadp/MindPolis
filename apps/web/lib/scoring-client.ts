@@ -79,26 +79,79 @@ class ScoringServiceClient {
 
   // ─── Shared fetch helper ───────────────────────────────────────────────
   private async post<T>(path: string, body: unknown): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${path}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Internal auth — Python service validates this on every request
-        "Authorization": `Bearer ${this.secret}`,
-      },
-      body: JSON.stringify(body),
-      // Do not cache — scoring results must always be fresh
-      cache: "no-store",
-    })
+    try {
+      const response = await fetch(`${this.baseUrl}${path}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${this.secret}`,
+        },
+        body: JSON.stringify(body),
+        cache: "no-store",
+      })
 
-    if (!response.ok) {
-      const error = await response.text()
-      throw new Error(
-        `Scoring service error [${response.status}] on ${path}: ${error}`
-      )
+      if (!response.ok) {
+        const error = await response.text()
+        throw new Error(
+          `Scoring service error [${response.status}] on ${path}: ${error}`
+        )
+      }
+
+      return response.json() as Promise<T>
+    } catch (err: any) {
+      if (
+        process.env.NODE_ENV === "development" &&
+        (err.code === "ECONNREFUSED" || err.message?.includes("fetch failed"))
+      ) {
+        console.warn(`[ScoringClient] Python service unreachable. Using MOCK data for ${path}`)
+        return this.getMockResponse(path, body) as Promise<T>
+      }
+      throw err
+    }
+  }
+
+  // ─── Local Dev Mock Generator ────────────────────────────────────────────
+  private getMockResponse(path: string, body: any): any {
+    if (path.includes("/score")) {
+      const req = body as ScoreRequest
+      const mockDimensions: DimensionScore[] = [
+        { key: "equality_macro", label: "Equality", value: 0.6, rawValue: 12, interpretation: "High focus on equality" },
+        { key: "liberty_macro", label: "Liberty", value: -0.2, rawValue: -4, interpretation: "Moderate skepticism of unbridled liberty" },
+        { key: "authority_macro", label: "Authority", value: 0.8, rawValue: 16, interpretation: "High respect for authority" },
+        { key: "tradition_macro", label: "Tradition", value: 0.4, rawValue: 8, interpretation: "Leans traditional" },
+        { key: "care_harm", label: "Care/Harm", value: 0.9, rawValue: 18, interpretation: "Very high empathy" },
+        { key: "fairness_cheating", label: "Fairness/Cheating", value: 0.7, rawValue: 14, interpretation: "High fairness" },
+        { key: "loyalty_betrayal", label: "Loyalty/Betrayal", value: 0.3, rawValue: 6, interpretation: "Moderate loyalty" },
+        { key: "authority_subversion", label: "Authority/Subversion", value: 0.5, rawValue: 10, interpretation: "Respect for order" },
+        { key: "sanctity_degradation", label: "Sanctity/Degradation", value: 0.1, rawValue: 2, interpretation: "Neutral on sanctity" }
+      ]
+
+      const scoresFlat = Object.fromEntries(mockDimensions.map(d => [d.key, d.value]))
+
+      return {
+        assessmentSlug: req.assessmentSlug,
+        modelVersion: "MOCK-1.0",
+        dimensions: mockDimensions,
+        scoresFlat,
+        summary: {
+          label: "Mock Civic Rationalist",
+          interpretation: ["You value structure and stability.", "You exhibit profound empathy for marginalized groups."],
+          highlights: ["High Equality Focus", "Strong Respect for Authority"]
+        },
+        computedAt: new Date().toISOString()
+      }
     }
 
-    return response.json() as Promise<T>
+    if (path.includes("/cluster")) {
+      return {
+        resultId: (body as ClusterRequest).resultId,
+        clusterLabel: "Technocratic Guardian",
+        clusterIndex: 2,
+        confidence: 0.88
+      }
+    }
+
+    throw new Error(`No mock available for ${path}`)
   }
 
   // ─── Public API ────────────────────────────────────────────────────────

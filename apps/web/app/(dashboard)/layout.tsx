@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/layout.tsx
 // Version: 6.0.0 — 2026-03-07
-// Why: Analytical intelligence layout. Navy base, blue accent, structured grid.
+// Why: Analytical intelligence layout. Pure white base, structured grid.
 //      Think Linear / Stripe — calm, credible, professional.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
@@ -11,57 +11,54 @@ import { auth } from "@/lib/auth"
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
-  const user    = session?.user ?? null
+  const user = session?.user ?? null
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#0F172A" }}>
+    <div className="min-h-screen flex bg-gray-50">
 
       {/* ── Sidebar ── */}
-      <aside className="w-56 shrink-0 hidden md:flex flex-col"
-        style={{ background: "#0B1120", borderRight: "1px solid #1E293B" }}>
+      <aside className="w-64 shrink-0 hidden md:flex flex-col bg-white border-r border-gray-200">
 
         {/* Logo */}
-        <div className="px-5 pt-6 pb-5" style={{ borderBottom: "1px solid #1E293B" }}>
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded flex items-center justify-center font-black text-[11px] text-white"
-              style={{ background: "#3B82F6" }}>
+        <div className="px-6 pt-8 pb-6 border-b border-gray-100">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-[8px] flex items-center justify-center font-black text-[12px] text-white bg-blue-600 shadow-sm">
               MP
             </div>
-            <span className="font-semibold text-sm tracking-tight" style={{ color: "#E5E7EB" }}>MindPolis</span>
+            <span className="font-bold text-base tracking-tight text-gray-900">MindPolis</span>
           </Link>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-3 space-y-0.5">
-          <p className="label px-3 pb-2 pt-3">Explore</p>
+        <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+          <p className="px-3 pb-2 pt-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">Explore</p>
           <SideLink href="/assessment">Assessments</SideLink>
           {user && (
             <>
-              <p className="label px-3 pb-2 pt-4">Account</p>
+              <p className="px-3 pb-2 pt-6 text-[10px] font-bold uppercase tracking-widest text-gray-400">Account</p>
               <SideLink href="/dashboard">Dashboard</SideLink>
-              <SideLink href="/results">My Results</SideLink>
+              <SideLink href="/results">Historical Data</SideLink>
+              <SideLink href="/settings">Settings & Privacy</SideLink>
             </>
           )}
         </nav>
 
         {/* User / sign-in */}
-        <div className="p-3" style={{ borderTop: "1px solid #1E293B" }}>
+        <div className="p-4 border-t border-gray-100">
           {user ? (
-            <div className="flex items-center gap-2.5 px-3 py-2 rounded"
-              style={{ background: "#111827" }}>
-              <div className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white shrink-0"
-                style={{ background: "#3B82F6" }}>
+            <div className="flex items-center gap-3 px-3 py-3 rounded-[12px] bg-gray-50/50 hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-colors">
+              <div className="w-8 h-8 rounded-[8px] flex items-center justify-center text-[12px] font-bold text-blue-700 bg-blue-100 shrink-0">
                 {(user.name ?? user.email ?? "U")[0].toUpperCase()}
               </div>
-              <div className="min-w-0">
-                <p className="text-xs truncate" style={{ color: "#9CA3AF" }}>{user.name ?? user.email}</p>
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] font-bold text-gray-900 truncate">{user.name ?? "Anonymous User"}</p>
+                <p className="text-[11px] font-medium text-gray-500 truncate">{user.email ?? "Not logged in"}</p>
               </div>
             </div>
           ) : (
             <Link href="/login"
-              className="flex items-center gap-2 px-3 py-2 rounded text-xs transition-colors hover:bg-white/[0.04]"
-              style={{ color: "#6B7280" }}>
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              className="flex items-center gap-2 px-4 py-3 rounded-[12px] text-[13px] font-bold transition-colors bg-white border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-300 shadow-sm">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
               </svg>
               Sign in to save results
@@ -71,26 +68,24 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </aside>
 
       {/* ── Main ── */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 bg-gray-50">
         {/* Mobile header */}
-        <header className="md:hidden flex items-center justify-between px-4 py-3"
-          style={{ background: "#0B1120", borderBottom: "1px solid #1E293B" }}>
+        <header className="md:hidden flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200 shrink-0">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded flex items-center justify-center font-black text-[9px] text-white"
-              style={{ background: "#3B82F6" }}>MP</div>
-            <span className="font-semibold text-sm" style={{ color: "#E5E7EB" }}>MindPolis</span>
+            <div className="w-7 h-7 rounded-[6px] flex items-center justify-center font-black text-[10px] text-white bg-blue-600 shadow-sm">MP</div>
+            <span className="font-bold text-sm tracking-tight text-gray-900">MindPolis</span>
           </Link>
-          <div className="flex gap-3">
-            <Link href="/assessment" className="text-xs transition-colors hover:text-white/70" style={{ color: "#6B7280" }}>
+          <div className="flex items-center gap-4">
+            <Link href="/assessment" className="text-[12px] font-bold text-gray-500 transition-colors hover:text-gray-900 uppercase tracking-widest">
               Assessments
             </Link>
             {user
-              ? <Link href="/dashboard" className="text-xs transition-colors hover:text-white/70" style={{ color: "#6B7280" }}>Dashboard</Link>
-              : <Link href="/login" className="text-xs font-semibold" style={{ color: "#3B82F6" }}>Sign in</Link>}
+              ? <Link href="/dashboard" className="text-[12px] font-bold text-gray-500 transition-colors hover:text-gray-900 uppercase tracking-widest">Dashboard</Link>
+              : <Link href="/login" className="text-[12px] font-bold text-blue-600 uppercase tracking-widest">Sign in</Link>}
           </div>
         </header>
 
-        <main className="flex-1 p-6 md:p-10">{children}</main>
+        <main className="flex-1 p-6 md:p-12 overflow-y-auto">{children}</main>
       </div>
     </div>
   )
@@ -98,10 +93,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
 function SideLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <a href={href}
-      className="flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors duration-100 hover:bg-white/[0.05]"
-      style={{ color: "#9CA3AF" }}>
+    <Link href={href}
+      className="flex items-center gap-3 px-4 py-2.5 rounded-[8px] text-[13px] font-bold transition-all duration-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50">
       {children}
-    </a>
+    </Link>
   )
 }

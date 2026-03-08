@@ -31,7 +31,6 @@ interface ResultsChartProps {
 }
 
 export function ResultsChart({ data }: ResultsChartProps) {
-  // ── Normalize data for radar display ─────────────────────────────────────
   // Recharts RadarChart requires non-negative values.
   // We shift [-1, 1] → [0, 1] for display while preserving relative shape.
   const normalizedData = data.map((d) => ({
@@ -40,39 +39,34 @@ export function ResultsChart({ data }: ResultsChartProps) {
   }))
 
   return (
-    <div className="rounded-xl border bg-card p-6">
-      <h2 className="font-semibold text-lg mb-4">Score Profile</h2>
-
-      {/* Radar chart — responsive container fills parent width */}
-      <ResponsiveContainer width="100%" height={320}>
-        <RadarChart data={normalizedData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-          <PolarGrid className="stroke-border" />
-          <PolarAngleAxis
-            dataKey="dimension"
-            tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-          />
-          {/* Hide radius axis labels — raw values are shown in the breakdown section */}
-          <PolarRadiusAxis domain={[0, 1]} tick={false} axisLine={false} />
-          <Radar
-            name="Score"
-            dataKey="displayValue"
-            stroke="hsl(var(--primary))"
-            fill="hsl(var(--primary))"
-            fillOpacity={0.25}
-            strokeWidth={2}
-          />
-          <Tooltip
-            formatter={(value: number, _name: string, props: any) => {
-              // Show the original signed value in the tooltip, not the display-normalized one
-              const original = props.payload?.value
-              return [
-                typeof original === "number" ? original.toFixed(3) : value,
-                "Score",
-              ]
-            }}
-          />
-        </RadarChart>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer width="100%" height={400}>
+      <RadarChart data={normalizedData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
+        <PolarGrid stroke="#e5e7eb" />
+        <PolarAngleAxis
+          dataKey="dimension"
+          tick={{ fontSize: 11, fontWeight: 700, fill: "#6b7280", style: { textTransform: "uppercase", letterSpacing: "0.05em" } }}
+        />
+        <PolarRadiusAxis domain={[0, 1]} tick={false} axisLine={false} />
+        <Radar
+          name="Ideology Map"
+          dataKey="displayValue"
+          stroke="#2563eb"
+          fill="#3b82f6"
+          fillOpacity={0.15}
+          strokeWidth={2}
+        />
+        <Tooltip
+          contentStyle={{ backgroundColor: "#111827", border: "none", borderRadius: "8px", color: "#f9fafb", fontSize: "12px", fontWeight: "bold" }}
+          itemStyle={{ color: "#60a5fa" }}
+          formatter={(value: number, _name: string, props: any) => {
+            const original = props.payload?.value
+            return [
+              typeof original === "number" ? (original > 0 ? "+" : "") + original.toFixed(2) : value,
+              "Score",
+            ]
+          }}
+        />
+      </RadarChart>
+    </ResponsiveContainer>
   )
 }

@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/assessment/[id]/page.tsx
-// Version: 5.0.0 — 2026-03-07
-// Why: Assessment intro — analytical dark, blue accent, structured layout.
+// Version: 6.0.0
+// Why: Assessment intro — clean, minimal, editorial look.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
@@ -22,10 +22,10 @@ export default async function AssessmentIntroPage({ params }: Params) {
   const session = await auth()
 
   const assessment = await db.assessment.findUnique({
-    where:   { id: params.id, isActive: true },
+    where: { id: params.id, isActive: true },
     include: {
       dimensions: { select: { key: true, label: true, description: true, minLabel: true, maxLabel: true } },
-      _count:     { select: { questions: { where: { isActive: true } } } },
+      _count: { select: { questions: { where: { isActive: true } } } },
     },
   })
 
@@ -34,109 +34,72 @@ export default async function AssessmentIntroPage({ params }: Params) {
   const userId = (session?.user as any)?.id as string | undefined
   const previousResult = userId
     ? await db.assessmentResult.findFirst({
-        where:   { userId, assessmentId: assessment.id },
-        orderBy: { computedAt: "desc" },
-        select:  { id: true, computedAt: true },
-      })
+      where: { userId, assessmentId: assessment.id },
+      orderBy: { computedAt: "desc" },
+      select: { id: true, computedAt: true },
+    })
     : null
 
   return (
-    <div className="max-w-2xl mx-auto space-y-7">
+    <div className="max-w-3xl mx-auto px-6 py-20 md:py-32">
 
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs" style={{ color: "#374151" }}>
-        <Link href="/assessment" className="transition-colors hover:text-white/50">Assessments</Link>
-        <span>/</span>
-        <span style={{ color: "#6B7280" }}>{assessment.title}</span>
-      </nav>
+      <Link href="/assessment" className="inline-flex items-center text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors mb-16">
+        ← Back to Catalog
+      </Link>
 
-      {/* Header */}
-      <div className="pb-6" style={{ borderBottom: "1px solid #1E293B" }}>
-        <div className="flex items-start gap-3 mb-3">
-          <h1 className="text-2xl font-bold flex-1 leading-tight" style={{ color: "#E5E7EB" }}>
-            {assessment.title}
-          </h1>
-          {assessment.isResearch && (
-            <span className="shrink-0 mt-1 text-[10px] font-bold px-2 py-0.5 rounded"
-              style={{ background: "rgba(59,130,246,0.1)", color: "#60A5FA", border: "1px solid rgba(59,130,246,0.2)" }}>
-              RESEARCH GRADE
-            </span>
-          )}
-        </div>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: "#9CA3AF" }}>{assessment.description}</p>
-        <div className="flex items-center gap-7">
-          {[[assessment._count.questions, "questions"], [assessment.dimensions.length, "dimensions"], [`~${assessment.estimatedMinutes}`, "minutes"]].map(([v, l]) => (
-            <div key={String(l)}>
-              <span className="mono text-lg font-bold" style={{ color: "#E5E7EB" }}>{v}</span>
-              <span className="text-xs ml-1.5" style={{ color: "#6B7280" }}>{l}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Previous result */}
-      {previousResult && (
-        <div className="flex items-center justify-between px-4 py-3 rounded text-sm"
-          style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.15)" }}>
-          <span style={{ color: "#9CA3AF" }}>
-            Completed {new Date(previousResult.computedAt).toLocaleDateString()}.
-          </span>
-          <Link href={`/results/${previousResult.id}`} className="text-xs font-medium underline underline-offset-2"
-            style={{ color: "#3B82F6" }}>
-            View result
-          </Link>
-        </div>
-      )}
-
-      {/* Dimensions */}
-      <div className="space-y-3">
-        <p className="label">What this measures</p>
-        <div className="rounded-lg overflow-hidden" style={{ border: "1px solid #1E293B" }}>
-          {assessment.dimensions.map((dim, i) => (
-            <div key={dim.key} className="flex items-start gap-4 px-4 py-3"
-              style={{
-                background: "#111827",
-                borderTop: i > 0 ? "1px solid #1E293B" : "none",
-              }}>
-              <span className="mono text-[11px] font-bold mt-0.5 w-5 shrink-0" style={{ color: "#3B82F6" }}>
-                {String(i + 1).padStart(2, "0")}
+      <div className="space-y-10">
+        <header>
+          <div className="flex items-center gap-4 mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tighter leading-none">
+              {assessment.title}
+            </h1>
+            {assessment.isResearch && (
+              <span className="shrink-0 text-[10px] uppercase font-bold px-2.5 py-1 rounded-[8px] bg-gray-100 text-gray-600 tracking-wider">
+                Research
               </span>
-              <div className="flex-1 min-w-0">
-                <span className="text-sm font-medium" style={{ color: "#9CA3AF" }}>{dim.label}</span>
-                {dim.minLabel && dim.maxLabel && (
-                  <span className="text-xs ml-3" style={{ color: "#374151" }}>{dim.minLabel} ↔ {dim.maxLabel}</span>
-                )}
-              </div>
+            )}
+          </div>
+          <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium max-w-2xl">
+            {assessment.description}
+          </p>
+        </header>
+
+        {previousResult && (
+          <div className="p-5 rounded-[12px] bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <span className="text-sm font-medium text-gray-600">
+              You completed this on {new Date(previousResult.computedAt).toLocaleDateString()}.
+            </span>
+            <Link href={`/results/${previousResult.id}`} className="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+              View previous result →
+            </Link>
+          </div>
+        )}
+
+        <div className="py-10 border-t border-b border-gray-200 space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-gray-900">Instructions</h2>
+            <p className="text-base text-gray-600 leading-relaxed max-w-2xl">
+              This assessment presents real-world policy dilemmas. There are no correct answers. Respond according to your genuine judgment, not what seems expected or socially acceptable.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-12">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Estimated Time</p>
+              <p className="text-xl font-bold text-gray-900">{assessment.estimatedMinutes}–{Math.ceil(assessment.estimatedMinutes * 1.25)} minutes</p>
             </div>
-          ))}
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Questions</p>
+              <p className="text-xl font-bold text-gray-900">{assessment._count.questions}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-4">
+          <BeginButton assessmentId={assessment.id} />
         </div>
       </div>
 
-      {/* Instructions */}
-      <div className="px-5 py-4 rounded-lg space-y-2.5"
-        style={{ background: "#0B1120", border: "1px solid #1E293B" }}>
-        <p className="label">Before you begin</p>
-        <ul className="space-y-2 text-sm" style={{ color: "#9CA3AF" }}>
-          {[
-            "Choose the option that reflects your genuine view — not what seems expected or socially acceptable.",
-            "There are no correct answers. Every option maps to legitimate values.",
-            "Results are computed instantly. No account required.",
-          ].map(tip => (
-            <li key={tip} className="flex gap-2.5">
-              <span className="shrink-0 w-1 h-1 rounded-full mt-[9px]" style={{ background: "#3B82F6" }} />
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* CTA */}
-      <div className="flex items-center gap-4">
-        <BeginButton assessmentId={assessment.id} />
-        <Link href="/assessment" className="text-sm transition-colors hover:text-white/60" style={{ color: "#6B7280" }}>
-          ← Back
-        </Link>
-      </div>
     </div>
   )
 }

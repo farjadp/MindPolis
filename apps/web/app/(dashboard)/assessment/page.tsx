@@ -1,10 +1,3 @@
-// ============================================================================
-// MindPolis: app/(dashboard)/assessment/page.tsx
-// Version: 5.0.0 — 2026-03-07
-// Why: Assessment catalog — analytical dark, blue accent, structured list.
-// Env / Identity: React Server Component (RSC)
-// ============================================================================
-
 import Link from "next/link"
 import { db } from "@/lib/db"
 
@@ -12,60 +5,70 @@ export const metadata = { title: "Assessments · MindPolis" }
 
 export default async function AssessmentCatalogPage() {
   const assessments = await db.assessment.findMany({
-    where:   { isActive: true },
+    where: { isActive: true },
     orderBy: { createdAt: "asc" },
     include: { _count: { select: { questions: { where: { isActive: true } } } } },
   })
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
-
-      <div>
-        <p className="label mb-1.5">Catalog</p>
-        <h1 className="text-2xl font-bold" style={{ color: "#E5E7EB" }}>Assessments</h1>
-        <p className="text-sm mt-1.5 max-w-lg" style={{ color: "#6B7280" }}>
-          Each assessment maps a different aspect of political cognition.
-          Scenario-based, anonymous, free.
+    <div className="max-w-[800px] mx-auto space-y-12 pb-24">
+      <header className="space-y-4 border-b border-gray-200 pb-8">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Catalog</p>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+          Assessments
+        </h1>
+        <p className="text-base text-gray-600 leading-relaxed font-medium">
+          Select an instrument below. Each assessment meticulously maps a specific dimension of your political and social cognition.
         </p>
-      </div>
+      </header>
 
       {assessments.length === 0 ? (
-        <div className="py-16 text-center text-sm rounded-lg" style={{ border: "1px dashed #1E293B", color: "#6B7280" }}>
-          No assessments available.
+        <div className="py-24 text-center border border-dashed border-gray-300 rounded-[16px] bg-gray-50/50">
+          <p className="text-gray-500 font-medium tracking-wide">No instruments currently available.</p>
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-6">
           {assessments.map((a) => (
             <Link
               key={a.id}
               href={`/assessment/${a.id}`}
-              className="group flex items-center justify-between px-5 py-4 rounded-lg transition-colors hover:bg-white/[0.03]"
-              style={{ background: "#111827", border: "1px solid #1E293B" }}
+              className="group block p-8 bg-white border border-gray-200 rounded-[16px] hover:border-gray-300 hover:shadow-md transition-all duration-300"
             >
-              <div className="flex-1 min-w-0 space-y-1">
-                <div className="flex items-center gap-2.5">
-                  <h2 className="font-semibold text-[15px] transition-colors" style={{ color: "#9CA3AF" }}>
-                    {a.title}
-                  </h2>
-                  {a.isResearch && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded"
-                      style={{ background: "rgba(59,130,246,0.1)", color: "#60A5FA", border: "1px solid rgba(59,130,246,0.2)" }}>
-                      RESEARCH
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm truncate" style={{ color: "#6B7280" }}>{a.description}</p>
-              </div>
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
 
-              <div className="flex items-center gap-5 shrink-0 ml-4">
-                <div className="hidden sm:flex items-center gap-5">
-                  <span className="mono text-xs" style={{ color: "#374151" }}>{a._count.questions}q</span>
-                  <span className="mono text-xs" style={{ color: "#374151" }}>~{a.estimatedMinutes}m</span>
+                <div className="space-y-3 flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h2 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors tracking-tight truncate">
+                      {a.title}
+                    </h2>
+                    {a.isResearch && (
+                      <span className="font-mono text-[9px] font-bold px-2.5 py-1 rounded-[4px] bg-blue-50 text-blue-700 tracking-widest uppercase shrink-0">
+                        Research
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed font-medium line-clamp-2 md:line-clamp-none">
+                    {a.description}
+                  </p>
                 </div>
-                <svg className="w-4 h-4 transition-colors" style={{ color: "#374151" }}
-                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-                </svg>
+
+                <div className="flex items-center gap-6 shrink-0 pt-4 md:pt-0 border-t border-gray-100 md:border-none">
+                  <div className="flex flex-col text-left md:text-right">
+                    <span className="font-mono text-lg font-bold text-gray-900 leading-none">{a._count.questions}</span>
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Items</span>
+                  </div>
+                  <div className="w-px h-8 bg-gray-200 hidden md:block" />
+                  <div className="flex flex-col text-left md:text-right">
+                    <span className="font-mono text-lg font-bold text-gray-900 leading-none">{a.estimatedMinutes}m</span>
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Est. Time</span>
+                  </div>
+                  <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-400 group-hover:bg-gray-900 group-hover:text-white group-hover:border-transparent transition-colors">
+                    <svg className="w-4 h-4 text-current flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+
               </div>
             </Link>
           ))}

@@ -188,6 +188,8 @@ model AssessmentSubmission {
   status       SubmissionStatus @default(IN_PROGRESS)
   startedAt    DateTime         @default(now())
   completedAt  DateTime?
+  ipAddress    String?
+  country      String?
   ipHash       String?          // Hashed IP for fraud detection (not stored raw)
   userAgent    String?          // Browser fingerprint for research QA
 
@@ -236,6 +238,9 @@ model AssessmentResult {
   summary      Json     // { label: String, interpretation: String[] }
   percentiles  Json?    // Percentile ranks vs population (computed later)
   clusterLabel String?  // ML cluster assignment (e.g. "Libertarian-Left")
+  archetype    String?  // The assigned "Result Identity" (e.g., "The Civic Rationalist")
+  topDimensions Json?   // The top 3 strongest dimensions for this user's result
+  shareHash    String   @unique @default(uuid()) // Unique ID for public sharing
   modelVersion String   @default("1.0.0") // Python scoring model version
   computedAt   DateTime @default(now())
 

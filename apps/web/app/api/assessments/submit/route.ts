@@ -19,6 +19,7 @@ import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { scoringClient } from "@/lib/scoring-client"
 import { SubmitAssessmentSchema } from "@/lib/validations/assessment"
+import { calculateResultIdentity } from "@/lib/archetypes"
 
 
 export async function POST(req: NextRequest) {
@@ -112,10 +113,10 @@ export async function POST(req: NextRequest) {
     .map((r) => {
       const q = questionMap.get(r.questionId)!
       return {
-        questionId:    r.questionId,
-        value:         r.value,
+        questionId: r.questionId,
+        value: r.value,
         dimensionKeys: q.dimensionKeys,
-        isReversed:    q.isReversed,
+        isReversed: q.isReversed,
         // Fetch the max weight across all dimensions this question maps to
         weight: Math.max(
           ...q.dimensionKeys.map((k) => dimensionWeightMap.get(k) ?? 1.0)
@@ -127,9 +128,9 @@ export async function POST(req: NextRequest) {
   let scoreResult
   try {
     scoreResult = await scoringClient.score({
-      assessmentSlug:    assessment.slug,
+      assessmentSlug: assessment.slug,
       assessmentVersion: assessment.version,
-      responses:         scoringResponses,
+      responses: scoringResponses,
     })
   } catch (err) {
     // Scoring failed — but raw data is safe. Log and return a partial response.
@@ -143,12 +144,12 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  // ── Step 8: Call clustering service ──────────────────────────────────────
+  // ── Step 8: Call clustering service & Archetype Calculation ────────────────
   let clusterResult
   try {
     const scoreVector = Object.values(scoreResult.scoresFlat)
     clusterResult = await scoringClient.cluster({
-      resultId:       submissionId,
+      resultId: submissionId,
       scoreVector,
       assessmentSlug: assessment.slug,
     })
@@ -157,15 +158,20 @@ export async function POST(req: NextRequest) {
     console.warn("[submit] Clustering service error:", err)
   }
 
+  // Calculate High-level UX Archetype and Top Dimensions
+  const { archetype, topDimensions } = calculateResultIdentity(scoreResult.scoresFlat as Record<string, number>)
+
   // ── Step 9: Persist computed result ───────────────────────────────────────
   const result = await db.assessmentResult.create({
     data: {
       userId,
       assessmentId,
       submissionId,
-      scores:       scoreResult.scoresFlat,
-      summary:      scoreResult.summary,
+      scores: scoreResult.scoresFlat,
+      summary: scoreResult.summary,
       clusterLabel: clusterResult?.clusterLabel ?? null,
+      archetype,
+      topDimensions,
       modelVersion: scoreResult.modelVersion,
     },
   })

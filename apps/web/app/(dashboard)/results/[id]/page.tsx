@@ -1,25 +1,28 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/results/[id]/page.tsx
-// Version: 5.0.0 — 2026-03-07
-// Why: Result detail — analytical dark, amber bars for data, blue accent for UI.
+// Version: 6.0.0
+// Why: Result detail — semantic light UI, clean and focused data presentation.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import Link from "next/link"
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { ResultsChart } from "@/components/results/ResultsChart"
+import { PopulationDistribution } from "@/components/results/PopulationDistribution"
 
 type Params = { params: { id: string } }
 export const metadata = { title: "Result · MindPolis" }
 
 export default async function ResultDetailPage({ params }: Params) {
   const session = await auth()
-  const userId  = (session!.user as any).id as string
+  if (!session?.user) redirect("/login")
+
+  const userId = (session.user as any).id as string
 
   const result = await db.assessmentResult.findFirst({
-    where:   { id: params.id, userId },
+    where: { id: params.id, userId },
     include: {
       assessment: {
         select: {
@@ -32,62 +35,93 @@ export default async function ResultDetailPage({ params }: Params) {
 
   if (!result) notFound()
 
-  const scores  = result.scores as Record<string, number>
+  const scores = result.scores as Record<string, number>
   const summary = result.summary as { label: string; interpretation: string[]; highlights: string[] }
   const chartData = result.assessment.dimensions.map(d => ({
     dimension: d.label, value: scores[d.key] ?? 0, fullMark: 1,
   }))
 
   return (
-    <div className="max-w-2xl mx-auto space-y-5">
+    <div className="max-w-[800px] mx-auto px-6 py-12 md:py-20 space-y-16">
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs" style={{ color: "#374151" }}>
-        <Link href="/results" className="transition-colors hover:text-white/50">My Results</Link>
+      <nav className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-gray-400 pb-6 border-b border-gray-100">
+        <Link href="/results" className="hover:text-gray-900 transition-colors">My Results</Link>
         <span>/</span>
-        <span style={{ color: "#6B7280" }}>{result.assessment.title}</span>
+        <span className="text-gray-900">{result.assessment.title}</span>
       </nav>
 
       {/* Header */}
-      <div className="px-6 py-5 rounded-lg" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-        <p className="label mb-2">
-          {result.assessment.title} · {new Date(result.computedAt).toLocaleDateString()}
+      <div className="space-y-6 text-center max-w-2xl mx-auto pt-4">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+          Cognitive Profile · {new Date(result.computedAt).toLocaleDateString()}
         </p>
-        <h1 className="text-2xl font-bold mb-2" style={{ color: "#E5E7EB" }}>{summary.label}</h1>
-        {result.clusterLabel && (
-          <span className="mono text-[11px] font-bold px-2.5 py-1 rounded inline-block"
-            style={{ background: "rgba(245,158,11,0.08)", color: "#F59E0B", border: "1px solid rgba(245,158,11,0.18)" }}>
-            {result.clusterLabel}
-          </span>
-        )}
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-gray-900 leading-tight mb-2">
+          {result.archetype || summary.label || "Analyzed Profile"}
+        </h1>
+        <p className="text-sm text-gray-500 font-medium max-w-lg mx-auto mb-8">
+          Based on the {result.assessment.title}. Your dominant psychological traits lean towards {(result.topDimensions as any[])?.[0]?.key || "balanced reasoning"}.
+        </p>
+
+        {/* Share Action */}
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-8">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm defined as '${result.archetype}' by @MindPolis. Discover where your moral topography aligns here:`)}&url=${encodeURIComponent(`https://mindpolis.com/r/${result.shareHash}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 bg-[#111111] text-[#FDFCF8] text-sm font-bold uppercase tracking-widest rounded-sm shadow-xl hover:scale-[1.02] transition-transform"
+          >
+            Share Identity on X
+          </a>
+          <Link
+            href={`/r/${result.shareHash}`}
+            className="px-8 py-3 bg-white border border-[#E8E6E0] text-[#111111] text-sm font-bold uppercase tracking-widest rounded-sm hover:bg-gray-50 transition-colors"
+          >
+            View Certificate
+          </Link>
+        </div>
       </div>
 
       {/* Chart */}
-      <div className="rounded-lg overflow-hidden" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-        <ResultsChart data={chartData} />
+      <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+        <div className="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Ideology Map</h2>
+          <span className="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Model {result.modelVersion}</span>
+        </div>
+        <div className="p-4 md:p-8">
+          <ResultsChart data={chartData} />
+        </div>
       </div>
 
       {/* Dimension breakdown */}
-      <div className="rounded-lg px-6 py-5 space-y-5" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-        <p className="label">Dimension Breakdown</p>
-        <div className="space-y-4">
+      <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+        <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Axis Breakdown</h2>
+        </div>
+        <div className="p-8 space-y-10">
           {result.assessment.dimensions.map((dim) => {
             const score = scores[dim.key] ?? 0
-            const pct   = Math.round(((score + 1) / 2) * 100)
+            const pct = Math.round(((score + 1) / 2) * 100)
             const isNeg = score < 0
             return (
-              <div key={dim.key} className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium" style={{ color: "#9CA3AF" }}>{dim.label}</span>
-                  <span className="mono text-[10px]" style={{ color: "#374151" }}>
-                    {score > 0 ? "+" : ""}{score.toFixed(2)}
-                  </span>
+              <div key={dim.key} className="space-y-4">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-2">
+                  <span className="text-base font-bold tracking-tight text-gray-900">{dim.label}</span>
+                  <div className="flex gap-2 items-center">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500 bg-gray-100 px-3 py-1 rounded-[6px]">
+                      {dim.description || "Score"}
+                    </span>
+                    <span className="text-sm font-bold text-gray-900">
+                      {score > 0 ? "+" : ""}{score.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
-                <div className="h-1 w-full rounded-full overflow-hidden" style={{ background: "#1E293B" }}>
-                  <div className="h-full rounded-full transition-all duration-700"
-                    style={{ width: `${pct}%`, background: "#F59E0B", opacity: isNeg ? 0.45 : 1 }} />
+                <PopulationDistribution userScore={score} />
+                <div className="h-2 w-full rounded-full overflow-hidden bg-gray-100">
+                  <div className="h-full rounded-full transition-all duration-700 bg-gray-900"
+                    style={{ width: `${pct}%`, opacity: isNeg ? 0.4 : 1 }} />
                 </div>
-                <div className="flex justify-between text-[10px]" style={{ color: "#374151" }}>
+                <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-gray-400">
                   <span>{dim.minLabel}</span><span>{dim.maxLabel}</span>
                 </div>
               </div>
@@ -98,38 +132,45 @@ export default async function ResultDetailPage({ params }: Params) {
 
       {/* Highlights */}
       {summary.highlights?.length > 0 && (
-        <div className="rounded-lg px-6 py-5 space-y-4" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-          <p className="label">Key Findings</p>
-          <ol className="space-y-3">
-            {summary.highlights.map((h, i) => (
-              <li key={i} className="flex gap-3 text-sm">
-                <span className="mono shrink-0 text-[11px] font-bold" style={{ color: "#3B82F6" }}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="leading-relaxed" style={{ color: "#9CA3AF" }}>{h}</span>
-              </li>
-            ))}
-          </ol>
+        <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+          <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Key Priorities</h2>
+          </div>
+          <div className="p-8">
+            <ol className="space-y-6">
+              {summary.highlights.map((h, i) => (
+                <li key={i} className="flex gap-6 items-start">
+                  <span className="shrink-0 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="leading-relaxed font-medium text-gray-700 text-lg">{h}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       )}
 
       {/* Interpretation */}
       {summary.interpretation?.length > 0 && (
-        <div className="rounded-lg px-6 py-5 space-y-3" style={{ background: "#111827", border: "1px solid #1E293B" }}>
-          <p className="label">Full Interpretation</p>
-          <ul className="space-y-2">
+        <div className="bg-white rounded-[16px] border border-gray-200 shadow-sm overflow-hidden">
+          <div className="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-900">Synthesis</h2>
+          </div>
+          <div className="p-8 space-y-6 text-gray-700 font-medium leading-relaxed md:text-lg">
             {summary.interpretation.map((line, i) => (
-              <li key={i} className="flex gap-2 text-sm" style={{ color: "#6B7280" }}>
-                <span className="shrink-0" style={{ color: "#374151" }}>—</span>{line}
-              </li>
+              <p key={i}>{line}</p>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
-      <p className="text-center mono text-[11px]" style={{ color: "#374151" }}>
-        Model v{result.modelVersion} · {new Date(result.computedAt).toISOString()}
-      </p>
+      <div className="text-center pt-8">
+        <Link href="/results" className="text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">
+          ← Back to All Results
+        </Link>
+      </div>
+
     </div>
   )
 }
