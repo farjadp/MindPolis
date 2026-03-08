@@ -5,6 +5,13 @@
       "dependsOn": [
         "^build"
       ],
+      "env": [
+        "DATABASE_URL",
+        "NEXTAUTH_SECRET",
+        "NEXTAUTH_URL",
+        "SCORING_SERVICE_URL",
+        "SCORING_SERVICE_SECRET"
+      ],
       "outputs": [
         ".next/**",
         "dist/**"
