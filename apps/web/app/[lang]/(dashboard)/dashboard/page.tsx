@@ -32,7 +32,7 @@ export default async function DashboardPage({ params: { lang } }: { params: { la
     db.assessment.count({ where: { isActive: true } }),
   ])
 
-  const firstName = session?.user?.name?.split(" ")[0] ?? "there"
+  const firstName = session?.user?.name?.split(" ")[0]
 
   return (
     <div className="max-w-[800px] mx-auto space-y-12 pb-24">
@@ -41,7 +41,7 @@ export default async function DashboardPage({ params: { lang } }: { params: { la
       <header className="space-y-2 border-b border-gray-200 pb-8">
         <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{dict.dashboard.pageTitle}</p>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-          {dict.dashboard.welcomePrefix} <span className="text-blue-600">{firstName}</span>.
+          {dict.dashboard.welcomePrefix} {firstName ? <span className="text-blue-600">{firstName}</span> : null}
         </h1>
       </header>
 

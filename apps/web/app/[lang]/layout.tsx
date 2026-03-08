@@ -8,14 +8,12 @@
 // ============================================================================
 
 import type { Metadata } from "next"
-import { Inter, Vazirmatn } from "next/font/google"
+import { Inter } from "next/font/google"
 import { SessionProvider } from "next-auth/react"
 import "../globals.css"
 
 // Inter is used for all body text — clean, readable, research-friendly
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-// Vazirmatn is used for Persian (Farsi) text matching the premium aesthetic
-const vazirmatn = Vazirmatn({ subsets: ["arabic"], variable: "--font-vazirmatn" })
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +33,7 @@ export default function RootLayout({
   params: { lang: string }
 }) {
   const dir = lang === 'fa' ? 'rtl' : 'ltr'
-  const fontClass = lang === 'fa' ? vazirmatn.variable : inter.variable
+  const fontClass = lang === 'fa' ? 'font-iransans' : inter.variable
 
   return (
     <html lang={lang} dir={dir} suppressHydrationWarning>

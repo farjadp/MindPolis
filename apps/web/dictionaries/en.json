@@ -262,5 +262,17 @@
         "science": "The Science",
         "data": "Data Explorer",
         "tagline": "Research-grade political cognition assessment · v1.0"
+    },
+    "assessmentIntro": {
+        "backToCatalog": "← Back to Catalog",
+        "researchBadge": "Research",
+        "completedOnPart1": "You completed this on ",
+        "completedOnPart2": ".",
+        "viewPrevious": "View previous result →",
+        "instructionsTitle": "Instructions",
+        "instructionsBody": "This assessment presents real-world policy dilemmas. There are no correct answers. Respond according to your genuine judgment, not what seems expected.",
+        "estimatedTime": "Estimated Time",
+        "minutes": "minutes",
+        "questions": "Questions"
     }
 }

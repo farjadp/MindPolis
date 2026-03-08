@@ -10,8 +10,9 @@ import Link from "next/link"
 import { db } from "@/lib/db"
 import { auth } from "@/lib/auth"
 import { BeginButton } from "@/components/assessment/BeginButton"
+import { getDictionary } from "@/get-dictionary"
 
-type Params = { params: { id: string } }
+type Params = { params: { id: string, lang: string } }
 
 export async function generateMetadata({ params }: Params) {
   const a = await db.assessment.findUnique({ where: { id: params.id }, select: { title: true } })
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: Params) {
 
 export default async function AssessmentIntroPage({ params }: Params) {
   const session = await auth()
+  const dict = await getDictionary(params.lang as 'en' | 'fa')
 
   const assessment = await db.assessment.findUnique({
     where: { id: params.id, isActive: true },
@@ -43,8 +45,8 @@ export default async function AssessmentIntroPage({ params }: Params) {
   return (
     <div className="max-w-3xl mx-auto px-6 py-20 md:py-32">
 
-      <Link href="/assessment" className="inline-flex items-center text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors mb-16">
-        ← Back to Catalog
+      <Link href={`/${params.lang}/assessment`} className="inline-flex items-center text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors mb-16">
+        {dict.assessmentIntro.backToCatalog}
       </Link>
 
       <div className="space-y-10">
@@ -55,7 +57,7 @@ export default async function AssessmentIntroPage({ params }: Params) {
             </h1>
             {assessment.isResearch && (
               <span className="shrink-0 text-[10px] uppercase font-bold px-2.5 py-1 rounded-[8px] bg-gray-100 text-gray-600 tracking-wider">
-                Research
+                {dict.assessmentIntro.researchBadge}
               </span>
             )}
           </div>
@@ -67,29 +69,31 @@ export default async function AssessmentIntroPage({ params }: Params) {
         {previousResult && (
           <div className="p-5 rounded-[12px] bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <span className="text-sm font-medium text-gray-600">
-              You completed this on {new Date(previousResult.computedAt).toLocaleDateString()}.
+              {dict.assessmentIntro.completedOnPart1}
+              {new Date(previousResult.computedAt).toLocaleDateString(params.lang === 'fa' ? 'fa-IR' : "en-CA")}
+              {dict.assessmentIntro.completedOnPart2}
             </span>
-            <Link href={`/results/${previousResult.id}`} className="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
-              View previous result →
+            <Link href={`/${params.lang}/results/${previousResult.id}`} className="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+              {dict.assessmentIntro.viewPrevious}
             </Link>
           </div>
         )}
 
         <div className="py-10 border-t border-b border-gray-200 space-y-8">
           <div className="space-y-4">
-            <h2 className="text-lg font-bold text-gray-900">Instructions</h2>
+            <h2 className="text-lg font-bold text-gray-900">{dict.assessmentIntro.instructionsTitle}</h2>
             <p className="text-base text-gray-600 leading-relaxed max-w-2xl">
-              This assessment presents real-world policy dilemmas. There are no correct answers. Respond according to your genuine judgment, not what seems expected or socially acceptable.
+              {dict.assessmentIntro.instructionsBody}
             </p>
           </div>
 
           <div className="flex items-center gap-12">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Estimated Time</p>
-              <p className="text-xl font-bold text-gray-900">{assessment.estimatedMinutes}–{Math.ceil(assessment.estimatedMinutes * 1.25)} minutes</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">{dict.assessmentIntro.estimatedTime}</p>
+              <p className="text-xl font-bold text-gray-900" style={{ direction: "ltr" }}>{assessment.estimatedMinutes}–{Math.ceil(assessment.estimatedMinutes * 1.25)} {dict.assessmentIntro.minutes}</p>
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Questions</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">{dict.assessmentIntro.questions}</p>
               <p className="text-xl font-bold text-gray-900">{assessment._count.questions}</p>
             </div>
           </div>

@@ -35,7 +35,7 @@ export default async function ResultsListPage({ params: { lang } }: { params: { 
           <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{dict.resultsList.history}</p>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">{dict.resultsList.pageTitle}</h1>
           <p className="text-sm font-medium text-gray-500 pt-2">
-            {results.length} assessment{results.length !== 1 ? "s" : ""} {dict.resultsList.pageDesc}
+            {results.length} {lang === 'fa' ? 'آزمون' : `assessment${results.length !== 1 ? "s" : ""}`} {dict.resultsList.pageDesc}
           </p>
         </div>
         <Link href={`/${lang}/assessment`}

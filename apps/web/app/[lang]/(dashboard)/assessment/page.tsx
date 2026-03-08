@@ -7,7 +7,10 @@ export const metadata = { title: "Assessments · MindPolis" }
 export default async function AssessmentCatalogPage({ params: { lang } }: { params: { lang: string } }) {
   const dict = await getDictionary(lang as 'en' | 'fa')
   const assessments = await db.assessment.findMany({
-    where: { isActive: true },
+    where: {
+      isActive: true,
+      slug: lang === 'fa' ? { endsWith: '-fa' } : { not: { endsWith: '-fa' } }
+    },
     orderBy: { createdAt: "asc" },
     include: { _count: { select: { questions: { where: { isActive: true } } } } },
   })
@@ -61,7 +64,9 @@ export default async function AssessmentCatalogPage({ params: { lang } }: { para
                   </div>
                   <div className="w-px h-8 bg-gray-200 hidden md:block" />
                   <div className="flex flex-col text-left md:text-right">
-                    <span className="font-mono text-lg font-bold text-gray-900 leading-none">{a.estimatedMinutes}m</span>
+                    <span className="font-mono text-lg font-bold text-gray-900 leading-none">
+                      {lang === 'fa' ? `${a.estimatedMinutes}د` : `${a.estimatedMinutes}m`}
+                    </span>
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{dict.assessmentCatalog.estTime}</span>
                   </div>
                   <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-400 group-hover:bg-gray-900 group-hover:text-white group-hover:border-transparent transition-colors">
