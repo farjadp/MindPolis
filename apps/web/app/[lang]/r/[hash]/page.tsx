@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: { hash: string } })
     if (!result) return { title: "Result Not Found | MindPolis" }
 
     const archetype = result.archetype || "Explorer"
-    const name = result.user.name || "A user"
+    const name = result.user?.name || "A user"
 
     return {
         title: `${archetype} | Verified Cognitive Profile`,
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: { hash: string } })
         openGraph: {
             title: `${archetype} | Verified Cognitive Profile`,
             description: `Mapped by MindPolis. Dominant philosophical resonance identified.`,
-            url: `https://mindpolis.com/r/${result.shareHash}`,
+            url: `https://mindpolis.xyz/r/${result.shareHash}`,
             siteName: "MindPolis",
             type: "article",
             images: [{ url: `/api/og?hash=${result.shareHash}` }]
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: { hash: string } })
     }
 }
 
-export default async function SharedResultPage({ params }: { params: { hash: string } }) {
+export default async function SharedResultPage({ params, searchParams }: { params: { hash: string }, searchParams: { owner?: string } }) {
     const result = await db.assessmentResult.findUnique({
         where: { shareHash: params.hash },
         include: { assessment: true, user: { select: { name: true } } }
@@ -115,11 +115,25 @@ export default async function SharedResultPage({ params }: { params: { hash: str
 
                 </div>
 
+                {searchParams.owner === "true" && (
+                    <div className="mt-12 w-full max-w-2xl bg-[#111111] text-[#FDFCF8] p-8 md:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-[#222222]">
+                        <div className="text-left">
+                            <h3 className="font-serif font-bold text-2xl mb-2">Claim Your Result</h3>
+                            <p className="text-sm text-gray-400 max-w-sm">
+                                To save this profile permanently and unlock deep analytics on how your mind compares to the entire population, create an account.
+                            </p>
+                        </div>
+                        <a href="/login?callbackUrl=/dashboard" className="shrink-0 px-8 py-4 bg-[#FDFCF8] text-[#111111] font-bold uppercase tracking-widest text-xs hover:bg-gray-200 transition-colors">
+                            Sign Up Free
+                        </a>
+                    </div>
+                )}
+
                 {/* Viral Loop / Compare Call to Action */}
                 <div className="mt-16 text-center max-w-lg">
                     <h3 className="font-serif font-bold text-2xl mb-4">Compare Philosophical Topography</h3>
                     <p className="text-gray-600 mb-8">
-                        How does your moral architecture align with {result.user.name || 'this profile'}?
+                        How does your moral architecture align with {result.user?.name || 'this profile'}?
                         Take the {result.assessment.title} to overlay your cognitive matrix and discover friction points.
                     </p>
                     <a href={`/assessment/${result.assessment.slug}`} className="inline-block px-8 py-4 bg-[#111111] text-[#FDFCF8] font-bold uppercase tracking-widest text-sm hover:scale-[1.02] transition-transform">

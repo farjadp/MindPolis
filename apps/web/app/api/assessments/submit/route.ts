@@ -23,13 +23,9 @@ import { calculateResultIdentity } from "@/lib/archetypes"
 
 
 export async function POST(req: NextRequest) {
-  // ── Step 0: Authenticate ────────────────────────────────────────────────
+  // ── Step 0: Identify user (Optional) ────────────────────────────────────
   const session = await auth()
-  if (!session?.user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  }
-
-  const userId = (session.user as any).id as string
+  const currentUserId = session?.user ? ((session.user as any).id as string) : null
 
   // ── Step 1: Validate request body ───────────────────────────────────────
   const body = await req.json()
@@ -44,9 +40,9 @@ export async function POST(req: NextRequest) {
 
   const { assessmentId, submissionId, responses } = parsed.data
 
-  // ── Step 2: Verify submission belongs to this user and is in progress ────
+  // ── Step 2: Verify submission exists and is in progress ───────────────
   const submission = await db.assessmentSubmission.findFirst({
-    where: { id: submissionId, userId, assessmentId, status: "IN_PROGRESS" },
+    where: { id: submissionId, assessmentId, status: "IN_PROGRESS" },
   })
 
   if (!submission) {
@@ -54,6 +50,11 @@ export async function POST(req: NextRequest) {
       { error: "Submission not found or already completed" },
       { status: 404 }
     )
+  }
+
+  // If the submission belongs to a user, the current user must match
+  if (submission.userId && submission.userId !== currentUserId) {
+    return NextResponse.json({ error: "Unauthorized submission access" }, { status: 403 })
   }
 
   // ── Step 3: Load question metadata for scoring enrichment ────────────────
@@ -164,7 +165,7 @@ export async function POST(req: NextRequest) {
   // ── Step 9: Persist computed result ───────────────────────────────────────
   const result = await db.assessmentResult.create({
     data: {
-      userId,
+      userId: submission.userId,
       assessmentId,
       submissionId,
       scores: scoreResult.scoresFlat,

@@ -8,10 +8,14 @@
 
 import Link from "next/link"
 import { auth } from "@/lib/auth"
+import { LanguageSwitcher } from "@/components/language-switcher"
+import { SignOutButton } from "@/components/sign-out-button"
+import { getDictionary } from "@/get-dictionary"
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children, params: { lang } }: { children: React.ReactNode, params: { lang: string } }) {
   const session = await auth()
   const user = session?.user ?? null
+  const dict = await getDictionary(lang as 'en' | 'fa')
 
   return (
     <div className="min-h-screen flex bg-gray-50">
@@ -31,37 +35,42 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
         {/* Nav */}
         <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-          <p className="px-3 pb-2 pt-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">Explore</p>
-          <SideLink href="/assessment">Assessments</SideLink>
+          <p className="px-3 pb-2 pt-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">{dict.layout.explore}</p>
+          <SideLink href={`/${lang}/assessment`}>{dict.layout.assessments}</SideLink>
           {user && (
             <>
-              <p className="px-3 pb-2 pt-6 text-[10px] font-bold uppercase tracking-widest text-gray-400">Account</p>
-              <SideLink href="/dashboard">Dashboard</SideLink>
-              <SideLink href="/results">Historical Data</SideLink>
-              <SideLink href="/settings">Settings & Privacy</SideLink>
+              <p className="px-3 pb-2 pt-6 text-[10px] font-bold uppercase tracking-widest text-gray-400">{dict.layout.account}</p>
+              <SideLink href={`/${lang}/dashboard`}>{dict.layout.dashboard}</SideLink>
+              <SideLink href={`/${lang}/results`}>{dict.layout.historicalData}</SideLink>
+              <SideLink href={`/${lang}/settings`}>{dict.layout.settings}</SideLink>
             </>
           )}
         </nav>
 
         {/* User / sign-in */}
-        <div className="p-4 border-t border-gray-100">
+        <div className="p-4 border-t border-gray-100 space-y-2">
           {user ? (
-            <div className="flex items-center gap-3 px-3 py-3 rounded-[12px] bg-gray-50/50 hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-colors">
-              <div className="w-8 h-8 rounded-[8px] flex items-center justify-center text-[12px] font-bold text-blue-700 bg-blue-100 shrink-0">
-                {(user.name ?? user.email ?? "U")[0].toUpperCase()}
+            <div>
+              <div className="flex items-center gap-3 px-3 py-3 rounded-[12px] bg-gray-50/50 hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-colors">
+                <div className="w-8 h-8 rounded-[8px] flex items-center justify-center text-[12px] font-bold text-blue-700 bg-blue-100 shrink-0">
+                  {(user.name ?? user.email ?? "U")[0].toUpperCase()}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[13px] font-bold text-gray-900 truncate">{user.name ?? "Anonymous User"}</p>
+                  <p className="text-[11px] font-medium text-gray-500 truncate">{user.email ?? "Not logged in"}</p>
+                </div>
               </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-[13px] font-bold text-gray-900 truncate">{user.name ?? "Anonymous User"}</p>
-                <p className="text-[11px] font-medium text-gray-500 truncate">{user.email ?? "Not logged in"}</p>
+              <div className="px-2 mt-2">
+                <SignOutButton label={dict.layout.signOut} />
               </div>
             </div>
           ) : (
-            <Link href="/login"
+            <Link href={`/${lang}/login`}
               className="flex items-center gap-2 px-4 py-3 rounded-[12px] text-[13px] font-bold transition-colors bg-white border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-300 shadow-sm">
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
               </svg>
-              Sign in to save results
+              {dict.layout.signInToSave}
             </Link>
           )}
         </div>
@@ -75,13 +84,20 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <div className="w-7 h-7 rounded-[6px] flex items-center justify-center font-black text-[10px] text-white bg-blue-600 shadow-sm">MP</div>
             <span className="font-bold text-sm tracking-tight text-gray-900">MindPolis</span>
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/assessment" className="text-[12px] font-bold text-gray-500 transition-colors hover:text-gray-900 uppercase tracking-widest">
-              Assessments
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <Link href={`/${lang}/assessment`} className="text-[12px] font-bold text-gray-500 transition-colors hover:text-gray-900 uppercase tracking-widest">
+              {dict.layout.assessments}
             </Link>
             {user
-              ? <Link href="/dashboard" className="text-[12px] font-bold text-gray-500 transition-colors hover:text-gray-900 uppercase tracking-widest">Dashboard</Link>
-              : <Link href="/login" className="text-[12px] font-bold text-blue-600 uppercase tracking-widest">Sign in</Link>}
+              ? <Link href={`/${lang}/dashboard`} className="text-[12px] font-bold text-gray-500 transition-colors hover:text-gray-900 uppercase tracking-widest">{dict.layout.dashboard}</Link>
+              : <Link href={`/${lang}/login`} className="text-[12px] font-bold text-blue-600 uppercase tracking-widest">{dict.layout.signIn}</Link>}
+
+            {user && (
+              <div className="hidden sm:block">
+                <SignOutButton label={dict.layout.signOut} />
+              </div>
+            )}
           </div>
         </header>
 

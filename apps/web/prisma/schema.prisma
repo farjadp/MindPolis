@@ -183,7 +183,7 @@ model ScoringDimension {
 
 model AssessmentSubmission {
   id           String           @id @default(cuid())
-  userId       String
+  userId       String?
   assessmentId String
   status       SubmissionStatus @default(IN_PROGRESS)
   startedAt    DateTime         @default(now())
@@ -193,7 +193,7 @@ model AssessmentSubmission {
   ipHash       String?          // Hashed IP for fraud detection (not stored raw)
   userAgent    String?          // Browser fingerprint for research QA
 
-  user         User             @relation(fields: [userId], references: [id])
+  user         User?            @relation(fields: [userId], references: [id])
   assessment   Assessment       @relation(fields: [assessmentId], references: [id])
   responses    QuestionResponse[]
   result       AssessmentResult?
@@ -231,7 +231,7 @@ model QuestionResponse {
 
 model AssessmentResult {
   id           String   @id @default(cuid())
-  userId       String
+  userId       String?
   assessmentId String
   submissionId String   @unique
   scores       Json     // { dimensionKey: Float } — full dimension score map
@@ -244,7 +244,7 @@ model AssessmentResult {
   modelVersion String   @default("1.0.0") // Python scoring model version
   computedAt   DateTime @default(now())
 
-  user         User                 @relation(fields: [userId], references: [id])
+  user         User?                @relation(fields: [userId], references: [id])
   assessment   Assessment           @relation(fields: [assessmentId], references: [id])
   submission   AssessmentSubmission @relation(fields: [submissionId], references: [id])
 

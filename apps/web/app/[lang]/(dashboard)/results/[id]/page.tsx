@@ -66,7 +66,7 @@ export default async function ResultDetailPage({ params }: Params) {
         {/* Share Action */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-8">
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm defined as '${result.archetype}' by @MindPolis. Discover where your moral topography aligns here:`)}&url=${encodeURIComponent(`https://mindpolis.com/r/${result.shareHash}`)}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm defined as '${result.archetype}' by @MindPolis. Discover where your moral topography aligns here:`)}&url=${encodeURIComponent(`https://mindpolis.xyz/r/${result.shareHash}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-3 bg-[#111111] text-[#FDFCF8] text-sm font-bold uppercase tracking-widest rounded-sm shadow-xl hover:scale-[1.02] transition-transform"

@@ -39,9 +39,9 @@ export default function TakePage({ params }: { params: { id: string } }) {
       .catch(() => { setError("Could not load questions. Please refresh."); setLoading(false) })
   }, [params.id])
 
-  // Initialize submission loop for authenticated users
+  // Initialize submission loop for ALL users (authenticated or guest)
   useEffect(() => {
-    if (status === "authenticated" && assessment && !submissionId) {
+    if (status !== "loading" && assessment && !submissionId) {
       fetch(`/api/assessments/${assessment.id}/start`, { method: "POST" })
         .then(r => r.json())
         .then(data => {
@@ -137,27 +137,22 @@ export default function TakePage({ params }: { params: { id: string } }) {
     })
 
     try {
-      if (status === "authenticated" && submissionId) {
-        const res = await fetch("/api/assessments/submit", {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ assessmentId: assessment.id, submissionId, responses }),
-        })
-        const data = await res.json()
-        if (!res.ok) throw new Error(data.error ?? "Submission failed")
+      if (!submissionId) throw new Error("Missing submission ID. Please refresh the page.")
 
-        localStorage.removeItem(`mindpolis_save_${assessment.id}`)
-        router.push(`/results/${data.result.id}`)
+      const res = await fetch("/api/assessments/submit", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ assessmentId: assessment.id, submissionId, responses }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? "Submission failed")
+
+      localStorage.removeItem(`mindpolis_save_${assessment.id}`)
+
+      // If the user is unauthenticated, redirect them directly to the public share link (/r/[hash])
+      if (status === "unauthenticated" && data.result?.shareHash) {
+        router.push(`/r/${data.result.shareHash}?owner=true`)
       } else {
-        const res = await fetch("/api/assessments/score-preview", {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ assessmentId: assessment.id, responses }),
-        })
-        const result = await res.json()
-        if (!res.ok) throw new Error(result.error ?? "Scoring failed")
-
-        localStorage.removeItem(`mindpolis_save_${assessment.id}`)
-        sessionStorage.setItem("mindpolis_preview", JSON.stringify(result))
-        router.push("/results/preview")
+        router.push(`/results/${data.result.id}`)
       }
     } catch (err: any) {
       setError(err.message ?? "Something went wrong.")

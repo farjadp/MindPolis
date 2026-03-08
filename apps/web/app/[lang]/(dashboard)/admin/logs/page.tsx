@@ -53,7 +53,7 @@ export default async function AdminLogsPage() {
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 font-medium text-gray-900">
-                                                {log.user.email}
+                                                {log.user?.email || "Anonymous"}
                                             </td>
                                             <td className="px-6 py-4">
                                                 {log.assessment.title}

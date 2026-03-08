@@ -16,11 +16,7 @@ type Params = { params: { id: string } }
 
 export async function POST(req: NextRequest, { params }: Params) {
   const session = await auth()
-  if (!session?.user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  }
-
-  const userId = (session.user as any).id as string
+  const userId = session?.user ? ((session.user as any).id as string) : undefined
   const assessmentId = params.id
 
   // Verify assessment exists and is active
@@ -33,15 +29,17 @@ export async function POST(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Assessment not found" }, { status: 404 })
   }
 
-  // Return an existing IN_PROGRESS submission if one exists
+  // Return an existing IN_PROGRESS submission if one exists (only for authenticated users)
   // (allows resuming if user navigates away and comes back)
-  const existing = await db.assessmentSubmission.findFirst({
-    where: { userId, assessmentId, status: "IN_PROGRESS" },
-    select: { id: true },
-  })
+  if (userId) {
+    const existing = await db.assessmentSubmission.findFirst({
+      where: { userId, assessmentId, status: "IN_PROGRESS" },
+      select: { id: true },
+    })
 
-  if (existing) {
-    return NextResponse.json({ submissionId: existing.id, resumed: true })
+    if (existing) {
+      return NextResponse.json({ submissionId: existing.id, resumed: true })
+    }
   }
 
   // Extract tracking information for the Admin Panel

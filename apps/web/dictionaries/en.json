@@ -1,0 +1,266 @@
+{
+    "layout": {
+        "explore": "Explore",
+        "assessments": "Assessments",
+        "account": "Account",
+        "dashboard": "Dashboard",
+        "historicalData": "Historical Data",
+        "settings": "Settings & Privacy",
+        "signInToSave": "Sign in to save results",
+        "signOut": "Sign out",
+        "signIn": "Sign in"
+    },
+    "login": {
+        "title": "Welcome back",
+        "subtitle": "Sign in to access your saved results.",
+        "devMode": "Dev mode: Enter any email — account created automatically.",
+        "email": "Email",
+        "password": "Password",
+        "passwordPlaceholder": "anything for local dev",
+        "error": "Sign in failed. Please check your credentials.",
+        "button": "Sign in",
+        "buttonLoading": "Signing in…",
+        "noAccount": "No account?",
+        "createOne": "Create one free",
+        "continueWithout": "← Continue without account",
+        "sidebar": {
+            "title": "Sign in to access your saved assessment results.",
+            "f1": "Track results over time",
+            "f2": "Compare across assessments",
+            "f3": "Access full interpretation"
+        }
+    },
+    "dashboard": {
+        "pageTitle": "Dashboard",
+        "welcomePrefix": "Welcome back,",
+        "ctaTitle": "Take an Assessment",
+        "ctaDesc": "assessments available · Explore your political cognition",
+        "ctaButton": "Browse Assessments →",
+        "stats": {
+            "taken": "Assessments taken",
+            "available": "Available models",
+            "latest": "Latest completion",
+            "emptyDate": "—"
+        },
+        "milestones": "Milestones",
+        "badges": {
+            "initiate": "Initiate",
+            "initiateDesc": "First assessment",
+            "explorer": "Explorer",
+            "explorerDesc": "Three assessments",
+            "analyst": "Analyst",
+            "analystDesc": "Five assessments",
+            "polymath": "Polymath",
+            "polymathDesc": "Ten assessments"
+        },
+        "recentResults": "Recent Results",
+        "viewHistory": "View all history →",
+        "noResults": "No assessment results yet.",
+        "takeFirst": "Take your first assessment →",
+        "cognitiveProfile": "Cognitive Profile"
+    },
+    "assessmentCatalog": {
+        "catalog": "Catalog",
+        "title": "Assessments",
+        "subtitle": "Select an instrument below. Each assessment meticulously maps a specific dimension of your political and social cognition.",
+        "noInstruments": "No instruments currently available.",
+        "researchBadge": "Research",
+        "items": "Items",
+        "estTime": "Est. Time"
+    },
+    "settings": {
+        "pageTitle": "Settings & Privacy",
+        "pageDesc": "Manage your data, export your results, and control your anonymity.",
+        "accountIdentity": {
+            "title": "Account Identity",
+            "desc": "MindPolis is designed to be fully functional even when anonymous.",
+            "emailLabel": "Email Address",
+            "anonymousUser": "Anonymous User",
+            "verified": "Verified",
+            "emailNote": "Your email is only used for account recovery and important notifications. We do not sell or share this data."
+        },
+        "dataPortability": {
+            "title": "Data Portability",
+            "desc": "Export all your historical assessment data and results in JSON format.",
+            "button": "Export My Data"
+        },
+        "dangerZone": {
+            "title": "Danger Zone",
+            "desc": "Permanently delete your account and all associated assessment data.",
+            "button": "Delete Account",
+            "warning": "This action cannot be undone. All data will be immediately and permanently erased from our servers in accordance with strict privacy standards."
+        }
+    },
+    "resultsList": {
+        "history": "History",
+        "pageTitle": "Historical Data",
+        "pageDesc": "recorded in your profile.",
+        "newAssessment": "+ New Assessment",
+        "noRecords": "No historical records found.",
+        "initiate": "Initiate assessment →"
+    },
+    "nav": {
+        "signIn": "Sign in",
+        "beginAssessment": "Begin assessment"
+    },
+    "hero": {
+        "pill": "Research-grade · No account required · Free",
+        "title1": "Political cognition",
+        "title2": "is more complex",
+        "title3": "than left and right.",
+        "subtitle": "MindPolis measures where you stand across 8 dimensions — the real axes of modern political disagreement. Built on political psychology research, not internet quizzes.",
+        "cta": "Take a free assessment →",
+        "secondaryCta": "See the 8 dimensions",
+        "stats": {
+            "questions": "research questions",
+            "dimensions": "political dimensions",
+            "time": "minutes"
+        }
+    },
+    "problem": {
+        "label": "The problem",
+        "title1": "The Political Compass reduces politics to 2 axes.",
+        "title2": "Real political cognition has at least 8.",
+        "body": "Most political tests ask whether you agree with statements designed to confirm your existing label. MindPolis presents genuine trade-off scenarios — situations where no option is purely correct — to reveal the underlying value structures that actually drive political orientation. The result is a profile, not a position."
+    },
+    "axesSection": {
+        "label": "The framework",
+        "title": "8 dimensions",
+        "cta": "Take the assessment →",
+        "list": [
+            {
+                "id": "economic_organization",
+                "label": "Economic Organization",
+                "description": "Who should control the allocation of goods and capital? How should production, distribution, and ownership be structured in a society?",
+                "minLabel": "Market",
+                "maxLabel": "State"
+            },
+            {
+                "id": "authority_liberty",
+                "label": "Authority & Liberty",
+                "description": "How should society balance individual freedoms against collective order? Where does legitimate authority end and personal autonomy begin?",
+                "minLabel": "Civil liberty",
+                "maxLabel": "Social order"
+            },
+            {
+                "id": "tradition_change",
+                "label": "Tradition & Change",
+                "description": "How should societies relate to inherited institutions, norms, and practices? Is continuity a virtue or an obstacle to justice?",
+                "minLabel": "Continuity",
+                "maxLabel": "Transformation"
+            },
+            {
+                "id": "nationalism_globalism",
+                "label": "Nationalism & Globalism",
+                "description": "Where does legitimate political authority end — at the national border or beyond it? How should sovereignty relate to international integration?",
+                "minLabel": "Sovereignty",
+                "maxLabel": "Integration"
+            },
+            {
+                "id": "justice_model",
+                "label": "Justice Model",
+                "description": "What is the purpose of punishment and how should wrongs be addressed? Does justice require retribution, restoration, or prevention?",
+                "minLabel": "Rehabilitation",
+                "maxLabel": "Deterrence"
+            },
+            {
+                "id": "ecology_growth",
+                "label": "Ecology & Growth",
+                "description": "How should societies balance environmental limits with economic development? Is growth compatible with sustainability, or fundamentally in tension with it?",
+                "minLabel": "Growth",
+                "maxLabel": "Ecology"
+            },
+            {
+                "id": "institutional_trust",
+                "label": "Institutional Trust",
+                "description": "Which systems of governance deserve our confidence and deference? How much authority should be delegated to formal institutions?",
+                "minLabel": "Skeptical",
+                "maxLabel": "Trusting"
+            },
+            {
+                "id": "diversity_cohesion",
+                "label": "Diversity & Cohesion",
+                "description": "How should societies manage cultural difference and social unity? Is pluralism a source of strength or of fragmentation?",
+                "minLabel": "Cohesion",
+                "maxLabel": "Pluralism"
+            }
+        ]
+    },
+    "howItWorks": {
+        "label": "How it works",
+        "steps": [
+            {
+                "n": "01",
+                "title": "Scenario-based",
+                "body": "You're presented with realistic policy trade-offs and dilemmas — not loaded statements. No purely correct answer, only value-revealing choices."
+            },
+            {
+                "n": "02",
+                "title": "Cross-axis scoring",
+                "body": "Multiple dimensions are measured simultaneously. This detects inconsistency patterns and provides a highly nuanced profile."
+            },
+            {
+                "n": "03",
+                "title": "Instant profile",
+                "body": "Your results are scored immediately in the browser. Create an optional free account afterward to save and track your results over time."
+            }
+        ]
+    },
+    "whatYouGet": {
+        "label": "What you get",
+        "title": "Beyond labels and tribal lines.",
+        "body": "Instead of reducing your worldview to a single dot on a 2D compass, you receive a rigorous breakdown of the structural morals and socio-economic frameworks that inform your choices.",
+        "items": [
+            {
+                "title": "Dimensional Breakdown",
+                "body": "See precisely where you land across all 8 major axes, from economic organization to institutional trust."
+            },
+            {
+                "title": "Nuance & Contradictions",
+                "body": "Discover where your values challenge standard partisan dogmas and where you hold conflicting moral priorities."
+            },
+            {
+                "title": "Actionable Summaries",
+                "body": "Read generated executive summaries that capture the essence of your political cognition in a few paragraphs."
+            },
+            {
+                "title": "Historical Tracking",
+                "body": "View your past assessment data chronologically to analyze how your fundamental values evolve over time."
+            }
+        ]
+    },
+    "methodology": {
+        "label": "Methodology",
+        "cta": "Read more about our scientific framework →",
+        "items": [
+            {
+                "title": "Academic grounding",
+                "body": "The framework draws from Haidt's Moral Foundations Theory, Inglehart's World Values Survey dimensions, Jost's political cognition research, and Stenner's authoritarianism studies."
+            },
+            {
+                "title": "Current limitations",
+                "body": "MindPolis v0.1 is a theory-informed instrument, not yet a formally validated psychometric tool. It lacks factor analysis or test-retest reliability measurement."
+            },
+            {
+                "title": "Scoring design",
+                "body": "Each question option carries weighted scores for its primary axis (±2) and secondary axes (±1). Final axis scores are normalized to [−1, +1]."
+            },
+            {
+                "title": "What it is not",
+                "body": "MindPolis does not tell you your \"correct\" political position, predict voting behavior, or classify you into a party affiliation. It maps the underlying value structures."
+            }
+        ]
+    },
+    "bottomCta": {
+        "title1": "48 questions.",
+        "title2": "8 dimensions.",
+        "title3": "Your complete political profile.",
+        "body": "No sign-up required. Takes under 10 minutes. Create a free account afterward to save your results.",
+        "cta": "Begin assessment →"
+    },
+    "footer": {
+        "science": "The Science",
+        "data": "Data Explorer",
+        "tagline": "Research-grade political cognition assessment · v1.0"
+    }
+}

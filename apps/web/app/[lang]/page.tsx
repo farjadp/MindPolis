@@ -8,10 +8,14 @@
 import Link from "next/link"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import { getDictionary } from "@/get-dictionary"
+import { LanguageSwitcher } from "@/components/language-switcher"
 
-export default async function LandingPage() {
+export default async function LandingPage({ params: { lang } }: { params: { lang: string } }) {
   const session = await auth()
-  if (session) redirect("/dashboard")
+  if (session) redirect(`/${lang}/dashboard`)
+
+  const dict = await getDictionary(lang as 'en' | 'fa')
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -23,11 +27,12 @@ export default async function LandingPage() {
           <span className="font-semibold text-sm tracking-tight text-primary">MindPolis</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link href="/login"
-            className="text-xs transition-colors hover:text-primary text-muted-foreground font-medium">Sign in</Link>
-          <Link href="/assessment"
+          <LanguageSwitcher />
+          <Link href={`/${lang}/login`}
+            className="text-xs transition-colors hover:text-primary text-muted-foreground font-medium">{dict.nav.signIn}</Link>
+          <Link href={`/${lang}/assessment`}
             className="px-3 py-1.5 rounded text-xs font-semibold bg-primary text-primary-foreground transition-opacity hover:opacity-90">
-            Begin assessment
+            {dict.nav.beginAssessment}
           </Link>
         </div>
       </nav>
@@ -35,34 +40,36 @@ export default async function LandingPage() {
       {/* ── Hero ── */}
       <section className="px-6 md:px-8 py-24 md:py-32 w-full max-w-2xl mx-auto flex flex-col items-start overflow-visible">
         <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded text-[10px] uppercase tracking-wider font-semibold mb-8 bg-black/5 text-muted-foreground">
-          Research-grade · No account required · Free
+          {dict.hero.pill}
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-[54px] font-bold leading-[1.05] tracking-tight mb-8 text-primary">
-          Political cognition<br />
-          is more complex<br />
-          than left and right.
+          {dict.hero.title1}<br />
+          {dict.hero.title2}<br />
+          {dict.hero.title3}
         </h1>
 
         <p className="text-lg leading-relaxed mb-10 text-muted-foreground max-w-xl">
-          MindPolis measures where you stand across 8 dimensions —
-          the real axes of modern political disagreement. Built on political
-          psychology research, not internet quizzes.
+          {dict.hero.subtitle}
         </p>
 
         <div className="flex flex-wrap items-center gap-4">
-          <Link href="/assessment"
+          <Link href={`/${lang}/assessment`}
             className="px-6 py-3 rounded font-semibold text-sm bg-primary text-primary-foreground transition-all hover:opacity-90 active:scale-95 shadow-sm">
-            Take a free assessment →
+            {dict.hero.cta}
           </Link>
           <Link href="#axes"
             className="px-6 py-3 rounded font-medium text-sm border border-border text-muted-foreground transition-colors hover:text-primary hover:bg-black/5">
-            See the 8 dimensions
+            {dict.hero.secondaryCta}
           </Link>
         </div>
 
         <div className="flex items-center gap-8 mt-20 pt-10 border-t border-border w-full">
-          {[["48", "research questions"], ["8", "political dimensions"], ["<10", "minutes"]].map(([n, l]) => (
+          {[
+            ["48", dict.hero.stats.questions],
+            ["8", dict.hero.stats.dimensions],
+            ["<10", dict.hero.stats.time]
+          ].map(([n, l]) => (
             <div key={l} className="flex flex-col">
               <span className="mono text-xl font-bold text-primary">{n}</span>
               <span className="text-xs text-muted-foreground mt-1 font-medium">{l}</span>
@@ -74,16 +81,13 @@ export default async function LandingPage() {
       {/* ── The problem ── */}
       <section className="px-6 md:px-8 py-20 border-y border-border bg-secondary">
         <div className="max-w-2xl mx-auto flex flex-col">
-          <p className="label mb-6">The problem</p>
+          <p className="label mb-6">{dict.problem.label}</p>
           <h2 className="text-2xl font-bold mb-6 leading-snug text-primary">
-            The Political Compass reduces politics to 2 axes.<br className="hidden sm:block" />
-            Real political cognition has at least 8.
+            {dict.problem.title1}<br className="hidden sm:block" />
+            {dict.problem.title2}
           </h2>
           <p className="text-base leading-relaxed text-secondary-foreground">
-            Most political tests ask whether you agree with statements designed to confirm your existing label.
-            MindPolis presents genuine trade-off scenarios — situations where no option is purely correct —
-            to reveal the underlying value structures that actually drive political orientation.
-            The result is a profile, not a position.
+            {dict.problem.body}
           </p>
         </div>
       </section>
@@ -93,16 +97,16 @@ export default async function LandingPage() {
         <div className="max-w-3xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
-              <p className="label mb-3">The framework</p>
-              <h2 className="text-3xl font-bold text-primary tracking-tight">8 dimensions</h2>
+              <p className="label mb-3">{dict.axesSection.label}</p>
+              <h2 className="text-3xl font-bold text-primary tracking-tight">{dict.axesSection.title}</h2>
             </div>
-            <Link href="/assessment" className="text-sm font-medium transition-colors hover:text-black/70 text-primary underline underline-offset-4 decoration-border hover:decoration-black/40 pb-1">
-              Take the assessment →
+            <Link href={`/${lang}/assessment`} className="text-sm font-medium transition-colors hover:text-black/70 text-primary underline underline-offset-4 decoration-border hover:decoration-black/40 pb-1">
+              {dict.axesSection.cta}
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border rounded overflow-hidden shadow-sm">
-            {AXES.map((axis, i) => (
+            {dict.axesSection.list.map((axis, i) => (
               <div key={axis.id} className="p-8 space-y-4 bg-card hover:bg-black/[0.01] transition-colors">
                 <div className="flex items-center justify-between">
                   <span className="mono text-xs font-bold text-muted-foreground">
@@ -126,25 +130,9 @@ export default async function LandingPage() {
       {/* ── How it works ── */}
       <section className="px-6 md:px-8 py-20 border-t border-border">
         <div className="max-w-3xl mx-auto">
-          <p className="label mb-12">How it works</p>
+          <p className="label mb-12">{dict.howItWorks.label}</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            {[
-              {
-                n: "01",
-                title: "Scenario-based",
-                body: "You're presented with realistic policy trade-offs and dilemmas — not loaded statements. No purely correct answer, only value-revealing choices.",
-              },
-              {
-                n: "02",
-                title: "Cross-axis scoring",
-                body: "Multiple dimensions are measured simultaneously. This detects inconsistency patterns and provides a highly nuanced profile.",
-              },
-              {
-                n: "03",
-                title: "Instant profile",
-                body: "Your results are scored immediately in the browser. Create an optional free account afterward to save and track your results over time.",
-              },
-            ].map((s) => (
+            {dict.howItWorks.steps.map((s) => (
               <div key={s.n} className="space-y-4">
                 <span className="mono text-sm font-bold text-muted-foreground border-b border-border pb-2 block w-6">{s.n}</span>
                 <h3 className="font-bold text-primary">{s.title}</h3>
@@ -159,10 +147,10 @@ export default async function LandingPage() {
       <section className="px-6 md:px-8 py-24 border-t border-border bg-secondary/50">
         <div className="max-w-3xl mx-auto flex flex-col md:flex-row gap-12 md:gap-8">
           <div className="md:w-1/3">
-            <p className="label mb-4">What you get</p>
-            <h2 className="text-2xl font-bold leading-snug text-primary">Beyond labels and tribal lines.</h2>
+            <p className="label mb-4">{dict.whatYouGet.label}</p>
+            <h2 className="text-2xl font-bold leading-snug text-primary">{dict.whatYouGet.title}</h2>
             <p className="text-base mt-4 leading-relaxed text-secondary-foreground">
-              Instead of reducing your worldview to a single dot on a 2D compass, you receive a rigorous breakdown of the structural morals and socio-economic frameworks that inform your choices.
+              {dict.whatYouGet.body}
             </p>
           </div>
           <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -170,23 +158,23 @@ export default async function LandingPage() {
               <div className="h-6 w-6 rounded bg-primary/10 flex items-center justify-center mb-4">
                 <span className="block w-2.5 h-2.5 rounded-sm bg-primary" />
               </div>
-              <h4 className="font-bold text-primary">Dimensional Breakdown</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">See precisely where you land across all 8 major axes, from economic organization to institutional trust.</p>
+              <h4 className="font-bold text-primary">{dict.whatYouGet.items[0].title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{dict.whatYouGet.items[0].body}</p>
             </div>
             <div className="space-y-2">
               <div className="h-6 w-6 rounded border border-border flex items-center justify-center mb-4">
                 <div className="w-3 h-0.5 bg-primary rounded-full rotate-45" />
                 <div className="w-3 h-0.5 bg-primary rounded-full -rotate-45 absolute" />
               </div>
-              <h4 className="font-bold text-primary">Nuance & Contradictions</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Discover where your values challenge standard partisan dogmas and where you hold conflicting moral priorities.</p>
+              <h4 className="font-bold text-primary">{dict.whatYouGet.items[1].title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{dict.whatYouGet.items[1].body}</p>
             </div>
             <div className="space-y-2">
               <div className="h-6 w-6 rounded bg-black/5 flex items-center justify-center mb-4">
                 <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
-              <h4 className="font-bold text-primary">Actionable Summaries</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">Read generated executive summaries that capture the essence of your political cognition in a few paragraphs.</p>
+              <h4 className="font-bold text-primary">{dict.whatYouGet.items[2].title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{dict.whatYouGet.items[2].body}</p>
             </div>
             <div className="space-y-2">
               <div className="h-6 w-6 rounded bg-transparent border border-primary/20 flex flex-col items-center justify-center gap-[2px] mb-4">
@@ -194,8 +182,8 @@ export default async function LandingPage() {
                 <span className="block w-2.5 h-[2px] rounded-full bg-primary" />
                 <span className="block w-2.5 h-[2px] rounded-full bg-primary" />
               </div>
-              <h4 className="font-bold text-primary">Historical Tracking</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">View your past assessment data chronologically to analyze how your fundamental values evolve over time.</p>
+              <h4 className="font-bold text-primary">{dict.whatYouGet.items[3].title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{dict.whatYouGet.items[3].body}</p>
             </div>
           </div>
         </div>
@@ -205,30 +193,13 @@ export default async function LandingPage() {
       <section className="px-6 md:px-8 py-24 border-t border-border bg-secondary">
         <div className="max-w-3xl mx-auto flex flex-col">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-            <p className="label">Methodology</p>
-            <Link href="/science" className="text-sm font-medium transition-colors hover:text-black/70 text-primary underline underline-offset-4 decoration-border hover:decoration-black/40 pb-1">
-              Read more about our scientific framework →
+            <p className="label">{dict.methodology.label}</p>
+            <Link href={`/${lang}/science`} className="text-sm font-medium transition-colors hover:text-black/70 text-primary underline underline-offset-4 decoration-border hover:decoration-black/40 pb-1">
+              {dict.methodology.cta}
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            {[
-              {
-                title: "Academic grounding",
-                body: "The framework draws from Haidt's Moral Foundations Theory, Inglehart's World Values Survey dimensions, Jost's political cognition research, and Stenner's authoritarianism studies.",
-              },
-              {
-                title: "Current limitations",
-                body: "MindPolis v0.1 is a theory-informed instrument, not yet a formally validated psychometric tool. It lacks factor analysis or test-retest reliability measurement.",
-              },
-              {
-                title: "Scoring design",
-                body: "Each question option carries weighted scores for its primary axis (±2) and secondary axes (±1). Final axis scores are normalized to [−1, +1].",
-              },
-              {
-                title: "What it is not",
-                body: "MindPolis does not tell you your \"correct\" political position, predict voting behavior, or classify you into a party affiliation. It maps the underlying value structures.",
-              },
-            ].map(m => (
+            {dict.methodology.items.map(m => (
               <div key={m.title} className="space-y-3">
                 <h3 className="font-semibold text-sm text-primary">{m.title}</h3>
                 <p className="text-sm leading-relaxed text-secondary-foreground">{m.body}</p>
@@ -242,15 +213,14 @@ export default async function LandingPage() {
       <section className="px-6 md:px-8 py-32 bg-background">
         <div className="max-w-2xl mx-auto text-center flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight tracking-tight text-primary">
-            48 questions.<br />8 dimensions.<br />Your complete political profile.
+            {dict.bottomCta.title1}<br />{dict.bottomCta.title2}<br />{dict.bottomCta.title3}
           </h2>
           <p className="mb-10 text-base leading-relaxed text-muted-foreground max-w-md">
-            No sign-up required. Takes under 10 minutes.
-            Create a free account afterward to save your results.
+            {dict.bottomCta.body}
           </p>
-          <Link href="/assessment"
+          <Link href={`/${lang}/assessment`}
             className="inline-flex items-center justify-center px-8 py-4 rounded font-semibold text-sm bg-primary text-primary-foreground transition-opacity hover:opacity-90 shadow-sm w-full sm:w-auto">
-            Begin assessment →
+            {dict.bottomCta.cta}
           </Link>
         </div>
       </section>
@@ -259,10 +229,10 @@ export default async function LandingPage() {
       <footer className="px-6 md:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs bg-background border-t border-border text-muted-foreground font-medium">
         <div className="flex flex-wrap items-center gap-6">
           <span>© {new Date().getFullYear()} MindPolis</span>
-          <Link href="/science" className="hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-black/40">The Science</Link>
-          <Link href="/data" className="hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-black/40">Data Explorer</Link>
+          <Link href={`/${lang}/science`} className="hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-black/40">{dict.footer.science}</Link>
+          <Link href={`/${lang}/data`} className="hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-black/40">{dict.footer.data}</Link>
         </div>
-        <span>Research-grade political cognition assessment · v1.0</span>
+        <span>{dict.footer.tagline}</span>
       </footer>
     </div>
   )
