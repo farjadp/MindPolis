@@ -274,5 +274,59 @@
         "estimatedTime": "زمان تقریبی",
         "minutes": "دقیقه",
         "questions": "تعداد سوالات"
+    },
+    "take": {
+        "questionOf": "پرسش {current} از {total}",
+        "selectResponse": "پاسخ خود را انتخاب کنید",
+        "howConfident": "چقدر به این قضاوت اطمینان دارید؟",
+        "low": "کم",
+        "high": "زیاد",
+        "back": "← بازگشت",
+        "submit": "ثبت ارزیابی",
+        "next": "پرسش بعدی ←",
+        "likert": {
+            "1": "کاملاً مخالفم",
+            "2": "مخالفم",
+            "3": "ممتنع",
+            "4": "موافقم",
+            "5": "کاملاً موافقم"
+        },
+        "initializing": "در حال آماده‌سازی ابزار...",
+        "reload": "بارگذاری مجدد",
+        "computingTitle": "محاسبه نقشه ایدئولوژی",
+        "computingDesc": "در حال اعتبارسنجی ابعاد شناختی و اعمال وزن‌های اطمینان..."
+    },
+    "resultDetail": {
+        "cognitiveProfile": "پروفایل شناختی",
+        "analyzedProfile": "پروفایل تحلیل شده",
+        "basedOn": "بر اساس",
+        "leanTowards": "ویژگی‌های روانشناختی غالب شما متمایل است به",
+        "balancedReasoning": "استدلال متعادل",
+        "shareTwitterTextPart1": "من به عنوان '",
+        "shareTwitterTextPart2": "' در @MindPolis شناخته شدم. مرزهای فکری خود را اینجا کشف کنید:",
+        "shareTwitter": "اشتراک در توییتر",
+        "viewCertificate": "گواهی عمومی من",
+        "ideologyMap": "نقشه ایدئولوژی",
+        "model": "مدل",
+        "axisBreakdown": "تحلیل محورها",
+        "score": "امتیاز",
+        "keyPriorities": "اولویت‌های کلیدی",
+        "synthesis": "سنتز و جمع‌بندی",
+        "backToAll": "← بازگشت به همه نتایج",
+        "myResults": "نتایج من",
+        "signupToSave": "برای اینکه این نتیجه برای همیشه ذخیره شود و در آینده بتوانی نمودار تغییرات فکری‌ات را ببینی، ثبت‌نام کن.",
+        "signupFree": "ثبت‌نام رایگان"
+    },
+    "archetypes": {
+        "The Civic Rationalist": "خردگرای مدنی",
+        "The Progressive Universalist": "جهان‌گرای پیشرو",
+        "The Institutional Guardian": "محافظ نهادی",
+        "The Egalitarian Pragmatist": "عملگرای برابری‌طلب",
+        "The Sovereign Individualist": "فردگرای مستقل",
+        "The Traditional Communitarian": "جمع‌گرای سنتی",
+        "The Systemic Reformer": "اصلاح‌گر سیستمی",
+        "The Ethical Pluralist": "کثرت‌گرای اخلاقی",
+        "The Stability Anchor": "لنگرگاه ثبات",
+        "The Radical Empiricist": "تجربه‌گرای رادیکال"
     }
 }

@@ -10,6 +10,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
+import en from "@/dictionaries/en.json"
+import fa from "@/dictionaries/fa.json"
 
 interface OptionData { id: string; text: string; scores: Record<string, number> }
 interface QuestionData {
@@ -22,6 +24,7 @@ interface AssessmentData { id: string; slug: string; title: string; questions: Q
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
 export default function TakePage({ params }: { params: { id: string, lang: string } }) {
+  const dict = params.lang === "fa" ? fa : en;
   const router = useRouter()
   const { data: session, status } = useSession()
   const [assessment, setAssessment] = useState<AssessmentData | null>(null)
@@ -82,9 +85,9 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
     localStorage.setItem(`mindpolis_save_${assessment.id}`, JSON.stringify(obj))
   }, [currentIndex, answers, loading, assessment])
 
-  if (loading) return <Shell><Loader /></Shell>
-  if (error) return <Shell><Err msg={error} /></Shell>
-  if (!assessment?.questions.length) return <Shell><Err msg="No questions found." /></Shell>
+  if (loading) return <Shell><Loader dict={dict} /></Shell>
+  if (error) return <Shell><Err msg={error} dict={dict} /></Shell>
+  if (!assessment?.questions.length) return <Shell><Err msg="No questions found." dict={dict} /></Shell>
 
   const questions = assessment.questions
   const total = questions.length
@@ -174,8 +177,8 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
               <div className="w-4 h-4 rounded-full bg-blue-600 animate-bounce"></div>
             </div>
             <div className="text-center space-y-4">
-              <p className="text-3xl font-bold text-gray-900 tracking-tight">Computing Ideology Map</p>
-              <p className="text-lg text-gray-600 font-medium">Validating cognitive dimensions and applying confidence weights...</p>
+              <p className="text-3xl font-bold text-gray-900 tracking-tight">{dict.take.computingTitle}</p>
+              <p className="text-lg text-gray-600 font-medium">{dict.take.computingDesc}</p>
             </div>
           </div>
         ) : (
@@ -184,7 +187,7 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
               <span className="text-sm font-bold uppercase tracking-widest text-gray-400">{assessment.title}</span>
               <span className="text-sm font-bold tracking-widest text-blue-600 uppercase bg-blue-50 px-3 py-1.5 rounded-[8px]">
-                Question {currentIndex + 1} of {total}
+                {dict.take.questionOf.replace('{current}', String(currentIndex + 1)).replace('{total}', String(total))}
               </span>
             </div>
 
@@ -197,7 +200,7 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
 
             {/* Options */}
             <div className="space-y-4 mb-12">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 pl-2">Select your response</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 pl-2">{dict.take.selectResponse}</p>
               {options ? (
                 options.map((opt, idx) => {
                   const sel = answered?.optionId === opt.id
@@ -215,7 +218,7 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
                 })
               ) : (
                 <div className="p-6 md:p-8 bg-white border border-gray-200 rounded-[12px] shadow-sm">
-                  <LikertScale value={answered?.value} onChange={selectLikert} />
+                  <LikertScale value={answered?.value} onChange={selectLikert} dict={dict} />
                 </div>
               )}
             </div>
@@ -223,10 +226,10 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
             {/* Confidence Slider */}
             <div className={`transition-all duration-500 ${hasAnsweredOption ? 'opacity-100 translate-y-0' : 'opacity-30 pointer-events-none translate-y-4'}`}>
               <div className="p-6 md:p-8 rounded-[12px] bg-white border border-gray-200 shadow-sm">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 text-center">How confident are you in this judgment?</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 text-center">{dict.take.howConfident}</p>
                 <div className="flex justify-between items-end mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest px-2">
-                  <span>Low</span>
-                  <span>High</span>
+                  <span>{dict.take.low}</span>
+                  <span>{dict.take.high}</span>
                 </div>
                 <div className="flex gap-3">
                   {[1, 2, 3, 4, 5].map(v => (
@@ -245,14 +248,14 @@ export default function TakePage({ params }: { params: { id: string, lang: strin
                 onClick={() => setCurrentIndex(i => Math.max(0, i - 1))}
                 disabled={currentIndex === 0 || submitting}
                 className="flex items-center justify-center font-bold uppercase tracking-widest gap-2 px-6 py-4 rounded-[8px] text-xs transition-colors disabled:opacity-0 hover:bg-gray-100 text-gray-500">
-                ← Back
+                {dict.take.back}
               </button>
 
               <button
                 onClick={handleNext}
                 disabled={!canProceed || submitting}
                 className={`flex items-center justify-center font-bold uppercase tracking-widest gap-3 px-10 py-4 rounded-[8px] text-sm transition-all duration-300 disabled:cursor-not-allowed ${canProceed && !submitting ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-600/25 hover:-translate-y-0.5' : 'bg-gray-100 text-gray-400'}`}>
-                {isLastQ ? "Submit Assessment" : "Next Question →"}
+                {isLastQ ? dict.take.submit : dict.take.next}
               </button>
             </div>
 
@@ -276,12 +279,15 @@ function Shell({ children }: { children: React.ReactNode }) {
   )
 }
 
-function LikertScale({ value, onChange }: { value?: number; onChange: (v: number) => void }) {
-  const labels = ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+function LikertScale({ value, onChange, dict }: { value?: number; onChange: (v: number) => void; dict?: any }) {
+  const likertText = dict?.take?.likert || {
+    "1": "Strongly disagree", "2": "Disagree", "3": "Neutral", "4": "Agree", "5": "Strongly agree"
+  }
+  const labels = [likertText["1"], likertText["2"], likertText["3"], likertText["4"], likertText["5"]]
   return (
     <div className="space-y-6">
       <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-gray-400 px-2">
-        <span>Strongly disagree</span><span>Strongly agree</span>
+        <span>{likertText["1"]}</span><span>{likertText["5"]}</span>
       </div>
       <div className="flex gap-3">
         {[1, 2, 3, 4, 5].map(v => (
@@ -296,22 +302,22 @@ function LikertScale({ value, onChange }: { value?: number; onChange: (v: number
   )
 }
 
-function Loader() {
+function Loader({ dict }: { dict?: any }) {
   return (
     <div className="text-center flex flex-col items-center py-40">
       <div className="w-8 h-8 rounded-full border-4 border-gray-200 border-t-blue-600 animate-spin mb-8" />
-      <p className="text-sm font-bold uppercase tracking-widest text-gray-500">Initializing Instrument…</p>
+      <p className="text-sm font-bold uppercase tracking-widest text-gray-500">{dict?.take?.initializing || "Initializing Instrument…"}</p>
     </div>
   )
 }
 
-function Err({ msg }: { msg: string }) {
+function Err({ msg, dict }: { msg: string, dict?: any }) {
   return (
     <div className="max-w-[500px] w-full mx-auto text-center space-y-6 px-10 py-16 rounded-[16px] border border-red-200 bg-red-50 mt-32">
       <p className="text-red-700 font-bold text-lg">{msg}</p>
       <button onClick={() => window.location.reload()}
         className="px-8 py-3 rounded-[8px] text-sm font-bold border border-red-300 bg-white text-red-700 hover:bg-red-50 transition-colors shadow-sm">
-        Reload Session
+        {dict?.take?.reload || "Reload Session"}
       </button>
     </div>
   )

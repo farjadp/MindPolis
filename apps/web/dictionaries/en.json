@@ -274,5 +274,59 @@
         "estimatedTime": "Estimated Time",
         "minutes": "minutes",
         "questions": "Questions"
+    },
+    "take": {
+        "questionOf": "QUESTION {current} OF {total}",
+        "selectResponse": "SELECT YOUR RESPONSE",
+        "howConfident": "HOW CONFIDENT ARE YOU IN THIS JUDGMENT?",
+        "low": "LOW",
+        "high": "HIGH",
+        "back": "← BACK",
+        "submit": "SUBMIT ASSESSMENT",
+        "next": "NEXT QUESTION →",
+        "likert": {
+            "1": "STRONGLY DISAGREE",
+            "2": "DISAGREE",
+            "3": "Neutral",
+            "4": "AGREE",
+            "5": "STRONGLY AGREE"
+        },
+        "initializing": "Initializing Instrument…",
+        "reload": "Reload Session",
+        "computingTitle": "Computing Ideology Map",
+        "computingDesc": "Validating cognitive dimensions and applying confidence weights..."
+    },
+    "resultDetail": {
+        "cognitiveProfile": "COGNITIVE PROFILE",
+        "analyzedProfile": "Analyzed Profile",
+        "basedOn": "Based on the",
+        "leanTowards": "Your dominant psychological traits lean towards",
+        "balancedReasoning": "balanced reasoning",
+        "shareTwitterTextPart1": "I identified as '",
+        "shareTwitterTextPart2": "' on @MindPolis. Discover your cognitive boundaries here:",
+        "shareTwitter": "Share on X",
+        "viewCertificate": "My Cognitive Profile",
+        "ideologyMap": "IDEOLOGY MAP",
+        "model": "MODEL",
+        "axisBreakdown": "Axis Breakdown",
+        "score": "Score",
+        "keyPriorities": "Key Priorities",
+        "synthesis": "Synthesis",
+        "backToAll": "← Back to All Results",
+        "myResults": "My Results",
+        "signupToSave": "Sign in or create a free account to permanently save this result and track your ideological evolution over time.",
+        "signupFree": "Create Account"
+    },
+    "archetypes": {
+        "The Civic Rationalist": "The Civic Rationalist",
+        "The Progressive Universalist": "The Progressive Universalist",
+        "The Institutional Guardian": "The Institutional Guardian",
+        "The Egalitarian Pragmatist": "The Egalitarian Pragmatist",
+        "The Sovereign Individualist": "The Sovereign Individualist",
+        "The Traditional Communitarian": "The Traditional Communitarian",
+        "The Systemic Reformer": "The Systemic Reformer",
+        "The Ethical Pluralist": "The Ethical Pluralist",
+        "The Stability Anchor": "The Stability Anchor",
+        "The Radical Empiricist": "The Radical Empiricist"
     }
 }
