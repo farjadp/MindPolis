@@ -21,7 +21,7 @@ interface AssessmentData { id: string; slug: string; title: string; questions: Q
 
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
-export default function TakePage({ params }: { params: { id: string } }) {
+export default function TakePage({ params }: { params: { id: string, lang: string } }) {
   const router = useRouter()
   const { data: session, status } = useSession()
   const [assessment, setAssessment] = useState<AssessmentData | null>(null)
@@ -148,12 +148,8 @@ export default function TakePage({ params }: { params: { id: string } }) {
 
       localStorage.removeItem(`mindpolis_save_${assessment.id}`)
 
-      // If the user is unauthenticated, redirect them directly to the public share link (/r/[hash])
-      if (status === "unauthenticated" && data.result?.shareHash) {
-        router.push(`/r/${data.result.shareHash}?owner=true`)
-      } else {
-        router.push(`/results/${data.result.id}`)
-      }
+      // Redirect ALL users to their detailed result breakdown
+      router.push(`/${params.lang}/results/${data.result.id}`)
     } catch (err: any) {
       setError(err.message ?? "Something went wrong.")
       setSubmitting(false)

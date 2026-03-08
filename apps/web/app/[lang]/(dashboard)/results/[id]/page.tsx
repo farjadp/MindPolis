@@ -12,17 +12,15 @@ import { db } from "@/lib/db"
 import { ResultsChart } from "@/components/results/ResultsChart"
 import { PopulationDistribution } from "@/components/results/PopulationDistribution"
 
-type Params = { params: { id: string } }
+type Params = { params: { id: string, lang: string } }
 export const metadata = { title: "Result · MindPolis" }
 
 export default async function ResultDetailPage({ params }: Params) {
   const session = await auth()
-  if (!session?.user) redirect("/login")
+  const userId = session?.user ? (session.user as any).id as string : null
 
-  const userId = (session.user as any).id as string
-
-  const result = await db.assessmentResult.findFirst({
-    where: { id: params.id, userId },
+  const result = await db.assessmentResult.findUnique({
+    where: { id: params.id },
     include: {
       assessment: {
         select: {
@@ -35,6 +33,11 @@ export default async function ResultDetailPage({ params }: Params) {
 
   if (!result) notFound()
 
+  // Security check: Deny access if result belongs to another user
+  if (result.userId && result.userId !== userId) {
+    redirect(`/${params.lang}/login`)
+  }
+
   const scores = result.scores as Record<string, number>
   const summary = result.summary as { label: string; interpretation: string[]; highlights: string[] }
   const chartData = result.assessment.dimensions.map(d => ({
@@ -44,9 +47,24 @@ export default async function ResultDetailPage({ params }: Params) {
   return (
     <div className="max-w-[800px] mx-auto px-6 py-12 md:py-20 space-y-16">
 
+      {!userId && (
+        <div className="bg-blue-50 border border-blue-200 text-blue-900 px-6 py-4 rounded-[12px] shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-medium text-sm leading-relaxed">
+            {params.lang === 'fa'
+              ? 'برای اینکه این نتیجه برای همیشه ذخیره شود و در آینده بتوانی نمودار تغییرات فکری‌ات را ببینی، ثبت‌نام کن.'
+              : 'Sign up for a free account to save this result permanently and track your cognitive changes over time.'}
+          </p>
+          <Link href={`/${params.lang}/login`} className="shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-[8px] text-sm transition-colors shadow-sm">
+            {params.lang === 'fa' ? 'ثبت نام رایگان' : 'Sign Up Free'}
+          </Link>
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <nav className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-gray-400 pb-6 border-b border-gray-100">
-        <Link href="/results" className="hover:text-gray-900 transition-colors">My Results</Link>
+        <Link href={`/${params.lang}/results`} className="hover:text-gray-900 transition-colors">
+          {params.lang === 'fa' ? 'نتایج من' : 'My Results'}
+        </Link>
         <span>/</span>
         <span className="text-gray-900">{result.assessment.title}</span>
       </nav>
@@ -66,18 +84,18 @@ export default async function ResultDetailPage({ params }: Params) {
         {/* Share Action */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-8">
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm defined as '${result.archetype}' by @MindPolis. Discover where your moral topography aligns here:`)}&url=${encodeURIComponent(`https://mindpolis.xyz/r/${result.shareHash}`)}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(params.lang === 'fa' ? `من به عنوان '${result.archetype}' در @MindPolis شناخته شدم. مرزهای فکری خود را اینجا کشف کنید:` : `I'm defined as '${result.archetype}' by @MindPolis. Discover where your moral topography aligns here:`)}&url=${encodeURIComponent(`https://mindpolis.xyz/${params.lang}/r/${result.shareHash}`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-[#111111] text-[#FDFCF8] text-sm font-bold uppercase tracking-widest rounded-sm shadow-xl hover:scale-[1.02] transition-transform"
+            className="px-8 py-3 bg-[#111111] text-[#FDFCF8] text-sm font-bold uppercase tracking-widest rounded-[8px] shadow-lg hover:scale-[1.02] transition-transform"
           >
-            Share Identity on X
+            {params.lang === 'fa' ? 'اشتراک در توییتر' : 'Share Identity on X'}
           </a>
           <Link
-            href={`/r/${result.shareHash}`}
-            className="px-8 py-3 bg-white border border-[#E8E6E0] text-[#111111] text-sm font-bold uppercase tracking-widest rounded-sm hover:bg-gray-50 transition-colors"
+            href={`/${params.lang}/r/${result.shareHash}?owner=true`}
+            className="px-8 py-3 bg-white border border-[#E8E6E0] text-[#111111] text-sm font-bold uppercase tracking-widest rounded-[8px] hover:bg-gray-50 transition-colors"
           >
-            View Certificate
+            {params.lang === 'fa' ? 'گواهی عمومی من' : 'View Certificate'}
           </Link>
         </div>
       </div>
@@ -166,8 +184,8 @@ export default async function ResultDetailPage({ params }: Params) {
       )}
 
       <div className="text-center pt-8">
-        <Link href="/results" className="text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">
-          ← Back to All Results
+        <Link href={`/${params.lang}/results`} className="text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">
+          {params.lang === 'fa' ? '← بازگشت به همه نتایج' : '← Back to All Results'}
         </Link>
       </div>
 
