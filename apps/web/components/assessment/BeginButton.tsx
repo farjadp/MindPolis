@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: components/assessment/BeginButton.tsx
-// Version: 3.0.0 — 2026-03-07
-// Why: Client CTA — navigates to take page. Amber style.
+// Version: 4.0.0 — 2026-03-07
+// Why: Client CTA — navigates to take page. Blue analytical style.
 // Env / Identity: React Client Component
 // ============================================================================
 
@@ -18,10 +18,10 @@ export function BeginButton({ assessmentId }: { assessmentId: string }) {
     <button
       onClick={() => { setLoading(true); router.push(`/assessment/${assessmentId}/take`) }}
       disabled={loading}
-      className="inline-flex items-center gap-2 px-6 py-2.5 rounded text-sm font-semibold text-black transition-opacity hover:opacity-85 disabled:opacity-60"
-      style={{ background: "#f59e0b" }}>
+      className="inline-flex items-center gap-2 px-6 py-2.5 rounded text-sm font-semibold text-white transition-opacity hover:opacity-85 disabled:opacity-60"
+      style={{ background: "#3B82F6" }}>
       {loading
-        ? <><span className="w-3.5 h-3.5 rounded-full border-2 border-black/20 border-t-black animate-spin" />Loading…</>
+        ? <><span className="w-3.5 h-3.5 rounded-full border-2 border-white/20 border-t-white animate-spin" />Loading…</>
         : <>Begin Assessment <span className="opacity-70">→</span></>}
     </button>
   )

@@ -1,7 +1,8 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/layout.tsx
-// Version: 5.0.0 — 2026-03-07
-// Why: Editorial dark layout. Clean sidebar, amber accent, no gradients.
+// Version: 6.0.0 — 2026-03-07
+// Why: Analytical intelligence layout. Navy base, blue accent, structured grid.
+//      Think Linear / Stripe — calm, credible, professional.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
@@ -13,29 +14,30 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const user    = session?.user ?? null
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#111111" }}>
+    <div className="min-h-screen flex" style={{ background: "#0F172A" }}>
 
       {/* ── Sidebar ── */}
-      <aside className="w-52 shrink-0 hidden md:flex flex-col" style={{ borderRight: "1px solid #1e1e1e" }}>
+      <aside className="w-56 shrink-0 hidden md:flex flex-col"
+        style={{ background: "#0B1120", borderRight: "1px solid #1E293B" }}>
 
         {/* Logo */}
-        <div className="px-5 pt-7 pb-5" style={{ borderBottom: "1px solid #1e1e1e" }}>
+        <div className="px-5 pt-6 pb-5" style={{ borderBottom: "1px solid #1E293B" }}>
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-md flex items-center justify-center text-black font-black text-[11px]"
-              style={{ background: "#f59e0b" }}>
+            <div className="w-7 h-7 rounded flex items-center justify-center font-black text-[11px] text-white"
+              style={{ background: "#3B82F6" }}>
               MP
             </div>
-            <span className="font-semibold text-sm text-white/80 tracking-tight">MindPolis</span>
+            <span className="font-semibold text-sm tracking-tight" style={{ color: "#E5E7EB" }}>MindPolis</span>
           </Link>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-3 space-y-px">
-          <p className="label px-2 pb-2 pt-1">Explore</p>
+        <nav className="flex-1 p-3 space-y-0.5">
+          <p className="label px-3 pb-2 pt-3">Explore</p>
           <SideLink href="/assessment">Assessments</SideLink>
           {user && (
             <>
-              <p className="label px-2 pb-2 pt-4">Account</p>
+              <p className="label px-3 pb-2 pt-4">Account</p>
               <SideLink href="/dashboard">Dashboard</SideLink>
               <SideLink href="/results">My Results</SideLink>
             </>
@@ -43,20 +45,22 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </nav>
 
         {/* User / sign-in */}
-        <div className="p-3" style={{ borderTop: "1px solid #1e1e1e" }}>
+        <div className="p-3" style={{ borderTop: "1px solid #1E293B" }}>
           {user ? (
-            <div className="flex items-center gap-2.5 px-2 py-1.5">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-black shrink-0"
-                style={{ background: "#f59e0b" }}>
+            <div className="flex items-center gap-2.5 px-3 py-2 rounded"
+              style={{ background: "#111827" }}>
+              <div className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white shrink-0"
+                style={{ background: "#3B82F6" }}>
                 {(user.name ?? user.email ?? "U")[0].toUpperCase()}
               </div>
               <div className="min-w-0">
-                <p className="text-xs text-white/60 truncate">{user.name ?? user.email}</p>
+                <p className="text-xs truncate" style={{ color: "#9CA3AF" }}>{user.name ?? user.email}</p>
               </div>
             </div>
           ) : (
             <Link href="/login"
-              className="flex items-center gap-2 px-2 py-2 rounded text-xs text-white/35 hover:text-white/70 hover:bg-white/[0.04] transition-colors">
+              className="flex items-center gap-2 px-3 py-2 rounded text-xs transition-colors hover:bg-white/[0.04]"
+              style={{ color: "#6B7280" }}>
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
               </svg>
@@ -68,21 +72,24 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
       {/* ── Main ── */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile bar */}
+        {/* Mobile header */}
         <header className="md:hidden flex items-center justify-between px-4 py-3"
-          style={{ borderBottom: "1px solid #1e1e1e" }}>
+          style={{ background: "#0B1120", borderBottom: "1px solid #1E293B" }}>
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded flex items-center justify-center text-black font-black text-[9px]"
-              style={{ background: "#f59e0b" }}>MP</div>
-            <span className="font-semibold text-sm text-white/80">MindPolis</span>
+            <div className="w-6 h-6 rounded flex items-center justify-center font-black text-[9px] text-white"
+              style={{ background: "#3B82F6" }}>MP</div>
+            <span className="font-semibold text-sm" style={{ color: "#E5E7EB" }}>MindPolis</span>
           </Link>
           <div className="flex gap-3">
-            <Link href="/assessment" className="text-xs text-white/40 hover:text-white/70">Assessments</Link>
+            <Link href="/assessment" className="text-xs transition-colors hover:text-white/70" style={{ color: "#6B7280" }}>
+              Assessments
+            </Link>
             {user
-              ? <Link href="/dashboard" className="text-xs text-white/40 hover:text-white/70">Dashboard</Link>
-              : <Link href="/login" className="text-xs font-medium" style={{ color: "#f59e0b" }}>Sign in</Link>}
+              ? <Link href="/dashboard" className="text-xs transition-colors hover:text-white/70" style={{ color: "#6B7280" }}>Dashboard</Link>
+              : <Link href="/login" className="text-xs font-semibold" style={{ color: "#3B82F6" }}>Sign in</Link>}
           </div>
         </header>
+
         <main className="flex-1 p-6 md:p-10">{children}</main>
       </div>
     </div>
@@ -92,7 +99,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
 function SideLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a href={href}
-      className="flex items-center gap-2 px-2 py-2 rounded text-sm text-white/40 hover:text-white/85 hover:bg-white/[0.04] transition-colors duration-100">
+      className="flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors duration-100 hover:bg-white/[0.05]"
+      style={{ color: "#9CA3AF" }}>
       {children}
     </a>
   )

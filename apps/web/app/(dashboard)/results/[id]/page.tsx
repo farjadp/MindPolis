@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/results/[id]/page.tsx
-// Version: 4.0.0 — 2026-03-07
-// Why: Result detail — editorial dark, amber bars, clean data display.
+// Version: 5.0.0 — 2026-03-07
+// Why: Result detail — analytical dark, amber bars for data, blue accent for UI.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
@@ -42,50 +42,52 @@ export default async function ResultDetailPage({ params }: Params) {
     <div className="max-w-2xl mx-auto space-y-5">
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs text-white/25">
-        <Link href="/results" className="hover:text-white/55 transition-colors">My Results</Link>
+      <nav className="flex items-center gap-1.5 text-xs" style={{ color: "#374151" }}>
+        <Link href="/results" className="transition-colors hover:text-white/50">My Results</Link>
         <span>/</span>
-        <span className="text-white/40">{result.assessment.title}</span>
+        <span style={{ color: "#6B7280" }}>{result.assessment.title}</span>
       </nav>
 
       {/* Header */}
-      <div className="px-6 py-5 rounded-lg" style={{ background: "#171717", border: "1px solid #252525" }}>
+      <div className="px-6 py-5 rounded-lg" style={{ background: "#111827", border: "1px solid #1E293B" }}>
         <p className="label mb-2">
           {result.assessment.title} · {new Date(result.computedAt).toLocaleDateString()}
         </p>
-        <h1 className="text-2xl font-bold text-white/85 mb-2">{summary.label}</h1>
+        <h1 className="text-2xl font-bold mb-2" style={{ color: "#E5E7EB" }}>{summary.label}</h1>
         {result.clusterLabel && (
-          <span className="mono text-[11px] font-bold px-2.5 py-1 rounded"
-            style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.2)" }}>
+          <span className="mono text-[11px] font-bold px-2.5 py-1 rounded inline-block"
+            style={{ background: "rgba(245,158,11,0.08)", color: "#F59E0B", border: "1px solid rgba(245,158,11,0.18)" }}>
             {result.clusterLabel}
           </span>
         )}
       </div>
 
       {/* Chart */}
-      <div className="rounded-lg overflow-hidden" style={{ background: "#171717", border: "1px solid #252525" }}>
+      <div className="rounded-lg overflow-hidden" style={{ background: "#111827", border: "1px solid #1E293B" }}>
         <ResultsChart data={chartData} />
       </div>
 
       {/* Dimension breakdown */}
-      <div className="rounded-lg px-6 py-5 space-y-5" style={{ background: "#171717", border: "1px solid #252525" }}>
+      <div className="rounded-lg px-6 py-5 space-y-5" style={{ background: "#111827", border: "1px solid #1E293B" }}>
         <p className="label">Dimension Breakdown</p>
         <div className="space-y-4">
-          {result.assessment.dimensions.map((dim, i) => {
+          {result.assessment.dimensions.map((dim) => {
             const score = scores[dim.key] ?? 0
             const pct   = Math.round(((score + 1) / 2) * 100)
             const isNeg = score < 0
             return (
               <div key={dim.key} className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-white/65">{dim.label}</span>
-                  <span className="mono text-xs text-white/25">{score > 0 ? "+" : ""}{score.toFixed(2)}</span>
+                  <span className="text-sm font-medium" style={{ color: "#9CA3AF" }}>{dim.label}</span>
+                  <span className="mono text-[10px]" style={{ color: "#374151" }}>
+                    {score > 0 ? "+" : ""}{score.toFixed(2)}
+                  </span>
                 </div>
-                <div className="h-1 w-full rounded-full overflow-hidden" style={{ background: "#1e1e1e" }}>
+                <div className="h-1 w-full rounded-full overflow-hidden" style={{ background: "#1E293B" }}>
                   <div className="h-full rounded-full transition-all duration-700"
-                    style={{ width: `${pct}%`, background: "#f59e0b", opacity: isNeg ? 0.45 : 1 }} />
+                    style={{ width: `${pct}%`, background: "#F59E0B", opacity: isNeg ? 0.45 : 1 }} />
                 </div>
-                <div className="flex justify-between text-[10px] text-white/20">
+                <div className="flex justify-between text-[10px]" style={{ color: "#374151" }}>
                   <span>{dim.minLabel}</span><span>{dim.maxLabel}</span>
                 </div>
               </div>
@@ -96,15 +98,15 @@ export default async function ResultDetailPage({ params }: Params) {
 
       {/* Highlights */}
       {summary.highlights?.length > 0 && (
-        <div className="rounded-lg px-6 py-5 space-y-4" style={{ background: "#171717", border: "1px solid #252525" }}>
+        <div className="rounded-lg px-6 py-5 space-y-4" style={{ background: "#111827", border: "1px solid #1E293B" }}>
           <p className="label">Key Findings</p>
           <ol className="space-y-3">
             {summary.highlights.map((h, i) => (
               <li key={i} className="flex gap-3 text-sm">
-                <span className="mono shrink-0 text-[11px] font-bold" style={{ color: "#f59e0b" }}>
+                <span className="mono shrink-0 text-[11px] font-bold" style={{ color: "#3B82F6" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="text-white/50 leading-relaxed">{h}</span>
+                <span className="leading-relaxed" style={{ color: "#9CA3AF" }}>{h}</span>
               </li>
             ))}
           </ol>
@@ -113,19 +115,19 @@ export default async function ResultDetailPage({ params }: Params) {
 
       {/* Interpretation */}
       {summary.interpretation?.length > 0 && (
-        <div className="rounded-lg px-6 py-5 space-y-3" style={{ background: "#171717", border: "1px solid #252525" }}>
+        <div className="rounded-lg px-6 py-5 space-y-3" style={{ background: "#111827", border: "1px solid #1E293B" }}>
           <p className="label">Full Interpretation</p>
           <ul className="space-y-2">
             {summary.interpretation.map((line, i) => (
-              <li key={i} className="flex gap-2 text-sm text-white/35">
-                <span className="text-white/15 shrink-0">—</span>{line}
+              <li key={i} className="flex gap-2 text-sm" style={{ color: "#6B7280" }}>
+                <span className="shrink-0" style={{ color: "#374151" }}>—</span>{line}
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      <p className="text-center mono text-[11px] text-white/15">
+      <p className="text-center mono text-[11px]" style={{ color: "#374151" }}>
         Model v{result.modelVersion} · {new Date(result.computedAt).toISOString()}
       </p>
     </div>

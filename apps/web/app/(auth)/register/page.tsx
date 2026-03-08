@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(auth)/register/page.tsx
-// Version: 4.0.0 — 2026-03-07
-// Why: Registration — editorial dark, amber CTA, split layout.
+// Version: 5.0.0 — 2026-03-07
+// Why: Registration — analytical dark, blue CTA, structured split layout.
 // Env / Identity: React Client Component
 // ============================================================================
 
@@ -24,7 +24,6 @@ export default function RegisterPage() {
     e.preventDefault()
     if (!email) return
     setLoading(true); setError("")
-    // Use credentials sign-in directly — dev mode auto-creates account
     const result = await signIn("credentials", { email, password, redirect: false })
     setLoading(false)
     if (result?.error) setError("Could not create account. Please try again.")
@@ -32,30 +31,30 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#111" }}>
+    <div className="min-h-screen flex" style={{ background: "#0F172A" }}>
 
       {/* Left panel */}
       <div className="hidden lg:flex w-80 xl:w-96 shrink-0 flex-col justify-between p-10"
-        style={{ background: "#0d0d0d", borderRight: "1px solid #1e1e1e" }}>
+        style={{ background: "#080D18", borderRight: "1px solid #1E293B" }}>
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-md flex items-center justify-center text-black font-black text-[10px]"
-            style={{ background: "#f59e0b" }}>MP</div>
-          <span className="text-white/70 font-semibold text-sm">MindPolis</span>
+          <div className="w-7 h-7 rounded flex items-center justify-center font-black text-[10px] text-white"
+            style={{ background: "#3B82F6" }}>MP</div>
+          <span className="font-semibold text-sm" style={{ color: "#E5E7EB" }}>MindPolis</span>
         </div>
         <div className="space-y-4">
-          <p className="text-white/70 text-lg font-semibold leading-snug">
+          <p className="text-lg font-semibold leading-snug" style={{ color: "#E5E7EB" }}>
             Track your political cognition over time.
           </p>
           <div className="space-y-2.5">
             {["Save all assessment results", "View full interpretations", "Compare across time"].map(f => (
-              <div key={f} className="flex items-center gap-2 text-sm text-white/30">
-                <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "#f59e0b" }} />
+              <div key={f} className="flex items-center gap-2 text-sm" style={{ color: "#6B7280" }}>
+                <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "#3B82F6" }} />
                 {f}
               </div>
             ))}
           </div>
         </div>
-        <p className="text-xs text-white/15">© {new Date().getFullYear()} MindPolis</p>
+        <p className="text-xs" style={{ color: "#374151" }}>© {new Date().getFullYear()} MindPolis</p>
       </div>
 
       {/* Form */}
@@ -63,13 +62,13 @@ export default function RegisterPage() {
         <div className="w-full max-w-sm space-y-6">
 
           <div>
-            <h1 className="text-xl font-bold text-white/85">Create account</h1>
-            <p className="text-white/30 text-sm mt-1">Free. No spam. Research purposes only.</p>
+            <h1 className="text-xl font-bold" style={{ color: "#E5E7EB" }}>Create account</h1>
+            <p className="text-sm mt-1" style={{ color: "#6B7280" }}>Free. No spam. Research purposes only.</p>
           </div>
 
-          <div className="px-4 py-3 rounded text-xs text-amber-400/70"
-            style={{ background: "rgba(251,191,36,0.06)", border: "1px solid rgba(251,191,36,0.12)" }}>
-            <strong className="text-amber-400/90">Dev mode:</strong> Enter any email — account created automatically.
+          <div className="px-4 py-3 rounded text-xs"
+            style={{ background: "rgba(59,130,246,0.07)", border: "1px solid rgba(59,130,246,0.15)", color: "#93C5FD" }}>
+            <strong style={{ color: "#60A5FA" }}>Dev mode:</strong> Enter any email — account created automatically.
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-3.5">
@@ -85,19 +84,19 @@ export default function RegisterPage() {
             )}
 
             <button type="submit" disabled={loading}
-              className="w-full py-2.5 rounded text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-60"
-              style={{ background: "#f59e0b" }}>
+              className="w-full py-2.5 rounded text-sm font-semibold text-white transition-opacity hover:opacity-85 disabled:opacity-50"
+              style={{ background: "#3B82F6" }}>
               {loading ? "Creating account…" : "Create account"}
             </button>
           </form>
 
           <div className="space-y-2 text-center">
-            <p className="text-sm text-white/25">
+            <p className="text-sm" style={{ color: "#6B7280" }}>
               Already have an account?{" "}
-              <Link href="/login" className="font-medium" style={{ color: "#f59e0b" }}>Sign in</Link>
+              <Link href="/login" className="font-medium" style={{ color: "#3B82F6" }}>Sign in</Link>
             </p>
-            <p className="text-xs text-white/15">
-              <Link href="/assessment" className="hover:text-white/35 transition-colors">← Continue without account</Link>
+            <p className="text-xs" style={{ color: "#374151" }}>
+              <Link href="/assessment" className="transition-colors hover:text-white/40">← Continue without account</Link>
             </p>
           </div>
         </div>
@@ -116,10 +115,10 @@ function Field({ label, id, type, value, onChange, placeholder, required }: {
       <input id={id} type={type} value={value} required={required}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded px-3.5 py-2.5 text-sm text-white/75 placeholder-white/20 outline-none transition-all"
-        style={{ background: "#161616", border: "1px solid #2a2a2a" }}
-        onFocus={e => { e.currentTarget.style.border = "1px solid rgba(245,158,11,0.4)"; e.currentTarget.style.background = "#1a1a1a" }}
-        onBlur={e  => { e.currentTarget.style.border = "1px solid #2a2a2a"; e.currentTarget.style.background = "#161616" }}
+        className="w-full rounded px-3.5 py-2.5 text-sm outline-none transition-all"
+        style={{ background: "#111827", border: "1px solid #334155", color: "#E5E7EB" }}
+        onFocus={e => { e.currentTarget.style.border = "1px solid rgba(59,130,246,0.5)"; e.currentTarget.style.background = "#1E293B" }}
+        onBlur={e  => { e.currentTarget.style.border = "1px solid #334155";              e.currentTarget.style.background = "#111827" }}
       />
     </div>
   )

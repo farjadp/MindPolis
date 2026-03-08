@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/assessment/[id]/page.tsx
-// Version: 4.0.0 — 2026-03-07
-// Why: Assessment intro — editorial, flat, amber accent. No gradients.
+// Version: 5.0.0 — 2026-03-07
+// Why: Assessment intro — analytical dark, blue accent, structured layout.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
@@ -44,29 +44,31 @@ export default async function AssessmentIntroPage({ params }: Params) {
     <div className="max-w-2xl mx-auto space-y-7">
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs text-white/25">
-        <Link href="/assessment" className="hover:text-white/55 transition-colors">Assessments</Link>
+      <nav className="flex items-center gap-1.5 text-xs" style={{ color: "#374151" }}>
+        <Link href="/assessment" className="transition-colors hover:text-white/50">Assessments</Link>
         <span>/</span>
-        <span className="text-white/45">{assessment.title}</span>
+        <span style={{ color: "#6B7280" }}>{assessment.title}</span>
       </nav>
 
       {/* Header */}
-      <div className="pb-6" style={{ borderBottom: "1px solid #1e1e1e" }}>
+      <div className="pb-6" style={{ borderBottom: "1px solid #1E293B" }}>
         <div className="flex items-start gap-3 mb-3">
-          <h1 className="text-2xl font-bold text-white/85 flex-1 leading-tight">{assessment.title}</h1>
+          <h1 className="text-2xl font-bold flex-1 leading-tight" style={{ color: "#E5E7EB" }}>
+            {assessment.title}
+          </h1>
           {assessment.isResearch && (
             <span className="shrink-0 mt-1 text-[10px] font-bold px-2 py-0.5 rounded"
-              style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.2)" }}>
+              style={{ background: "rgba(59,130,246,0.1)", color: "#60A5FA", border: "1px solid rgba(59,130,246,0.2)" }}>
               RESEARCH GRADE
             </span>
           )}
         </div>
-        <p className="text-white/40 text-sm leading-relaxed mb-5">{assessment.description}</p>
-        <div className="flex items-center gap-6">
+        <p className="text-sm leading-relaxed mb-5" style={{ color: "#9CA3AF" }}>{assessment.description}</p>
+        <div className="flex items-center gap-7">
           {[[assessment._count.questions, "questions"], [assessment.dimensions.length, "dimensions"], [`~${assessment.estimatedMinutes}`, "minutes"]].map(([v, l]) => (
             <div key={String(l)}>
-              <span className="mono text-lg font-bold text-white/70">{v}</span>
-              <span className="text-white/30 text-xs ml-1.5">{l}</span>
+              <span className="mono text-lg font-bold" style={{ color: "#E5E7EB" }}>{v}</span>
+              <span className="text-xs ml-1.5" style={{ color: "#6B7280" }}>{l}</span>
             </div>
           ))}
         </div>
@@ -75,12 +77,12 @@ export default async function AssessmentIntroPage({ params }: Params) {
       {/* Previous result */}
       {previousResult && (
         <div className="flex items-center justify-between px-4 py-3 rounded text-sm"
-          style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}>
-          <span className="text-white/50">
+          style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.15)" }}>
+          <span style={{ color: "#9CA3AF" }}>
             Completed {new Date(previousResult.computedAt).toLocaleDateString()}.
           </span>
           <Link href={`/results/${previousResult.id}`} className="text-xs font-medium underline underline-offset-2"
-            style={{ color: "#f59e0b" }}>
+            style={{ color: "#3B82F6" }}>
             View result
           </Link>
         </div>
@@ -89,17 +91,20 @@ export default async function AssessmentIntroPage({ params }: Params) {
       {/* Dimensions */}
       <div className="space-y-3">
         <p className="label">What this measures</p>
-        <div className="space-y-px">
+        <div className="rounded-lg overflow-hidden" style={{ border: "1px solid #1E293B" }}>
           {assessment.dimensions.map((dim, i) => (
             <div key={dim.key} className="flex items-start gap-4 px-4 py-3"
-              style={{ background: "#171717", border: "1px solid #232323", borderRadius: i === 0 ? "8px 8px 0 0" : i === assessment.dimensions.length - 1 ? "0 0 8px 8px" : "0" }}>
-              <span className="mono text-[11px] font-bold mt-0.5 w-5 shrink-0" style={{ color: "#f59e0b" }}>
+              style={{
+                background: "#111827",
+                borderTop: i > 0 ? "1px solid #1E293B" : "none",
+              }}>
+              <span className="mono text-[11px] font-bold mt-0.5 w-5 shrink-0" style={{ color: "#3B82F6" }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div className="flex-1 min-w-0">
-                <span className="text-sm font-medium text-white/70">{dim.label}</span>
+                <span className="text-sm font-medium" style={{ color: "#9CA3AF" }}>{dim.label}</span>
                 {dim.minLabel && dim.maxLabel && (
-                  <span className="text-xs text-white/25 ml-3">{dim.minLabel} ↔ {dim.maxLabel}</span>
+                  <span className="text-xs ml-3" style={{ color: "#374151" }}>{dim.minLabel} ↔ {dim.maxLabel}</span>
                 )}
               </div>
             </div>
@@ -108,16 +113,17 @@ export default async function AssessmentIntroPage({ params }: Params) {
       </div>
 
       {/* Instructions */}
-      <div className="px-5 py-4 rounded space-y-2.5" style={{ background: "#161616", border: "1px solid #1e1e1e" }}>
+      <div className="px-5 py-4 rounded-lg space-y-2.5"
+        style={{ background: "#0B1120", border: "1px solid #1E293B" }}>
         <p className="label">Before you begin</p>
-        <ul className="space-y-2 text-sm text-white/40">
+        <ul className="space-y-2 text-sm" style={{ color: "#9CA3AF" }}>
           {[
             "Choose the option that reflects your genuine view — not what seems expected or socially acceptable.",
             "There are no correct answers. Every option maps to legitimate values.",
             "Results are computed instantly. No account required.",
           ].map(tip => (
             <li key={tip} className="flex gap-2.5">
-              <span className="shrink-0 mt-1 w-1 h-1 rounded-full" style={{ background: "#f59e0b", marginTop: "8px" }} />
+              <span className="shrink-0 w-1 h-1 rounded-full mt-[9px]" style={{ background: "#3B82F6" }} />
               {tip}
             </li>
           ))}
@@ -127,7 +133,7 @@ export default async function AssessmentIntroPage({ params }: Params) {
       {/* CTA */}
       <div className="flex items-center gap-4">
         <BeginButton assessmentId={assessment.id} />
-        <Link href="/assessment" className="text-sm text-white/30 hover:text-white/60 transition-colors">
+        <Link href="/assessment" className="text-sm transition-colors hover:text-white/60" style={{ color: "#6B7280" }}>
           ← Back
         </Link>
       </div>

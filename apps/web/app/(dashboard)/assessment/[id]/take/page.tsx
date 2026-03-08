@@ -1,8 +1,8 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/assessment/[id]/take/page.tsx
-// Version: 5.0.0 — 2026-03-07
-// Why: Assessment-taking experience. Full dark, focused, editorial style.
-//      No gradients. Amber accent for selection/progress.
+// Version: 6.0.0 — 2026-03-07
+// Why: Assessment-taking experience. Full analytical dark, blue progress/selection.
+//      Calm and focused — no distractions, no color noise.
 // Env / Identity: React Client Component — browser only
 // ============================================================================
 
@@ -82,34 +82,33 @@ export default function TakePage({ params }: { params: { id: string } }) {
   return (
     <Shell>
       {/* Progress bar */}
-      <div className="fixed top-0 left-0 right-0 h-[2px] z-50" style={{ background: "#1a1a1a" }}>
+      <div className="fixed top-0 left-0 right-0 h-[2px] z-50" style={{ background: "#1E293B" }}>
         <div className="h-full transition-all duration-500"
-          style={{ width: `${pct}%`, background: "#f59e0b" }} />
+          style={{ width: `${pct}%`, background: "#3B82F6" }} />
       </div>
 
       <div className="max-w-[560px] mx-auto w-full pt-6">
 
         {/* Meta */}
         <div className="flex items-center justify-between mb-7">
-          <span className="text-xs text-white/25 truncate">{assessment.title}</span>
-          <span className="mono text-xs text-white/25 shrink-0 ml-4 tabular-nums">
+          <span className="text-xs truncate" style={{ color: "#6B7280" }}>{assessment.title}</span>
+          <span className="mono text-xs shrink-0 ml-4 tabular-nums" style={{ color: "#374151" }}>
             {currentIndex + 1} / {total}
           </span>
         </div>
 
         {/* Question card */}
-        <div className="rounded-lg overflow-hidden" style={{ background: "#171717", border: "1px solid #252525" }}>
+        <div className="rounded-lg overflow-hidden" style={{ background: "#111827", border: "1px solid #1E293B" }}>
 
           {/* Axis / complexity tags */}
           {currentQ.metadata?.axis_id && (
             <div className="px-5 pt-5 pb-0 flex items-center gap-2">
               <span className="mono text-[10px] font-bold px-2 py-0.5 rounded"
-                style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.15)" }}>
+                style={{ background: "rgba(59,130,246,0.1)", color: "#60A5FA", border: "1px solid rgba(59,130,246,0.15)" }}>
                 {currentQ.metadata.axis_id.replace(/_/g, " ")}
               </span>
               {currentQ.metadata.complexity && (
-                <span className="mono text-[10px] text-white/20 px-2 py-0.5 rounded"
-                  style={{ border: "1px solid #252525" }}>
+                <span className="mono text-[10px] px-2 py-0.5 rounded" style={{ color: "#374151", border: "1px solid #1E293B" }}>
                   {currentQ.metadata.complexity}
                 </span>
               )}
@@ -118,7 +117,7 @@ export default function TakePage({ params }: { params: { id: string } }) {
 
           {/* Question text */}
           <div className="px-5 py-5">
-            <p className="text-[15px] leading-relaxed text-white/80 font-medium">{currentQ.text}</p>
+            <p className="text-[15px] leading-relaxed font-medium" style={{ color: "#E5E7EB" }}>{currentQ.text}</p>
           </div>
 
           {/* Options */}
@@ -128,20 +127,20 @@ export default function TakePage({ params }: { params: { id: string } }) {
                 const sel = answered?.optionId === opt.id
                 return (
                   <button key={opt.id} onClick={() => selectOption(opt.id)}
-                    className="w-full text-left rounded px-4 py-3.5 text-sm transition-all duration-100 focus:outline-none"
+                    className="w-full text-left rounded px-4 py-3.5 text-sm transition-all duration-150 focus:outline-none"
                     style={{
-                      background: sel ? "rgba(245,158,11,0.1)" : "#111111",
-                      border: sel ? "1px solid rgba(245,158,11,0.35)" : "1px solid #2a2a2a",
+                      background: sel ? "rgba(59,130,246,0.1)"  : "#0F172A",
+                      border:     sel ? "1px solid rgba(59,130,246,0.4)" : "1px solid #1E293B",
                     }}>
                     <span className="inline-flex w-5 h-5 rounded items-center justify-center text-[10px] font-bold mr-3 align-middle shrink-0"
                       style={{
-                        background: sel ? "#f59e0b" : "#1e1e1e",
-                        color: sel ? "#000" : "#555",
-                        border: sel ? "none" : "1px solid #333",
+                        background: sel ? "#3B82F6"  : "#1E293B",
+                        color:      sel ? "#fff"     : "#6B7280",
+                        border:     sel ? "none"     : "1px solid #334155",
                       }}>
                       {opt.id}
                     </span>
-                    <span style={{ color: sel ? "#f0f0f0" : "#909090" }}>{opt.text}</span>
+                    <span style={{ color: sel ? "#E5E7EB" : "#9CA3AF" }}>{opt.text}</span>
                   </button>
                 )
               })
@@ -156,7 +155,8 @@ export default function TakePage({ params }: { params: { id: string } }) {
           <button
             onClick={() => setCurrentIndex(i => Math.max(0, i - 1))}
             disabled={currentIndex === 0 || submitting}
-            className="flex items-center gap-1.5 px-3 py-2 rounded text-sm text-white/25 hover:text-white/60 hover:bg-white/[0.04] disabled:opacity-20 disabled:cursor-not-allowed transition-all">
+            className="flex items-center gap-1.5 px-3 py-2 rounded text-sm transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-white/[0.04]"
+            style={{ color: "#6B7280" }}>
             ← Back
           </button>
 
@@ -165,10 +165,10 @@ export default function TakePage({ params }: { params: { id: string } }) {
             disabled={!hasAnswered || submitting}
             className="flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             style={hasAnswered && !submitting
-              ? { background: "#f59e0b", color: "#000" }
-              : { background: "#1e1e1e", color: "#444" }}>
+              ? { background: "#3B82F6", color: "#fff" }
+              : { background: "#1E293B", color: "#374151" }}>
             {submitting
-              ? <><span className="w-3.5 h-3.5 rounded-full border-2 border-black/20 border-t-black animate-spin" />Calculating…</>
+              ? <><span className="w-3.5 h-3.5 rounded-full border-2 border-white/20 border-t-white animate-spin" />Calculating…</>
               : isLastQ ? "See my results →" : "Next →"}
           </button>
         </div>
@@ -187,7 +187,7 @@ export default function TakePage({ params }: { params: { id: string } }) {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8"
-      style={{ background: "#111111" }}>
+      style={{ background: "#0F172A" }}>
       {children}
     </div>
   )
@@ -197,7 +197,7 @@ function LikertScale({ value, onChange }: { value?: number; onChange: (v: number
   const labels = ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
   return (
     <div className="space-y-2.5">
-      <div className="flex justify-between text-[11px] text-white/20">
+      <div className="flex justify-between text-[11px]" style={{ color: "#374151" }}>
         <span>Strongly disagree</span><span>Strongly agree</span>
       </div>
       <div className="flex gap-2">
@@ -205,9 +205,9 @@ function LikertScale({ value, onChange }: { value?: number; onChange: (v: number
           <button key={v} onClick={() => onChange(v)} title={labels[v-1]}
             className="flex-1 h-11 rounded text-sm font-bold transition-all"
             style={{
-              background: value === v ? "#f59e0b" : "#1a1a1a",
-              color:      value === v ? "#000" : "#555",
-              border:     value === v ? "none" : "1px solid #2a2a2a",
+              background: value === v ? "#3B82F6" : "#0F172A",
+              color:      value === v ? "#fff"    : "#374151",
+              border:     value === v ? "none"    : "1px solid #1E293B",
             }}>
             {v}
           </button>
@@ -220,19 +220,19 @@ function LikertScale({ value, onChange }: { value?: number; onChange: (v: number
 function Loader() {
   return (
     <div className="text-center space-y-4">
-      <div className="w-6 h-6 rounded border-2 border-white/10 border-t-amber-400 animate-spin mx-auto" />
-      <p className="text-white/25 text-sm">Loading questions…</p>
+      <div className="w-6 h-6 rounded border-2 border-white/10 border-t-blue-400 animate-spin mx-auto" />
+      <p className="text-sm" style={{ color: "#6B7280" }}>Loading questions…</p>
     </div>
   )
 }
 
 function Err({ msg }: { msg: string }) {
   return (
-    <div className="text-center space-y-4 px-6 py-10 rounded" style={{ border: "1px solid #2a2a2a" }}>
+    <div className="text-center space-y-4 px-6 py-10 rounded-lg" style={{ border: "1px solid #1E293B" }}>
       <p className="text-red-400/80 text-sm">{msg}</p>
       <button onClick={() => window.location.reload()}
-        className="px-4 py-2 rounded text-xs text-white/40 hover:text-white/70 transition-colors"
-        style={{ border: "1px solid #2a2a2a" }}>
+        className="px-4 py-2 rounded text-xs transition-colors hover:text-white/70"
+        style={{ border: "1px solid #1E293B", color: "#6B7280" }}>
         Retry
       </button>
     </div>
