@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/assessment/[id]/page.tsx
-// Version: 3.0.0 — 2026-03-07
-// Why: Assessment intro — dark glass card, dimensions grid, focus CTA.
+// Version: 4.0.0 — 2026-03-07
+// Why: Assessment intro — editorial, flat, amber accent. No gradients.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
@@ -41,66 +41,46 @@ export default async function AssessmentIntroPage({ params }: Params) {
     : null
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-7">
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs text-white/30">
-        <Link href="/assessment" className="hover:text-white/60 transition-colors">Assessments</Link>
-        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-        <span className="text-white/50">{assessment.title}</span>
+      <nav className="flex items-center gap-1.5 text-xs text-white/25">
+        <Link href="/assessment" className="hover:text-white/55 transition-colors">Assessments</Link>
+        <span>/</span>
+        <span className="text-white/45">{assessment.title}</span>
       </nav>
 
-      {/* Hero card */}
-      <div
-        className="rounded-2xl overflow-hidden"
-        style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 0 60px rgba(124,58,237,0.08)",
-        }}
-      >
-        {/* Gradient top bar */}
-        <div className="h-px w-full bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-500" />
-
-        <div className="p-7 space-y-6">
-          {/* Title */}
-          <div className="space-y-2">
-            <div className="flex items-start gap-3">
-              <h1 className="text-2xl font-bold text-white flex-1 leading-tight">{assessment.title}</h1>
-              {assessment.isResearch && (
-                <span className="shrink-0 mt-0.5 text-[10px] font-semibold px-2 py-1 rounded-lg bg-violet-500/15 text-violet-400 border border-violet-500/20">
-                  Research Grade
-                </span>
-              )}
+      {/* Header */}
+      <div className="pb-6" style={{ borderBottom: "1px solid #1e1e1e" }}>
+        <div className="flex items-start gap-3 mb-3">
+          <h1 className="text-2xl font-bold text-white/85 flex-1 leading-tight">{assessment.title}</h1>
+          {assessment.isResearch && (
+            <span className="shrink-0 mt-1 text-[10px] font-bold px-2 py-0.5 rounded"
+              style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.2)" }}>
+              RESEARCH GRADE
+            </span>
+          )}
+        </div>
+        <p className="text-white/40 text-sm leading-relaxed mb-5">{assessment.description}</p>
+        <div className="flex items-center gap-6">
+          {[[assessment._count.questions, "questions"], [assessment.dimensions.length, "dimensions"], [`~${assessment.estimatedMinutes}`, "minutes"]].map(([v, l]) => (
+            <div key={String(l)}>
+              <span className="mono text-lg font-bold text-white/70">{v}</span>
+              <span className="text-white/30 text-xs ml-1.5">{l}</span>
             </div>
-            <p className="text-white/45 text-sm leading-relaxed">{assessment.description}</p>
-          </div>
-
-          {/* Stats */}
-          <div className="flex items-center gap-6">
-            {[
-              [assessment._count.questions, "Questions"],
-              [assessment.dimensions.length, "Dimensions"],
-              [`~${assessment.estimatedMinutes}`, "Minutes"],
-            ].map(([val, lbl]) => (
-              <div key={String(lbl)}>
-                <p className="text-xl font-bold text-white">{val}</p>
-                <p className="text-[11px] text-white/30">{lbl}</p>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
       {/* Previous result */}
       {previousResult && (
-        <div className="flex items-center justify-between px-4 py-3 rounded-xl border border-violet-500/20 bg-violet-500/8 text-sm">
-          <span className="text-violet-300/80">
-            You completed this on {new Date(previousResult.computedAt).toLocaleDateString()}.
+        <div className="flex items-center justify-between px-4 py-3 rounded text-sm"
+          style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}>
+          <span className="text-white/50">
+            Completed {new Date(previousResult.computedAt).toLocaleDateString()}.
           </span>
-          <Link href={`/results/${previousResult.id}`} className="text-violet-400 hover:text-violet-300 text-xs font-medium underline underline-offset-2">
+          <Link href={`/results/${previousResult.id}`} className="text-xs font-medium underline underline-offset-2"
+            style={{ color: "#f59e0b" }}>
             View result
           </Link>
         </div>
@@ -108,37 +88,36 @@ export default async function AssessmentIntroPage({ params }: Params) {
 
       {/* Dimensions */}
       <div className="space-y-3">
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-white/25">What this measures</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {assessment.dimensions.map((dim) => (
-            <div
-              key={dim.key}
-              className="rounded-xl px-4 py-3 space-y-0.5"
-              style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}
-            >
-              <p className="text-sm font-medium text-white/80">{dim.label}</p>
-              {dim.minLabel && dim.maxLabel && (
-                <p className="text-[11px] text-white/30">{dim.minLabel} ↔ {dim.maxLabel}</p>
-              )}
+        <p className="label">What this measures</p>
+        <div className="space-y-px">
+          {assessment.dimensions.map((dim, i) => (
+            <div key={dim.key} className="flex items-start gap-4 px-4 py-3"
+              style={{ background: "#171717", border: "1px solid #232323", borderRadius: i === 0 ? "8px 8px 0 0" : i === assessment.dimensions.length - 1 ? "0 0 8px 8px" : "0" }}>
+              <span className="mono text-[11px] font-bold mt-0.5 w-5 shrink-0" style={{ color: "#f59e0b" }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-medium text-white/70">{dim.label}</span>
+                {dim.minLabel && dim.maxLabel && (
+                  <span className="text-xs text-white/25 ml-3">{dim.minLabel} ↔ {dim.maxLabel}</span>
+                )}
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Instructions */}
-      <div
-        className="rounded-xl px-5 py-4 space-y-3"
-        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
-      >
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-white/25">Before you begin</p>
-        <ul className="space-y-2 text-sm text-white/45">
+      <div className="px-5 py-4 rounded space-y-2.5" style={{ background: "#161616", border: "1px solid #1e1e1e" }}>
+        <p className="label">Before you begin</p>
+        <ul className="space-y-2 text-sm text-white/40">
           {[
-            "Choose the option that best reflects your genuine view — not what seems expected.",
-            "There are no right or wrong answers.",
-            "Your results are instant — no account required.",
-          ].map((tip) => (
+            "Choose the option that reflects your genuine view — not what seems expected or socially acceptable.",
+            "There are no correct answers. Every option maps to legitimate values.",
+            "Results are computed instantly. No account required.",
+          ].map(tip => (
             <li key={tip} className="flex gap-2.5">
-              <span className="text-violet-500/60 mt-0.5 shrink-0">→</span>
+              <span className="shrink-0 mt-1 w-1 h-1 rounded-full" style={{ background: "#f59e0b", marginTop: "8px" }} />
               {tip}
             </li>
           ))}

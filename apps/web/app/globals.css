@@ -1,8 +1,8 @@
 /* ============================================================================
    MindPolis: app/globals.css
-   Version: 2.0.0 — 2026-03-07
-   Why: Global CSS — Tailwind + dark design system variables.
-        Full dark mode with violet/indigo accent palette.
+   Version: 3.0.0 — 2026-03-07
+   Why: Editorial dark design system. Amber accent, flat, no gradients.
+        Typography-first. Single accent color used sparingly.
    ============================================================================ */
 
 @tailwind base;
@@ -11,97 +11,75 @@
 
 @layer base {
   :root {
-    --background:          240 10% 4%;
-    --foreground:          0 0% 95%;
+    /* ── Surfaces ── */
+    --background:           0 0% 7%;          /* #111 */
+    --foreground:           0 0% 94%;         /* #efefef */
 
-    --card:                240 8% 7%;
-    --card-foreground:     0 0% 93%;
+    --card:                 0 0% 9%;          /* #171717 */
+    --card-foreground:      0 0% 92%;
 
-    --border:              240 6% 14%;
-    --input:               240 6% 12%;
+    --border:               0 0% 15%;         /* #262626 */
+    --input:                0 0% 13%;
 
-    --primary:             263 70% 60%;
-    --primary-foreground:  0 0% 98%;
+    /* ── Accent: amber — used sparingly ── */
+    --primary:              38 92% 50%;       /* #f59e0b */
+    --primary-foreground:   0 0% 5%;
 
-    --secondary:           240 5% 11%;
-    --secondary-foreground: 0 0% 75%;
+    --secondary:            0 0% 12%;
+    --secondary-foreground: 0 0% 65%;
 
-    --muted:               240 5% 11%;
-    --muted-foreground:    240 4% 48%;
+    --muted:                0 0% 11%;
+    --muted-foreground:     0 0% 47%;         /* #777 */
 
-    --accent:              263 70% 60%;
-    --accent-foreground:   0 0% 98%;
+    --accent:               38 92% 50%;
+    --accent-foreground:    0 0% 5%;
 
-    --destructive:         0 72% 51%;
+    --destructive:          0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring:                263 70% 60%;
-    --radius:              0.75rem;
-
-    /* Custom glow tokens */
-    --glow-primary:        rgba(124, 58, 237, 0.25);
-    --glow-sm:             rgba(124, 58, 237, 0.12);
+    --ring:                 38 92% 50%;
+    --radius:               0.5rem;
   }
 
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    background-color: #09090f;
+    background: #111111;
+    color: #efefef;
+    @apply antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01";
   }
 
   ::selection {
-    background: rgba(124, 58, 237, 0.35);
-    color: white;
+    background: rgba(245, 158, 11, 0.25);
+    color: #fff;
   }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #383838; }
 }
 
 @layer utilities {
-  /* Gradient text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-violet-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent;
-  }
+  /* ── Surfaces ── */
+  .surface       { background: #171717; border: 1px solid #252525; }
+  .surface-2     { background: #1e1e1e; border: 1px solid #2e2e2e; }
+  .surface-hover { @apply hover:bg-white/[0.04] transition-colors duration-150; }
 
-  /* Glass card */
-  .glass {
-    @apply bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm;
-  }
+  /* ── Amber accent ── */
+  .accent-text   { color: #f59e0b; }
+  .accent-bg     { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); }
+  .accent-border { border-color: rgba(245,158,11,0.3); }
 
-  .glass-hover {
-    @apply hover:bg-white/[0.07] hover:border-white/[0.14] transition-all duration-200;
-  }
+  /* ── Typography ── */
+  .mono          { font-family: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", monospace; }
+  .label         { @apply text-[10px] font-semibold uppercase tracking-[0.1em] text-white/30; }
 
-  /* Gradient border */
-  .gradient-border {
-    background: linear-gradient(#09090f, #09090f) padding-box,
-                linear-gradient(135deg, rgba(124,58,237,0.5), rgba(99,102,241,0.5), rgba(34,211,238,0.3)) border-box;
-    border: 1px solid transparent;
-  }
-
-  /* Glow effects */
-  .glow-primary {
-    box-shadow: 0 0 40px rgba(124, 58, 237, 0.2), 0 0 80px rgba(124, 58, 237, 0.08);
-  }
-
-  .glow-sm {
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.12);
-  }
-
-  /* Dot grid background */
+  /* ── Dot grid ── */
   .dot-grid {
-    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-
-  /* Noise overlay */
-  .noise::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }

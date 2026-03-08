@@ -1,0 +1,166 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "date": "2026-03-07",
+    "description": "Canonical axis definitions for MindPolis scoring. Each axis is a bipolar continuum scored -1.0 to +1.0 after normalization. Primary axis scores are ±2 per option; secondary (cross-axis) scores are ±1.",
+    "scoring_convention": {
+      "primary_axis_option": "±2 (strong pole endorsement)",
+      "secondary_cross_axis": "±1 (partial or incidental loading)",
+      "normalized_range": "[-1.0, +1.0] after dividing by max possible raw score"
+    }
+  },
+  "axes": [
+    {
+      "key": "economic_organization",
+      "label": "Economic Organization",
+      "minLabel": "Free Market",
+      "maxLabel": "State-Led",
+      "poleA": {
+        "name": "Free Market",
+        "description": "Markets self-regulate efficiently. State intervention distorts incentives, delays necessary adjustment, and crowds out private innovation. Economic freedom is a prerequisite for political freedom.",
+        "example_anchors": ["deregulation", "privatization", "market competition", "minimal welfare state"]
+      },
+      "poleB": {
+        "name": "State-Led",
+        "description": "Markets produce systemic failures — inequality, externalities, public good under-provision. The state must plan, regulate, redistribute, and in some domains directly own productive capacity.",
+        "example_anchors": ["public ownership", "universal services", "redistribution", "economic planning"]
+      },
+      "academic_basis": ["Jost et al.: System Justification", "WVS: Economic Attitudes", "Schwartz: Security/Universalism"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "authority_liberty",
+      "label": "Authority vs. Liberty",
+      "minLabel": "Civil Liberty",
+      "maxLabel": "Social Order / Authority",
+      "poleA": {
+        "name": "Civil Liberty",
+        "description": "Individual autonomy is the foundational value. State power should be minimized, scrutinized, and constrained. Personal freedoms — including dissent, privacy, and lifestyle — are non-negotiable.",
+        "example_anchors": ["civil liberties", "privacy rights", "limited government", "anti-surveillance"]
+      },
+      "poleB": {
+        "name": "Social Order / Authority",
+        "description": "Social order requires clear hierarchies, enforcement of norms, and deference to legitimate authority. Individual freedom is conditional on civic responsibility and collective security.",
+        "example_anchors": ["law and order", "strong state", "security over privacy", "deference to institutions"]
+      },
+      "academic_basis": ["Stenner: Authoritarianism Scale", "Feldman: Security/Freedom Trade-off", "Altemeyer: RWA"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "tradition_change",
+      "label": "Tradition vs. Change",
+      "minLabel": "Tradition",
+      "maxLabel": "Progressive Change",
+      "poleA": {
+        "name": "Tradition",
+        "description": "Established institutions, customs, and values represent accumulated wisdom. Rapid change carries unknown risks. Social continuity and inherited cultural frameworks should be preserved.",
+        "example_anchors": ["cultural heritage", "religious values", "family structure", "generational continuity"]
+      },
+      "poleB": {
+        "name": "Progressive Change",
+        "description": "Society should actively revise inherited norms when they fail to meet contemporary standards of justice, inclusion, or human flourishing. Progress requires dismantling entrenched structures.",
+        "example_anchors": ["social reform", "equity-focused policy", "institutional revision", "cultural evolution"]
+      },
+      "academic_basis": ["Inglehart: Materialist/Post-Materialist Values", "Schwartz: Conformity/Stimulation", "WVS: Cultural Values"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "nationalism_globalism",
+      "label": "Nationalism vs. Globalism",
+      "minLabel": "Nationalist",
+      "maxLabel": "Globalist",
+      "poleA": {
+        "name": "Nationalist",
+        "description": "The nation-state is the primary unit of political loyalty and moral obligation. National sovereignty, cultural identity, and citizens' interests take precedence over international commitments.",
+        "example_anchors": ["border control", "national sovereignty", "citizens-first policy", "cultural protectionism"]
+      },
+      "poleB": {
+        "name": "Globalist",
+        "description": "Global problems require supranational solutions. National borders are morally arbitrary. International cooperation, open migration, and cosmopolitan solidarity are moral imperatives.",
+        "example_anchors": ["free trade", "open borders", "multilateralism", "global governance"]
+      },
+      "academic_basis": ["Norris & Inglehart: Cultural Backlash", "WVS: National Identity", "Kriesi: Integration-Demarcation Cleavage"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "justice_model",
+      "label": "Justice Model",
+      "minLabel": "Rehabilitation / Reintegration",
+      "maxLabel": "Punishment / Deterrence",
+      "poleA": {
+        "name": "Rehabilitation / Reintegration",
+        "description": "Crime reflects social failures as much as individual ones. Justice should rehabilitate offenders, repair harm to communities, and address root causes — not primarily punish.",
+        "example_anchors": ["rehabilitation", "diversion programs", "structural causes of crime", "community repair"]
+      },
+      "poleB": {
+        "name": "Punishment / Deterrence",
+        "description": "Justice requires proportional punishment for wrongdoing. Deterrence and accountability depend on certain, proportionate consequences. Victims' interests and social safety require firm enforcement.",
+        "example_anchors": ["deterrence", "incarceration", "punitive sentencing", "victim-centered justice"]
+      },
+      "academic_basis": ["Braithwaite: Restorative Justice", "Haidt: Fairness/Cheating", "Pew: Criminal Justice Attitudes"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "ecology_growth",
+      "label": "Ecology vs. Growth",
+      "minLabel": "Growth-First",
+      "maxLabel": "Ecology-First",
+      "poleA": {
+        "name": "Growth-First",
+        "description": "Economic growth lifts living standards, funds innovation, and ultimately creates the capacity to address environmental challenges. Immediate growth should not be sacrificed for uncertain future harms.",
+        "example_anchors": ["GDP priority", "cost-benefit environmentalism", "technological optimism", "energy independence"]
+      },
+      "poleB": {
+        "name": "Ecology-First",
+        "description": "Ecological limits are absolute. Economic activity must be constrained to remain within planetary boundaries. Protecting biodiversity, climate stability, and future generations outweighs short-term growth.",
+        "example_anchors": ["degrowth", "carbon taxes", "biodiversity protection", "climate emergency framing"]
+      },
+      "academic_basis": ["Inglehart: Post-Materialism", "Stern: Value-Belief-Norm", "WVS: Environmental Attitudes"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "institutional_trust",
+      "label": "Institutional Trust",
+      "minLabel": "Skeptical",
+      "maxLabel": "Trusting",
+      "poleA": {
+        "name": "Institutional Skeptic",
+        "description": "Mainstream institutions — media, academia, government, science establishment — are shaped by interests, ideologies, and power dynamics. Healthy democracy requires persistent critical scrutiny.",
+        "example_anchors": ["media skepticism", "anti-establishment sentiment", "elite critique", "citizen oversight"]
+      },
+      "poleB": {
+        "name": "Institutional Trusting",
+        "description": "Functional societies depend on legitimate institutions. Expert consensus, representative government, and professional norms serve important epistemic and governance functions that populist critique undermines.",
+        "example_anchors": ["deference to experts", "trust in democracy", "institutional norms", "consensus science"]
+      },
+      "academic_basis": ["ESS: Institutional Trust", "WVS: Trust in Institutions", "Norris: Democratic Deficit"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    },
+    {
+      "key": "diversity_cohesion",
+      "label": "Diversity vs. Cohesion",
+      "minLabel": "Cohesion-First",
+      "maxLabel": "Diversity-First",
+      "poleA": {
+        "name": "Cohesion-First",
+        "description": "Shared culture, common identity, and civic unity are prerequisites for social trust and political cooperation. Rapid cultural diversification strains solidarity and can fragment democratic community.",
+        "example_anchors": ["assimilation", "shared national identity", "social capital", "cultural homogeneity"]
+      },
+      "poleB": {
+        "name": "Diversity-First",
+        "description": "Pluralism, multiculturalism, and the inclusion of diverse identities strengthen society. Cultural difference should be celebrated and protected — assimilation pressures are a form of suppression.",
+        "example_anchors": ["multiculturalism", "minority rights", "anti-assimilation", "cosmopolitan pluralism"]
+      },
+      "academic_basis": ["Putnam: Social Capital", "WVS: Tolerance/Respect", "Norris & Inglehart: Cultural Backlash"],
+      "question_count": 6,
+      "subtypes": ["scenario_dilemma", "scenario_dilemma", "scenario_dilemma", "policy_tradeoff", "policy_tradeoff", "consistency_probe"]
+    }
+  ]
+}

@@ -278,11 +278,11 @@
     "complexity": "advanced",
     "academic_basis": ["Haidt: Authority", "Schwartz: Conformity", "WVS: Religious Freedom"],
     "constructs_measured": ["religious assembly freedom", "community authority legitimacy", "minority rights vs local majority"],
-    "scenario_text": "A neighborhood association asks the local government to block planning approval for a community center serving a religious minority group, citing concerns about the cultural character of the area changing.",
+    "scenario_text": "A neighborhood association asks the local government to block planning approval for a community center serving a religious minority group, citing concerns about the impact on local community dynamics.",
     "options": [
       {
         "id": "A",
-        "text": "The state must refuse — freedom of assembly and religion are fundamental liberties; the state has no legitimate role in restricting lawful community gathering based on cultural preferences.",
+        "text": "The state must refuse — freedom of assembly and religion are fundamental liberties; the state has no legitimate role in restricting lawful community gathering based on neighbors' preferences.",
         "scores": { "authority_liberty": -2, "diversity_cohesion": 2 }
       },
       {
@@ -292,12 +292,12 @@
       },
       {
         "id": "C",
-        "text": "The state should seek a negotiated compromise — perhaps site, scale, or design conditions — that balances community cohesion concerns with the applicants' rights.",
+        "text": "The state should seek a negotiated resolution — perhaps through site, scale, or operational conditions — that addresses community concerns without denying the applicants' rights.",
         "scores": { "authority_liberty": 1, "diversity_cohesion": -1 }
       },
       {
         "id": "D",
-        "text": "Local communities should have meaningful authority over the cultural character of their neighborhoods; the state should respect democratically expressed local preferences.",
+        "text": "Local communities should have meaningful democratic input over developments in their neighborhoods; the state should take seriously the preferences expressed by residents through proper channels.",
         "scores": { "authority_liberty": 2, "diversity_cohesion": -2 }
       }
     ],
@@ -686,7 +686,7 @@
     "complexity": "advanced",
     "academic_basis": ["WVS: Immigration", "ESS: Social Cohesion", "Putnam: Diversity research"],
     "constructs_measured": ["cultural absorptive capacity framing", "migration control preference", "integration resources"],
-    "scenario_text": "A large wave of migration from culturally distant countries creates significant pressure on public services and generates cultural friction in several regions. A government analyst recommends slowing the rate of intake to allow integration capacity to catch up.",
+    "scenario_text": "A large wave of migration from countries with very different economic and social contexts creates significant pressure on public services and integration systems in several regions. A government analyst recommends slowing the rate of intake to allow integration capacity to catch up.",
     "options": [
       {
         "id": "A",
@@ -899,7 +899,7 @@
       },
       {
         "id": "B",
-        "text": "Voluntary sentencing guidelines on disparate outcomes are appropriate, but mandatory review risks politicizing and undermining judicial independence.",
+        "text": "Voluntary sentencing guidelines on disparate outcomes are appropriate, but mandatory review risks introducing extrinsic pressures into individual sentencing decisions and compromising judicial independence.",
         "scores": { "justice_model": 1, "diversity_cohesion": -1 }
       },
       {
@@ -1287,9 +1287,9 @@
         "scores": { "institutional_trust": -2, "authority_liberty": 2 }
       }
     ],
-    "bias_check": false,
+    "bias_check": true,
     "reverse_coded": true,
-    "notes_for_researchers": "Reverse-coded item: institutional trust here maps to defending judicial institutions (A/B), while institutional skepticism maps to attacking them (C/D). Cross-axis scores are inverted: A combines institutional trust with civil liberty (defending courts from executive overreach), while D combines institutional skepticism with authority/executive power. This inversion is analytically valuable — it tests whether 'trust in institutions' is a monolithic value or applies selectively."
+    "notes_for_researchers": "Reverse-coded item: institutional trust here maps to defending judicial institutions (A/B), while institutional skepticism maps to attacking them (C/D). Cross-axis scores are inverted: A combines institutional trust with civil liberty (defending courts from executive overreach), while D combines institutional skepticism with authority/executive power. This inversion is analytically valuable — it tests whether 'trust in institutions' is a monolithic value or applies selectively. Flag as bias_check: court-packing scenarios are high-salience politically and may trigger partisan rather than principled responses."
   },
   {
     "id": "Q039",
@@ -1623,7 +1623,7 @@
       },
       {
         "id": "D",
-        "text": "Security operations must be guided by threat assessment; differential enforcement patterns that are operationally grounded should not be politicized.",
+        "text": "Security resource allocation is guided by operational risk assessment; enforcement patterns that reflect documented threat distribution serve legitimate public safety objectives.",
         "scores": { "diversity_cohesion": -2, "justice_model": 2 }
       }
     ],

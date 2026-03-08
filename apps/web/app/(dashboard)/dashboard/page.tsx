@@ -1,7 +1,7 @@
 // ============================================================================
 // MindPolis: app/(dashboard)/dashboard/page.tsx
-// Version: 3.0.0 — 2026-03-07
-// Why: User dashboard — dark glass cards, gradient CTA, recent results.
+// Version: 4.0.0 — 2026-03-07
+// Why: User dashboard — editorial dark, amber accent, recent results list.
 // Env / Identity: React Server Component (RSC)
 // ============================================================================
 
@@ -17,7 +17,7 @@ export default async function DashboardPage() {
 
   const [recentResults, assessmentCount] = await Promise.all([
     db.assessmentResult.findMany({
-      where: { userId }, orderBy: { computedAt: "desc" }, take: 4,
+      where: { userId }, orderBy: { computedAt: "desc" }, take: 5,
       select: {
         id: true, summary: true, clusterLabel: true, computedAt: true, scores: true,
         assessment: { select: { title: true, slug: true } },
@@ -29,100 +29,99 @@ export default async function DashboardPage() {
   const firstName = session?.user?.name?.split(" ")[0] ?? "there"
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="max-w-3xl mx-auto space-y-7">
 
       {/* Header */}
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-white/25 mb-1">Dashboard</p>
-        <h1 className="text-3xl font-bold text-white">
-          Welcome back, <span style={{ background: "linear-gradient(135deg, #a78bfa, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{firstName}</span>
+        <p className="label mb-1">Dashboard</p>
+        <h1 className="text-2xl font-bold text-white/85">
+          Welcome back, <span style={{ color: "#f59e0b" }}>{firstName}</span>
         </h1>
       </div>
 
-      {/* Quick start gradient card */}
-      <div
-        className="relative rounded-2xl overflow-hidden p-7"
-        style={{
-          background: "linear-gradient(135deg, rgba(124,58,237,0.2), rgba(79,70,229,0.15), rgba(9,9,15,0.7))",
-          border: "1px solid rgba(124,58,237,0.2)",
-          boxShadow: "0 0 60px rgba(124,58,237,0.1)",
-        }}
-      >
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-violet-500 via-indigo-500 to-transparent" />
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none">
-          <svg width="120" height="120" fill="none" viewBox="0 0 24 24" stroke="white">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-          </svg>
+      {/* CTA card */}
+      <div className="px-6 py-5 rounded-lg flex items-center justify-between gap-4"
+        style={{ background: "#171717", border: "1px solid #252525" }}>
+        <div className="space-y-0.5">
+          <p className="font-semibold text-white/75 text-sm">Take an Assessment</p>
+          <p className="text-white/30 text-xs">
+            {assessmentCount} assessment{assessmentCount !== 1 ? "s" : ""} available · explore your political cognition
+          </p>
         </div>
-        <div className="relative flex items-center justify-between gap-4">
-          <div className="space-y-1">
-            <p className="font-semibold text-white text-base">Take an Assessment</p>
-            <p className="text-white/45 text-sm">
-              {assessmentCount} assessment{assessmentCount !== 1 ? "s" : ""} available. Explore your political cognition.
-            </p>
+        <Link href="/assessment"
+          className="shrink-0 px-4 py-2 rounded text-sm font-semibold text-black transition-opacity hover:opacity-85"
+          style={{ background: "#f59e0b" }}>
+          Browse →
+        </Link>
+      </div>
+
+      {/* Stats row */}
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          { label: "Assessments taken", value: recentResults.length },
+          { label: "Available assessments", value: assessmentCount },
+          { label: "Latest result", value: recentResults[0]
+              ? new Date(recentResults[0].computedAt).toLocaleDateString("en-CA")
+              : "—" },
+        ].map(stat => (
+          <div key={stat.label} className="px-4 py-3.5 rounded-lg"
+            style={{ background: "#171717", border: "1px solid #232323" }}>
+            <p className="label mb-1">{stat.label}</p>
+            <p className="mono text-sm font-bold text-white/65">{stat.value}</p>
           </div>
-          <Link
-            href="/assessment"
-            className="shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all"
-            style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.15)" }}
-          >
-            Browse →
-          </Link>
-        </div>
+        ))}
       </div>
 
       {/* Recent results */}
-      {recentResults.length > 0 ? (
-        <section className="space-y-3">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-white/25">Recent Results</p>
-            <Link href="/results" className="text-xs text-violet-400 hover:text-violet-300 font-medium transition-colors">
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <p className="label">Recent Results</p>
+          {recentResults.length > 0 && (
+            <Link href="/results" className="text-xs font-medium transition-colors hover:opacity-80"
+              style={{ color: "#f59e0b" }}>
               View all →
             </Link>
+          )}
+        </div>
+
+        {recentResults.length === 0 ? (
+          <div className="py-14 text-center space-y-3.5 rounded-lg"
+            style={{ border: "1px dashed #222" }}>
+            <p className="text-white/25 text-sm">No results yet.</p>
+            <Link href="/assessment" className="text-sm font-medium" style={{ color: "#f59e0b" }}>
+              Take your first assessment →
+            </Link>
           </div>
-          <div className="space-y-2">
+        ) : (
+          <div className="space-y-1.5">
             {recentResults.map((result) => {
               const summary = result.summary as { label?: string }
               return (
-                <Link
-                  key={result.id}
-                  href={`/results/${result.id}`}
-                  className="group flex items-center justify-between rounded-xl px-5 py-4 gap-4 transition-all duration-200"
-                  style={{
-                    background: "rgba(255,255,255,0.025)",
-                    border: "1px solid rgba(255,255,255,0.07)",
-                  }}
-                >
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-white/70 text-sm group-hover:text-white/90 transition-colors truncate">
+                <Link key={result.id} href={`/results/${result.id}`}
+                  className="group flex items-center justify-between rounded-lg px-5 py-3.5 gap-4 transition-colors"
+                  style={{ background: "#171717", border: "1px solid #232323" }}>
+                  <div className="flex-1 min-w-0 space-y-0.5">
+                    <p className="font-medium text-white/65 text-sm group-hover:text-white/85 transition-colors truncate">
                       {result.assessment.title}
                     </p>
-                    <p className="text-xs text-white/30 truncate mt-0.5">
+                    <p className="text-xs text-white/25 truncate">
                       {summary?.label ?? "—"}
-                      {result.clusterLabel && ` · ${result.clusterLabel}`}
+                      {result.clusterLabel && (
+                        <span className="mono ml-2 font-bold" style={{ color: "#f59e0b" }}>
+                          {result.clusterLabel}
+                        </span>
+                      )}
                     </p>
                   </div>
-                  <p className="text-xs text-white/20 shrink-0">
+                  <p className="mono text-[11px] text-white/20 shrink-0">
                     {new Date(result.computedAt).toLocaleDateString("en-CA")}
                   </p>
                 </Link>
               )
             })}
           </div>
-        </section>
-      ) : (
-        <div className="rounded-2xl p-14 text-center space-y-3"
-          style={{ border: "1px dashed rgba(255,255,255,0.08)" }}>
-          <p className="text-white/40 text-sm">You haven&apos;t completed any assessments yet.</p>
-          <Link
-            href="/assessment"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/50 hover:text-white/80 transition-all"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
-          >
-            Take your first assessment
-          </Link>
-        </div>
-      )}
+        )}
+      </section>
     </div>
   )
 }
