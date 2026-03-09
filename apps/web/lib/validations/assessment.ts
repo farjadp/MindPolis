@@ -14,9 +14,11 @@ import { z } from "zod"
 // ─────────────────────────────────────────────
 export const QuestionResponseSchema = z.object({
   questionId: z.string().cuid("Invalid question ID"),
-  value:      z.number().min(1).max(7),  // Covers both Likert-5 and Likert-7
+  value: z.number().min(0).max(10).optional(),  // Optional if using optionId
+  optionId: z.string().optional(),
+  confidence: z.number().min(1).max(5).optional(),
   answeredAt: z.string().datetime().optional(),
-  latencyMs:  z.number().int().positive().optional(),  // Response time in ms
+  latencyMs: z.number().int().positive().optional(),  // Response time in ms
 })
 
 // ─────────────────────────────────────────────
@@ -25,15 +27,15 @@ export const QuestionResponseSchema = z.object({
 export const SubmitAssessmentSchema = z.object({
   assessmentId: z.string().cuid("Invalid assessment ID"),
   submissionId: z.string().cuid("Invalid submission ID"),
-  responses:    z.array(QuestionResponseSchema).min(1).max(500),
+  responses: z.array(QuestionResponseSchema).min(1).max(500),
 })
 
 // ─────────────────────────────────────────────
 // Query params for listing results
 // ─────────────────────────────────────────────
 export const ResultsQuerySchema = z.object({
-  page:         z.coerce.number().int().positive().default(1),
-  limit:        z.coerce.number().int().min(1).max(100).default(20),
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
   assessmentId: z.string().cuid().optional(),
 })
 

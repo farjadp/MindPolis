@@ -71,15 +71,29 @@ export async function POST(req: NextRequest) {
   // Build a quick lookup map
   const questionMap = new Map(questions.map((q) => [q.id, q]))
 
+  // Enrich responses to ensure 'value' exists for scenario options
+  const enrichedResponses = responses.map(r => {
+    const q = questionMap.get(r.questionId);
+    let val = r.value;
+
+    // If it's a scenario question, we calculate a scalar value based on the option
+    if (val === undefined && r.optionId && q?.metadata && typeof q.metadata === 'object' && Array.isArray((q.metadata as any).options)) {
+      const idx = (q.metadata as any).options.findIndex((o: any) => o.id === r.optionId);
+      val = idx === 0 ? 1 : (idx === 1 ? 5 : 3);
+    }
+
+    return { ...r, finalValue: val ?? 3 };
+  });
+
   // ── Step 4: Persist raw responses to DB (source of truth is always saved) ─
   await db.$transaction([
     // Bulk insert all question responses
     db.questionResponse.createMany({
-      data: responses.map((r) => ({
+      data: enrichedResponses.map((r) => ({
         submissionId,
         questionId: r.questionId,
-        value: r.value,
-        rawValue: String(r.value),
+        value: r.finalValue,
+        rawValue: r.optionId ? `opt:${r.optionId}|conf:${r.confidence || 3}` : String(r.finalValue),
         answeredAt: r.answeredAt ? new Date(r.answeredAt) : new Date(),
         latencyMs: r.latencyMs ?? null,
       })),
@@ -109,13 +123,13 @@ export async function POST(req: NextRequest) {
   )
 
   // ── Step 6: Build scoring payload for Python service ─────────────────────
-  const scoringResponses = responses
+  const scoringResponses = enrichedResponses
     .filter((r) => questionMap.has(r.questionId))
     .map((r) => {
       const q = questionMap.get(r.questionId)!
       return {
         questionId: r.questionId,
-        value: r.value,
+        value: r.finalValue,
         dimensionKeys: q.dimensionKeys,
         isReversed: q.isReversed,
         // Fetch the max weight across all dimensions this question maps to
