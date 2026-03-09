@@ -130,6 +130,7 @@ export async function POST(req: NextRequest) {
       return {
         questionId: r.questionId,
         value: r.finalValue,
+        confidence: r.confidence ?? 3,
         dimensionKeys: q.dimensionKeys,
         isReversed: q.isReversed,
         // Fetch the max weight across all dimensions this question maps to
@@ -142,11 +143,20 @@ export async function POST(req: NextRequest) {
   // ── Step 7: Call Python scoring service ───────────────────────────────────
   let scoreResult
   try {
-    scoreResult = await scoringClient.score({
-      assessmentSlug: assessment.slug,
+    // Map db slugs (like 'political-compass-standard') back to engine slugs ('political-compass')
+    const engineSlug = assessment.slug.startsWith('political-compass')
+      ? 'political-compass'
+      : assessment.slug;
+
+    const scorePayload = {
+      assessmentSlug: engineSlug,
       assessmentVersion: assessment.version,
       responses: scoringResponses,
-    })
+    };
+
+    console.log("Sending score payload to Python:", JSON.stringify(scorePayload, null, 2));
+
+    scoreResult = await scoringClient.score(scorePayload)
   } catch (err) {
     // Scoring failed — but raw data is safe. Log and return a partial response.
     console.error("[submit] Scoring service error:", err)
@@ -162,11 +172,13 @@ export async function POST(req: NextRequest) {
   // ── Step 8: Call clustering service & Archetype Calculation ────────────────
   let clusterResult
   try {
+    const engineSlug = assessment.slug.startsWith('political-compass') ? 'political-compass' : assessment.slug;
+
     const scoreVector = Object.values(scoreResult.scoresFlat)
     clusterResult = await scoringClient.cluster({
       resultId: submissionId,
       scoreVector,
-      assessmentSlug: assessment.slug,
+      assessmentSlug: engineSlug,
     })
   } catch (err) {
     // Clustering is non-critical — log but continue
